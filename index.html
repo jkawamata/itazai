@@ -1,0 +1,1257 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>板材設計 V2.37</title>
+<style>
+:root{--ink:#253d37;--green:#28634d;--muted:#74817a;--line:#dce1d9;--bg:#f5f5ef;--wood:#e8bb7e}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.55 system-ui,-apple-system,sans-serif}button,input,select{font:inherit}button{cursor:pointer;background:white;color:var(--ink);border:1px solid var(--line);border-radius:7px;padding:8px 12px}button:hover{background:#edf2e9}button:disabled{opacity:.4;cursor:default}.primary{background:var(--green);color:white;border-color:var(--green)}.primary:hover{background:#194d38}header{padding:17px 24px;display:flex;align-items:center;gap:22px;background:#fff;border-bottom:1px solid var(--line)}h1{font-size:21px;letter-spacing:.08em;margin:0}small,.hint{color:var(--muted);font-size:12px}.brand{white-space:nowrap}.brand small{margin-left:8px}.project{width:220px;border:0;border-bottom:1px solid var(--line);border-radius:0}.actions{margin-left:auto;display:flex;gap:7px;flex-wrap:wrap}.ribbon{padding:10px 24px;display:flex;gap:24px;font-size:12px;background:#ecf0e6}.ribbon strong{color:var(--green)}main{display:grid;grid-template-columns:310px minmax(360px,1fr) 270px;min-height:calc(100vh - 123px)}aside{padding:20px;background:#fff}aside.left{border-right:1px solid var(--line)}aside.right{border-left:1px solid var(--line)}h2{font-size:15px;margin:0 0 12px;display:flex;gap:9px;align-items:center}h2 span{font-size:11px;background:#edf2e9;color:var(--green);padding:3px 7px;border-radius:5px}h3{font-size:13px;margin:20px 0 8px}input,select{min-width:0;padding:7px 8px;border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--ink)}input[type=number]{width:100%}label{display:block;font-size:12px;color:#5c6a60}label input,label select{margin-top:4px}select{width:100%}.row{display:flex;gap:8px;align-items:end}.row>*{flex:1}.material{padding:9px 10px;border:1px solid var(--line);border-radius:8px;margin:8px 0}.material canvas{width:100%;height:86px;display:block;cursor:pointer}.material .caption{display:flex;justify-content:space-between;font-size:12px}.cutbox{padding:12px;background:#f5f6f0;border-radius:8px}.cutbox button{width:100%;margin-top:10px}.scene{position:relative;display:flex;flex-direction:column;min-width:0}.sceneTop{padding:17px 18px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}.sceneTop h2{margin:0;margin-right:auto}.sceneTop button{font-size:12px;padding:6px 10px}.view{position:relative;flex:1;min-height:480px;overflow:hidden}#scene{display:block;width:100%;height:100%;position:absolute;touch-action:none;cursor:grab}.viewHelp{position:absolute;bottom:15px;left:20px;right:20px;text-align:center;pointer-events:none;font-size:12px;color:#67776b}.legend{position:absolute;top:0;left:20px;font-size:11px;color:#8a968d}.bottom{padding:13px 20px;border-top:1px solid var(--line);background:#fafbf7;display:flex;align-items:center;justify-content:space-between;gap:12px}.tag{font-size:12px;color:var(--green)}#partList{max-height:220px;overflow:auto;margin-top:10px}.part{width:100%;display:flex;justify-content:space-between;align-items:center;text-align:left;margin:3px 0;font-size:12px}.part.selected{background:#edf4e8;border-color:#598469}.badge{font-size:10px;color:#6f7f6d}.note{padding:10px 12px;background:#f7f0df;border-radius:7px;font-size:12px;color:#7a653b;margin:16px 0}.full{width:100%}.angles{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}.angles button{padding:6px 2px;font-size:12px}#message{min-height:24px;padding:0 24px;color:#9c4a23;background:#fff;font-size:12px}dialog{border:1px solid var(--line);border-radius:12px;max-width:560px;width:90%;padding:24px;color:var(--ink)}dialog::backdrop{background:#20392d66}dialog table{border-collapse:collapse;width:100%;margin:16px 0}td,th{text-align:left;padding:7px;border-bottom:1px solid var(--line);font-size:12px}.footerHelp{font-size:11px;color:var(--muted);margin-top:16px}@media(max-width:1050px){main{grid-template-columns:260px minmax(330px,1fr)}aside.right{grid-column:1/-1;border-top:1px solid var(--line);display:grid;grid-template-columns:1fr 1fr;gap:20px}header{flex-wrap:wrap}.actions{margin-left:0}}@media(max-width:640px){main{display:flex;flex-direction:column}header{padding:12px}.project{width:160px}.ribbon{padding:10px 12px;gap:10px;flex-wrap:wrap}aside{padding:16px}.view{min-height:420px}.scene{order:-1}.right{display:block!important}.actions button{font-size:12px;padding:6px 9px}.material canvas{height:75px}}@media print{header,.ribbon,.left,.right,.sceneTop,.viewHelp,.bottom,#message{display:none!important}main{display:block}.view{height:180mm}body{background:white}}
+
+/* V2.37: two steps and a larger interactive cutting plan */
+main{grid-template-columns:420px minmax(0,1fr)}
+h2{font-size:21px;gap:10px}h2 span{font-size:14px;white-space:nowrap;padding:4px 8px}
+.assembly{display:flex;flex-direction:column;min-width:0}.assemblyBody{display:grid;grid-template-columns:minmax(300px,1fr) 260px;flex:1;min-height:0}.sceneTop{border-bottom:1px solid var(--line);background:#fff}.propertiesTitle{margin:0 0 14px;font-size:15px}
+#materials{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}.material{min-width:0;margin:0;padding:10px;border:2px solid var(--line);background:#fff}.material:first-child{grid-column:1/-1}.material.active{border-color:var(--green);background:#eef5e9;box-shadow:0 0 0 2px #28634d18}.material .caption{display:block}.material .caption strong{font-size:17px;display:block}.material .caption span{font-size:11px;white-space:nowrap}.material .selection{min-height:22px;color:var(--green);font-size:12px;font-weight:650}.material canvas{height:185px;touch-action:none}.material:first-child canvas{height:145px}.cutbox{border:1px solid #d6dfcf}.cutbox label{font-size:13px}#cutPreview{color:#ac3030;font-size:13px}.cutLegend{font-size:12px;margin:5px 0 10px;color:#a83232}.cutLegend b{display:inline-block;width:22px;border-top:3px solid #d63030;vertical-align:middle;margin-right:6px}
+@media(max-width:1200px){main{grid-template-columns:380px minmax(0,1fr)}.assemblyBody{grid-template-columns:1fr}.assemblyBody aside.right{display:grid;grid-template-columns:1fr 1fr;gap:18px;border-top:1px solid var(--line);border-left:0}.view{min-height:520px}}
+@media(max-width:760px){main{display:flex;flex-direction:column}.assemblyBody{display:flex;flex-direction:column}.scene{order:0}.assemblyBody aside.right{display:block}.view{min-height:420px}.material canvas{height:180px}.material:first-child canvas{height:140px}h2{font-size:20px}.sceneTop h2{width:100%}}
+@media print{.assembly,.assemblyBody{display:block}}
+
+h1{font-size:34px;letter-spacing:.08em}.brand h1 small{font-size:13px}
+.stepArea{position:relative;outline:3px solid transparent;outline-offset:-3px;transition:outline-color .15s,background-color .15s}
+.stepArea.stepActive{outline-color:#28634d;background:#f0f6ec}
+.stepActive>.sceneTop{background:#e8f2e2}.stepActive>.assemblyBody>.right{background:#f5f9f1}
+.stepHeading{cursor:pointer;border-radius:7px}.stepHeading:focus-visible{outline:2px solid #28634d;outline-offset:4px}.stepActive .stepHeading>span{background:#28634d;color:white}
+.stepState{font-size:12px!important;font-weight:600;white-space:nowrap;background:transparent!important;color:#28634d!important;margin-left:4px}
+@media(max-width:760px){h1{font-size:30px}.stepHeading{flex-wrap:wrap}.stepState{margin-left:0}}
+@media print{.stepArea{outline:none}}
+
+.materialDrawing{position:relative}.dimensionOverlay{position:absolute;inset:0;pointer-events:none}.dimensionValue{position:absolute;pointer-events:auto;transform:translate(-50%,-50%);border:0;border-bottom:1px dotted #8e9584;border-radius:3px;padding:1px 4px;font-size:11px;line-height:18px;color:#757d6c;background:#fff9eccf;white-space:nowrap}.dimensionValue.vertical{transform:translate(-50%,-50%) rotate(-90deg)}.dimensionValue:hover,.dimensionValue:focus-visible{color:#245d46;background:#fff;outline:1px solid #688a70}.dimensionFallback:empty{display:none}.dimensionFallback{display:flex;flex-direction:column;gap:3px;font-size:11px;color:#78816f}.dimensionFallback button{font-size:11px;color:#757d6c;padding:2px 4px;text-decoration:underline;text-decoration-style:dotted}.dimensionEditError{color:#b33131;min-height:24px;font-size:13px}
+
+.materialDrawing{overflow:auto;max-width:100%;scrollbar-width:thin}.dimensionSurface{position:relative}.dimensionValue{background:transparent;border:0;color:#7b8474;padding:0 2px;line-height:16px}.dimensionValue:hover,.dimensionValue:focus-visible{background:#fff}.material canvas,.material:first-child canvas{max-width:none}
+[hidden]{display:none!important}#shapeStatus{color:#9b492a}.cutbox h3{margin-top:12px}
+@media(min-width:761px){main[data-active-step="1"]{grid-template-columns:minmax(0,64fr) minmax(0,36fr)}main[data-active-step="2"]{grid-template-columns:minmax(0,28fr) minmax(0,72fr)}main{height:calc(100vh - 140px);min-height:560px;align-items:stretch}.left,.assembly{min-width:0;overflow:auto}.assembly{display:block}.assemblyBody{min-height:calc(100vh - 220px)}main[data-active-step="1"] .assemblyBody{display:flex;flex-direction:column}main[data-active-step="1"] .assemblyBody aside.right{display:block}main[data-active-step="2"] .assemblyBody{display:grid;grid-template-columns:minmax(0,1fr) 260px}main[data-active-step="2"] .assemblyBody aside.right{display:block;grid-column:auto}.sceneTop{position:sticky;top:0;z-index:2}.view{min-height:420px}.left>.stepHeading{position:sticky;top:-20px;padding:12px 0;background:#f0f6ec;z-index:3}main[data-active-step="1"] #shapeCanvas{height:320px!important}h2{flex-wrap:wrap}}
+@media(min-width:761px) and (max-width:1100px){main[data-active-step="2"] .assemblyBody{display:flex;flex-direction:column}}
+.processedDetails details{margin-top:12px;border-top:1px solid #cdd7c6;padding-top:8px}.processedDetails summary{cursor:pointer;color:#52684e;font-size:13px}.detailDrawing{overflow:auto}.detailDrawing svg{display:block;min-width:520px;width:100%;height:auto}.vertexTable{max-height:160px;overflow:auto}.vertexTable table{width:100%;border-collapse:collapse}.vertexTable td,.vertexTable th{font-size:11px;padding:3px 6px}.dimensionValue{font-size:12px}
+@media print{main{height:auto}.left,.assembly{overflow:visible}.sceneTop{position:static}}
+
+/* V2.37: two full-screen workspaces */
+html,body{height:100%;overflow:hidden}body{display:flex;flex-direction:column}header{flex:none;padding:10px 18px}h1{font-size:28px}.ribbon{padding:5px 18px;flex:none}#message{height:20px;min-height:20px;overflow:hidden;flex:none}.stepTabs{display:flex;gap:8px;padding:7px 18px;border-bottom:1px solid #cdd8c7;background:#fff;flex:none}.stepTabs button{flex:1;max-width:440px;padding:8px 14px;font-weight:650}.stepTabs [aria-pressed="true"]{background:#28634d;color:white}.stepTabs [aria-pressed="false"]{background:#f2f5ef}main,main[data-active-step="1"],main[data-active-step="2"]{display:block;flex:1;min-height:0;height:auto;overflow:hidden}#step1,#step2{width:100%;height:100%;min-height:0;overflow:hidden;outline:none;padding:0}.cutWorkspace{display:grid;grid-template-columns:minmax(0,1fr) 330px;height:100%;min-height:0}.cutStage{display:flex;flex-direction:column;min-width:0;min-height:0;padding:10px 16px}.stageToolbar{display:flex;gap:6px;flex:none}.stageToolbar button{padding:5px 12px}.stageToolbar [aria-pressed="true"]{background:#dfebd7;border-color:#749368}.materialStage,.editorStage{flex:1;min-height:0;overflow:auto}.materialStage #materials{height:100%;margin:8px 0 0;gap:8px;grid-template-rows:1fr 1fr;align-items:stretch}.material{padding:7px 10px;overflow:auto;min-height:0}.material .caption{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.material .selection{min-height:18px}.materialDrawing{overflow:auto}.cutLegend{flex:none;margin:6px 0 0}.editorStage{display:flex;flex-direction:column;padding-top:8px}.editorStage #shapeCanvas,main[data-active-step="1"] #shapeCanvas{flex:1;min-height:150px;height:100%!important;max-height:calc(100% - 26px);width:100%}.editorStage #mousePosition{height:24px;flex:none}.cutControls{padding:10px 12px;border-left:1px solid #d5dfce;overflow:auto;min-height:0;display:flex;flex-direction:column;gap:8px}.cutbox{padding:0;border:0;background:transparent}.cutbox h3{font-size:13px;margin:6px 0}.cutbox label{font-size:12px}.cutbox button{margin-top:5px;padding:6px}.cutbox input,.cutbox select{padding:5px 7px}.cutbox p.hint{font-size:11px;line-height:1.35;margin:5px 0}.cutbox #shapeHelp{display:none}#scrollOptions>.hint{display:none}#shapeStatus{margin:5px 0}#pointCount{font-size:11px}.pointAdvanced{margin-top:6px;font-size:12px}.pointAdvanced summary{cursor:pointer}.undoRow{display:flex;gap:6px;margin-top:auto;padding-top:8px}.undoRow button{flex:1;font-size:12px;padding:5px}.cutControls #applyShape,.cutControls #cut{font-weight:650}.cutControls .cutbox>label{font-weight:650}#step2{display:flex;flex-direction:column}#step2 .sceneTop{position:static;flex:none;padding:8px 14px}#step2 .sceneTop h2{font-size:17px}#step2 .assemblyBody,main[data-active-step="2"] #step2 .assemblyBody{display:grid;grid-template-columns:190px minmax(0,1fr) 260px;flex:1;min-height:0;height:0}#step2 .assemblyParts{padding:10px;overflow:auto;border-right:1px solid #dae2d4}#step2 .assemblyParts h3{margin:0}#partList{max-height:none}#step2 .right{padding:12px;overflow:auto;display:block;grid-column:auto}#step2 .right>div:nth-child(2){display:none}#step2 .scene{min-height:0}#step2 .view{min-height:0}#step2 .bottom{padding:7px 12px}#step2 .right .note{margin:8px 0}#step2 h3{margin:10px 0 6px}dialog{max-height:90vh;overflow:auto;max-width:850px}
+@media(max-width:1050px){header{gap:10px;flex-wrap:nowrap}.actions{margin-left:auto}.ribbon{gap:10px;font-size:11px}.cutWorkspace{grid-template-columns:minmax(0,1fr) 300px}#step2 .assemblyBody,main[data-active-step="2"] #step2 .assemblyBody{grid-template-columns:155px minmax(0,1fr) 235px}}
+@media(max-width:700px){header{flex-wrap:wrap;padding:6px 10px}.actions{gap:3px}h1{font-size:21px}.ribbon{display:none}.stepTabs{padding:5px 8px}.stepTabs button{font-size:12px;padding:7px 4px}.cutWorkspace{grid-template-columns:minmax(0,1fr) 210px}.cutStage{padding:6px}.stageToolbar{flex-wrap:wrap}.stageToolbar button{font-size:11px;padding:4px}.materialStage #materials{display:flex;flex-direction:column;height:auto}.material{flex:none}.material .caption strong{font-size:13px}.cutControls{padding:7px}.cutControls .row{gap:4px}#step2 .assemblyBody,main[data-active-step="2"] #step2 .assemblyBody{grid-template-columns:minmax(0,1fr) 190px}#step2 .assemblyParts{grid-column:1/-1;max-height:85px}#step2 .assemblyParts #partList{display:flex;gap:4px;overflow:auto}#step2 .assemblyParts .part{min-width:95px}#step2 .sceneTop h2{font-size:13px}#step2 .sceneTop{gap:4px}#step2 .sceneTop button{padding:4px;font-size:11px}#step2 .right{padding:6px}.viewHelp{font-size:10px;bottom:5px}.legend{font-size:9px}.cutLegend{font-size:10px}.cutControls label{font-size:11px}}
+@media print{html,body{height:auto;overflow:visible}.stepTabs{display:none}main,#step2{height:auto;overflow:visible}}
+
+/* Compact, single-row header. */
+header{display:flex;flex-wrap:nowrap!important;gap:14px;padding:7px 14px;min-height:48px;overflow-x:auto;flex-shrink:0;scrollbar-width:thin}header .brand{flex:none}header h1{font-size:25px;line-height:1.25}header .brand h1 small{font-size:11px;margin-left:4px}header .ribbon{display:flex!important;flex:none;gap:11px;white-space:nowrap;align-items:center;font-size:12px;line-height:1.4;padding:5px 9px;border-radius:5px}header .actions{display:flex;flex-wrap:nowrap;margin-left:auto;gap:5px;flex:none}header .actions button{white-space:nowrap;font-size:12px;padding:6px 9px}#message:empty{display:none}#message{height:20px;min-height:20px}
+@media(max-width:1100px){header{gap:8px;padding:6px 10px}header h1{font-size:22px}header .ribbon{font-size:11px;gap:7px;padding:4px 6px}header .actions button{font-size:11px;padding:5px 7px}}
+
+.radiusAnnotation{position:absolute;pointer-events:auto;border:0;border-radius:4px;padding:2px 7px;font-size:12px;line-height:18px;color:#526b49;background:#f5f8efed;white-space:nowrap}.radiusAnnotation:hover,.radiusAnnotation:focus-visible,.radiusAnnotation.highlighted{background:#fff1cd;color:#864b10;outline:1px solid #c28b36}.radiusHighlight{position:absolute;left:0;top:0;pointer-events:none;overflow:visible}.radiusHighlight path{fill:none;stroke:#e58b20;stroke-width:4;stroke-linecap:round;stroke-linejoin:round}
+
+#processGuide{display:block!important;color:#456d59;margin:5px 0;font-size:11px}#scrollTaskRow,#lineTypeRow{margin-bottom:5px}#cornerButtons button{font-size:11px;padding:5px}.cutControls #scrollOptions{font-size:12px}.cutControls #shapeControls>p.hint{display:none}
+
+header h1 #help{font:inherit;font-weight:inherit;border:0;background:transparent;padding:0;color:inherit;cursor:pointer}header h1 #help:hover{color:var(--green)}.stepTabs #load,.stepTabs #save,.stepTabs #designOutput{flex:0 0 auto;max-width:none;white-space:nowrap}.stepTabs #load{margin-left:auto}.stepTabs button{min-width:0}.stepTabs{gap:8px}#dialogBody h3{margin-top:18px}
+
+.stageToolbar{align-items:center;min-height:22px}#backToMaterials{font-weight:700;border:2px solid #28634d;color:#245c46;background:#edf4e7;padding:8px 16px}
+
+.flowBox{display:block;border:2px solid #d5ded5;border-radius:10px;padding:10px!important;background:#f8faf6}.flowReady{border-color:#e8a02d!important;background:#fff5d7!important;box-shadow:0 0 0 3px #e8a02d20}.flowDone{border-color:#74a48a;background:#edf6ef}.flowPrompt{display:block}.flowArrow{text-align:center;color:#718175;font-size:23px;line-height:1.2;margin:4px 0}#sawControls{margin-top:0!important}#sawDetails{margin-top:8px}#shapeControls{margin-top:6px}#shapeControls>strong{display:block;font-size:12px}
+
+/* Larger, readable headings for the numbered cutting flow. */
+.cutControls #partFlow,.cutControls #methodFlow,.cutControls #directionFlow{font-size:15px;font-weight:700;line-height:1.55}.cutControls .flowPrompt,.cutControls #sawDetails>strong,.cutControls #shapeControls>strong{font-size:15px;font-weight:700;line-height:1.55}.cutControls .flowBox select{font-size:13px;font-weight:500;margin-top:6px}
+
+.saveIdentityGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.saveIdentityGrid label:last-child{grid-column:1/-1}.saveFilePreview{overflow-wrap:anywhere;background:#edf4e9;border:1px solid #cddbc5;border-radius:8px;padding:12px;font-weight:650}
+
+.partWarning{position:absolute;box-sizing:border-box;border:1px solid #bc6586;border-radius:6px;background:#fff0f5;color:#8b2951;padding:6px 8px;font-size:11px;line-height:18px;white-space:pre-line;overflow-wrap:anywhere;pointer-events:none}
+
+#step2 .assemblyParts .sceneTop{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;padding:0 0 12px;margin-bottom:12px;background:transparent;border-bottom:1px solid #dae2d4}#step2 .assemblyParts .sceneTop button{min-width:0;margin:0;padding:8px 3px;font-size:13px;white-space:nowrap}@media(max-width:700px){#step2 .assemblyParts{max-height:230px}}
+
+#partList .part{background:#fff;border-color:#dce1d9}#partList .part.selected{background:#fff;border-color:#7a827c}#partList .part.placed{background:#dceedd;border-color:#5f946e}#partList .part.placed.selected{background:#cce4ce;border-color:#28634d}#partList .part:not(.placed) .badge{background:#f1f1f1;color:#737773}#partList .part.placed .badge{background:#28634d;color:#fff}
+
+#undo{background:#fff0cf;color:#754a13;border-color:#d6aa62}#undo:hover:not(:disabled){background:#ffe2a4}#undo:disabled{opacity:.5}
+
+.stepTabs #undo,.stepTabs #redo{flex:0 0 auto;max-width:none;white-space:nowrap}.stepTabs #undo{margin-left:auto}.stepTabs #load{margin-left:0}#redo{background:#e3eef9;color:#305674;border-color:#a6bfd4}#redo:hover:not(:disabled){background:#ccdfef}
+
+.zoomControls{display:flex;align-items:center;gap:6px;margin:8px 0 14px}.zoomControls button{flex:0 0 32px;padding:4px;font-size:20px;line-height:26px}.zoomControls input{flex:1;width:0;min-width:0;padding:0;accent-color:#28634d}
+
+#step2 .assemblyParts h3{font-size:17px}#step2 .assemblyParts h3 small{font-size:15px}
+
+header .appSubtitle{flex:none;white-space:nowrap;margin:0 8px;font-size:13px;letter-spacing:.04em;color:#74817a}
+
+#partList .part.placed.selected{background:#f8d1ca;border-color:#b64d40;box-shadow:inset 3px 0 #b64d40}
+
+.liftAmountRow{display:flex;align-items:flex-end;gap:6px;margin-top:8px}.liftAmountRow label{flex:1;min-width:0;font-size:11px}.liftAmountRow #liftSpecified{flex:none;white-space:nowrap;font-size:12px;padding:7px 6px}
+
+#dropToSupport{background:#28634d;color:#fff;border:2px solid #1f503e;font-size:14px;font-weight:600;padding:8px;box-shadow:0 2px 5px #253d3726}#dropToSupport:hover{background:#194d38}#dropToSupport:focus-visible{outline:3px solid #d6aa62;outline-offset:2px}
+
+.liftAmountTitle{font-size:13px;font-weight:700;white-space:nowrap;margin-bottom:4px}.liftAmountRow{margin-top:0}.liftAmountRow #liftAmount{flex:1;min-width:0;width:0}
+
+#viewCube{position:absolute;top:34px;left:12px;width:142px;height:152px;touch-action:none;z-index:2;cursor:grab}
+
+#cubeFit{position:absolute;top:190px;left:65px;width:36px;height:36px;padding:6px;border:1px solid #9cb2be;border-radius:6px;background:#f7fafc;color:#365d70;z-index:2;display:grid;place-items:center}#cubeFit:hover:not(:disabled){background:#dcebf3;border-color:#527c92}#cubeFit:focus-visible{outline:2px solid #28634d;outline-offset:2px}#cubeFit svg{width:22px;height:22px}
+
+#viewCube{left:auto;right:12px}#cubeFit{left:auto;right:59px;width:48px;height:48px;padding:9px;background:#f0f2ec;border-color:#c4cec5;color:#607c70;box-shadow:none}#cubeFit svg{width:28px;height:28px}#cubeFit:hover:not(:disabled){background:#e4eae1;border-color:#9eafa1}
+
+#viewCube{height:168px}#cubeFit{top:206px}
+
+.machiningSlider{display:block;width:100%;padding:0;margin:8px 0;accent-color:#28634d;cursor:ew-resize}
+header .brand{display:flex;align-items:center;gap:10px}header .woodBrandIcon{width:44px;height:44px;flex:none}header .brandText{display:flex;flex-direction:column;gap:3px}header .brand .appSubtitle{font-size:12px;line-height:1.3;letter-spacing:.03em;color:#6b7e72;margin:0;white-space:nowrap}
+
+button[data-rot="0"],button[data-ref-rotate="0"]{background:#f8e4df;border-color:#e3b5a9;color:#814b3d}
+button[data-rot="1"],button[data-ref-rotate="1"]{background:#e7f0df;border-color:#bed1ad;color:#4b6d3e}
+button[data-rot="2"],button[data-ref-rotate="2"]{background:#e2eef4;border-color:#b0cbd8;color:#426b7d}
+button[data-rot="0"]:hover,button[data-ref-rotate="0"]:hover{background:#f1d3ca}
+button[data-rot="1"]:hover,button[data-ref-rotate="1"]:hover{background:#d8e7cb}
+button[data-rot="2"]:hover,button[data-ref-rotate="2"]:hover{background:#cee2ed}
+#addReference{font-weight:700;padding:11px 12px;margin:8px 0 14px;border:2px solid #1f503e;box-shadow:0 2px 4px #24493222}#referenceList{border-top:1px solid #d4dfd5;padding-top:8px}.referenceItem.placed{background:#deedde;border-color:#91b59a}.referenceItem.placed.selected{background:#cbe2ce}.referenceItem .badge{white-space:nowrap;margin-left:5px}
+.referenceAddRow{display:flex;align-items:stretch;gap:6px;margin:8px 0 12px}.referenceAddRow #referenceType{flex:1;min-width:0;width:0;margin:0;font-size:12px;padding:6px}.referenceAddRow #addReference{flex:none;width:auto;margin:0;padding:8px;font-size:12px;white-space:nowrap}
+header .historyControls{display:flex;align-items:stretch;gap:0;border:1px solid #d8ad67;border-radius:7px;background:#fff1cf;overflow:hidden;flex:none}header .historyControls button{border:0;border-radius:0;background:transparent;color:#805422;font-weight:650;padding:6px 8px;margin:0;box-shadow:none}header .historyControls #historyBackLabel{padding:6px 3px}header .historyControls button:hover:not(:disabled){background:#f7dfab}.stepTabs #load{margin-left:auto}
+</style></head><body>
+<header><div class="brand"><svg class="woodBrandIcon" viewBox="0 0 56 56" aria-hidden="true"><defs><linearGradient id="woodPlankFace" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f4d8a6"/><stop offset="1" stop-color="#d9ae70"/></linearGradient></defs><g stroke="#356b55" stroke-width="1.4" stroke-linejoin="round"><path d="m4 35 33-17 15 8-33 18Z" fill="#d6ad76"/><path d="m4 35 15 9v4L4 39Z" fill="#b7854e"/><path d="m19 44 33-18v4L19 48Z" fill="#c99a61"/><path d="M7 25 40 8l12 7-33 18Z" fill="url(#woodPlankFace)"/><path d="m7 25 12 8v4L7 29Z" fill="#bb8c53"/><path d="m19 33 33-18v4L19 37Z" fill="#d0a069"/></g><g fill="none" stroke="#ad824a" stroke-width="1" stroke-linecap="round" opacity=".8"><path d="m14 25 28-14m-23 17 28-14M11 36l4 2m9 1 20-11"/><path d="m25 21 5-2c2-1 4-3 6-3"/></g></svg><div class="brandText"><h1><button id="help" title="使い方を開く" aria-label="板材設計の使い方">板材設計 <small>V2.37</small></button></h1><div class="appSubtitle" lang="en">Designing with Wood Boards</div></div></div><div class="ribbon"><strong>1人分</strong><span>杉 t12</span><span>610 × 170：1枚</span><span>200 × 170：2枚</span><span>↔ 木目</span></div><div class="actions"><button id="externalInfo">ⓘ 外部通信・ライセンス</button><input type="file" id="file" accept=".json" hidden></div></header>
+<div id="message" role="status" aria-live="polite"></div>
+<nav class="stepTabs" aria-label="作業手順"><button id="goStep1" aria-pressed="true">Step1　材料を切り分ける</button><button id="goStep2" aria-pressed="false">Step2　部品を配置する</button><button id="load">設計を開く</button><button id="save">設計を保存</button><button id="designOutput">設計＆構想図の印刷</button></nav><main><aside class="left stepArea" id="step1"><h2 role="button" tabindex="0" aria-pressed="true" class="stepHeading"><span>Step1</span>材料を切り分ける</h2><div class="hint">板をクリックして選択。赤い仕上がり寸法線は5 mm刻みでドラッグできます。薄い寸法値をクリックすると、その寸法で切断できます。</div><div id="materials"></div><div id="cutLegend" class="cutLegend"><b></b>赤線：仕上がり寸法　／　赤い帯：切断・仕上げの余裕</div><div class="cutbox"><label>切断方法<select id="cutMode"><option value="saw">のこぎり切断</option><option value="scroll">糸のこ盤切断</option><option value="circle">自在ぎり切断</option></select></label><div id="sawControls" style="margin-top:12px"><label>切断方向<select id="cutDir"><option value="w">横寸法を分ける（木材繊維をぶった切る）</option><option value="h">縦寸法を分ける（木材繊維に沿う）</option></select></label><div class="row" style="margin-top:8px"><label><span id="cutLabel">左端から (mm)</span><input id="cutAt" type="number" value="200" min="1" step="1"></label><label>切りしろ (mm)<select id="kerf"><option value="5">5 mm</option><option value="10">10 mm</option></select></label></div><div id="cutPreview" class="hint" style="margin-top:7px"></div><p class="hint">破線を目安に切り、赤い実線まで削って仕上げます。赤い寸法は、それぞれの部品の完成寸法です。</p><button id="cut" class="primary">のこぎりで切断</button></div><div id="shapeControls" hidden><h3 id="shapeTitle"></h3><p id="shapeHelp" class="hint"></p><canvas id="shapeCanvas" style="width:100%;height:250px;touch-action:none;border:1px solid #ced8c8;border-radius:6px"></canvas><div id="scrollOptions"><label id="scrollTaskRow">加工方法<select id="scrollTask"><option value="contour">輪郭で切り分ける</option><option value="corners">角を選んで丸める</option></select></label><label id="lineTypeRow">切断線<select id="lineType"><option value="closed">閉じた輪郭</option><option value="open">端から端の線</option></select></label><p id="processGuide" class="hint"></p><div id="cornerButtons" class="row" hidden><button id="allCorners">全ての角を選択</button><button id="noCorners">選択を解除</button></div><div class="row"><label>スナップ<select id="plotSnap"><option value="5">5 mm刻み</option><option value="1">1 mm刻み</option></select></label><label>角丸半径 R<input id="cornerRadius" type="number" min="0" step="1" value="10"></label></div><input id="radiusSlider" class="machiningSlider" type="range" min="0" max="305" step="1" value="10" aria-label="角丸半径Rをマウスで調整"><p class="hint">R=0は角丸なし。指定した半径で角を丸めます。</p><div id="mousePosition" class="hint" role="status">マウス位置 X：— ／ Y：—（左上が0）</div><div class="row"><label>追加する点 X<input id="newPointX" type="number" min="0" step="5" value="0"></label><label>追加する点 Y<input id="newPointY" type="number" min="0" step="5" value="0"></label></div><button id="addPoint">この座標に点を追加</button><label>残す部分<select id="keepShape"><option value="outside">外側を残す</option><option value="inside">内側を残す</option><option value="both">両方を残す</option></select></label><div class="row"><label>選択点 X<input id="pointX" type="number" step="5"></label><label>選択点 Y<input id="pointY" type="number" step="5"></label></div><div class="row"><button id="deletePoint">選択点を削除</button><button id="clearPoints">点をすべて消す</button></div><small id="pointCount"></small></div><div id="circleOptions"><div class="row"><label>中心 X<input id="circleX" type="number" step="5"></label><label>中心 Y<input id="circleY" type="number" step="5"></label><label>直径<input id="circleD" type="number" min="5" step="5"></label></div><input id="diameterSlider" class="machiningSlider" type="range" min="5" max="170" step="5" value="60" aria-label="円の直径をマウスで調整"></div><p class="hint">座標は部品の左上が原点。切り抜きは仕上がり線で表します。「両方を残す」なら、それぞれを別の部品として使えます。</p><p id="shapeStatus" class="hint" role="status"></p><button id="applyShape" class="primary">切断を確定</button></div></div><h3>部品一覧 <small id="count"></small></h3><div id="partList"></div><div class="row" style="margin-top:12px"><button id="undo">元に戻す</button><button id="redo">戻すのをやめる</button><button id="reset">最初から</button></div><div class="footerHelp">のこぎり切断は直線・直角。輪郭加工後の部品は、のこぎりで再分割できません。部品の追加・複製はできません。</div></aside>
+<section class="assembly stepArea" id="step2"><div class="sceneTop"><button data-view="front">正面図</button><button data-view="top">平面図</button><button data-view="side">右側面図</button><button data-view="iso">等角図</button><button id="fit">全体表示</button><button id="fitSelected" title="配置した部品全体を画面に収める">FIT</button></div><div class="assemblyBody"><section class="scene"><div class="view"><canvas id="scene" aria-label="板材の3D組み立て図"></canvas><div class="legend">実線：板の輪郭　／　細線：繊維方向　／　床の目盛り：100 mm</div><div class="viewHelp">G：接地 ／ X・Y・Z：各軸＋方向に5 mm ／ Shift＋X・Y・Z：−方向に5 mm ／ Shift＋部品ドラッグ：Z方向移動 ／ 部品をドラッグ：床の上を移動・端をスナップ　•　空白を左ドラッグ：回転　•　右ドラッグ：表示位置を移動　•　ホイール：拡大・縮小　•　部品をクリック：選択</div></div><div class="bottom"><span class="tag" id="assemblyCount"></span></div></section>
+<aside class="right"><div><input id="partName" type="hidden"><div id="partDim" hidden></div><div id="transform"><div hidden><h3>位置 <small>mm・部品の中心</small></h3><div class="row"><label>X 左右<input id="px" type="number" step="1"></label><label>Z 高さ（自動）<input id="pz" type="number" step="1" readonly title="部品の最下点が床に接する高さに自動調整します"></label><label>Y 奥行<input id="py" type="number" step="1"></label></div></div><h3>回転 <small>°・X → Y → Z の順</small></h3><div class="row"><label>X軸<input id="rx" type="number" step="90"></label><label>Y軸<input id="ry" type="number" step="90"></label><label>Z軸<input id="rz" type="number" step="90"></label></div><div class="angles" style="margin-top:8px"><button data-rot="0" title="X軸まわりに90°回転">X回転</button><button data-rot="1" title="Y軸まわりに90°回転">Y回転</button><button data-rot="2" title="Z軸まわりに90°回転">Z回転</button></div><div class="liftControls" style="margin-top:12px"><label for="liftAmount" class="liftAmountTitle">持ち上げる量（mm）</label><div class="liftAmountRow"><input id="liftAmount" type="number" min="1" max="300" step="1" title="1〜300の整数を入力"><button id="liftSpecified">指定量だけ持ち上げる</button></div></div><button id="dropToSupport" title="接地（Gキー）" aria-keyshortcuts="G" class="full" style="margin-top:8px">接地</button><p class="hint">初めは床に接地します。Zキーで上へ、Shift＋Zキーで下へ移動します。</p></div></div><div><h3>木目を見て考えよう</h3><p class="hint">細い線が繊維の向きです。切断しても、板を回しても、もとの繊維方向を保ちます。</p><p class="hint">棚板・側板・仕切りなど、部品の役割を考えながら配置しましょう。</p><div class="note">この試作版は構想用です。接合方法や強度の判定、部品同士の重なり検出は行いません。</div><p class="hint">設計はこのブラウザーに自動保存されます。授業の続きには「設計を保存」で保存したJSONファイルを使えます。</p></div></aside></div></section></main>
+<dialog id="dialog"><div id="dialogBody"></div><button id="closeDialog" class="primary">閉じる</button></dialog>
+<script>
+let referenceSelection=null;let reportMaterialCapture=false;
+const appSource='<!doctype html>\n'+document.documentElement.outerHTML;
+'use strict';
+const $=id=>document.getElementById(id), STOCK=[{id:'A',w:610,h:170,thickness:12},{id:'B',w:200,h:170,thickness:12},{id:'C',w:200,h:170,thickness:12}],KEY='sugi-board-design-v1';
+// UI and saved designs use right-handed Z-up coordinates. The renderer adapter
+// keeps legacy designs unchanged: (X,Y,Z) = (old X, -old Z, old Y).
+function toZUp(v){return [v[0],-v[2],v[1]]}
+function fromZUp(v){return [v[0],v[2],-v[1]]}
+function convertEuler(r,zUp){
+ const out=zUp?toZUp:fromZUp,input=zUp?fromZUp:toZUp;
+ const m=[[1,0,0],[0,1,0],[0,0,1]].map(v=>out(rotate(input(v),r)));
+ const y=Math.asin(Math.max(-1,Math.min(1,-m[0][2]))),regular=Math.abs(Math.cos(y))>1e-8;
+ const x=regular?Math.atan2(m[1][2],m[2][2]):Math.atan2(-m[2][1],m[1][1]);
+ const z=regular?Math.atan2(m[0][1],m[0][0]):0;
+ return [x,y,z].map(a=>{const degrees=a*180/Math.PI;return Math.abs(degrees)<1e-9?0:degrees});
+}
+function rotationAngles(p){
+ const r=p.rotationAngles;
+ if(Array.isArray(r)&&r.length===3&&r.every(v=>Number.isFinite(v)&&Math.abs(v)<=100000)){
+  const internal=convertEuler(r,false);
+  if([[1,0,0],[0,1,0],[0,0,1]].every(v=>{const a=rotate(v,internal),b=rotate(v,p.rot);return a.every((x,i)=>Math.abs(x-b[i])<1e-7)}))return [...r];
+ }
+ return convertEuler(p.rot,true).map(v=>(v%360+360)%360);
+}
+function designForSave(){const s=structuredClone(state);s.coordinateSystem='right-handed-z-up';s.parts.forEach(p=>{p.pos=toZUp(p.pos);p.rot=rotationAngles(p)});(s.references||[]).forEach(p=>{p.pos=toZUp(p.pos);p.rot=convertEuler(p.rot,true)});return s}
+function designForRuntime(s){
+ if(s?.coordinateSystem==='right-handed-z-up'){
+  if(!Array.isArray(s.parts))throw Error('Invalid parts');
+  s.parts.forEach(p=>{if(!Array.isArray(p.pos)||!Array.isArray(p.rot)||p.pos.length!==3||p.rot.length!==3||![...p.pos,...p.rot].every(Number.isFinite))throw Error('Invalid transform');p.pos=fromZUp(p.pos);p.rot=convertEuler(p.rot,false)});if(s.references!==undefined&&!Array.isArray(s.references))throw Error('Invalid references');(s.references||[]).forEach(p=>{if(!Array.isArray(p.pos)||!Array.isArray(p.rot)||p.pos.length!==3||p.rot.length!==3||![...p.pos,...p.rot].every(Number.isFinite))throw Error('Invalid reference transform');p.pos=fromZUp(p.pos);p.rot=convertEuler(p.rot,false)});delete s.coordinateSystem;
+ }else if(s?.coordinateSystem)throw Error('Unknown coordinate system');
+ return s;
+}
+const fresh=()=>({version:1,title:'板材設計',next:4,selected:'p1',kerf:5,parts:STOCK.map((s,i)=>({id:'p'+(i+1),name:s.id+'-1',stock:s.id,x:0,y:0,w:s.w,h:s.h,used:false,pos:[0,6,0],rot:[0,0,0]}))});
+let assemblySelectionCleared=false;
+let state=fresh(),history=[],redoHistory=[],yaw=-.65,pitch=.5,zoom=1,showLabels=true,hitFaces=[],cutHits=[],drag=null;
+let viewCenter=null,panX=0,panY=0,fourViews=false,frameScale=1,fixedScale=null;
+const viewAngles={front:[0,0],top:[0,Math.PI/2],side:[-Math.PI/2,0],iso:[-Math.PI/4,Math.atan(1/Math.sqrt(2))]};
+const canvas=$('scene'),ctx=canvas.getContext('2d');let viewW=0,viewH=0;
+const cutSettings=new Map();let cutPartId=null,materialDrag=null;
+let awaitingPartSelection=true, directionConfirmed=false, methodConfirmed=false;
+function prepareCut(){let p=selected();if(cutPartId===p.id)return;cutPartId=p.id;let c=cutSettings.get(p.id)||{axis:p.stock==='A'?'w':'h',at:p.stock==='A'?200:80};if(!Number.isFinite(c.at)||c.at<=0||c.at>=p[c.axis]-state.kerf){let usable=p[c.axis]-state.kerf;c.at=usable>10?Math.floor(usable/10)*5:p[c.axis]/2;}$('cutDir').value=c.axis;$('cutAt').value=c.at;}
+
+// Local planar profiles: coordinates are measured from each part's upper-left corner.
+// Classroom review thresholds; dimensions are in the original horizontal grain direction.
+// Axis-aligned ligaments from hole boundaries to the actual outer profile.
+function holeEdgeClearances(p){
+ const out=outline(p),best={left:Infinity,right:Infinity,top:Infinity,bottom:Infinity};
+ function compare(point,ring,axis,fromHole){const other=1-axis;
+  for(let i=0;i<ring.length;i++){const a=ring[i],b=ring[(i+1)%ring.length],level=point[other];
+   if(level<Math.min(a[other],b[other])-1e-8||level>Math.max(a[other],b[other])+1e-8)continue;
+   const span=b[other]-a[other];let values;
+   if(Math.abs(span)<1e-8){if(Math.abs(level-a[other])>1e-8)continue;values=[a[axis],b[axis]]}
+   else values=[a[axis]+(level-a[other])/span*(b[axis]-a[axis])];
+   for(const v of values){const delta=(v-point[axis])*(fromHole?1:-1),side=axis===0?(delta<0?'left':'right'):(delta<0?'top':'bottom');best[side]=Math.min(best[side],Math.abs(delta))}
+  }
+ }
+ for(const hole of p.holes||[])for(const axis of [0,1]){for(const point of hole)compare(point,out,axis,true);for(const point of out)compare(point,hole,axis,false)}
+ return best;
+}
+function partWarnings(p){if(reportMaterialCapture)return [];
+ const warnings=[];if(p.h>p.w*1.5)warnings.push('繊維方向に注意：縦が横の1.5倍を超えています');
+ const outerArea=Math.abs(signedArea(outline(p))),holeArea=(p.holes||[]).reduce((sum,r)=>sum+Math.abs(signedArea(r)),0);
+ if(outerArea>0&&holeArea/outerArea>=.5-1e-9)warnings.push('穴が大きい：部品面積の'+n(holeArea/outerArea*100)+'％');
+ const holeSpans=(p.holes||[]).flatMap(r=>{const xs=r.map(v=>v[0]),ys=r.map(v=>v[1]);return [{axis:'横',span:Math.max(...xs)-Math.min(...xs),size:p.w},{axis:'縦',span:Math.max(...ys)-Math.min(...ys),size:p.h}]});
+ const widest=holeSpans.sort((a,b)=>b.span/b.size-a.span/a.size)[0];
+ if(widest&&widest.span/widest.size>=.5-1e-9)warnings.push('穴が大きい：'+widest.axis+n(widest.span)+'／'+n(widest.size)+'（'+n(widest.span/widest.size*100)+'％）');
+ if(p.w>=p.h){if(p.h<=20)warnings.push('細さに注意：繊維に沿う部品の幅が20以下（'+n(p.h)+'）')}
+ else if(p.w<=30)warnings.push('細さに注意：繊維を横切る部品の幅が30以下（'+n(p.w)+'）');
+ const edges=holeEdgeClearances(p),names={left:'左端',right:'右端',top:'上端',bottom:'下端'};
+ for(const side of ['left','right','top','bottom']){const threshold=side==='left'||side==='right'?30:20;if(edges[side]<=threshold+1e-8)warnings.push('穴と'+names[side]+'の間が細い：残り'+n(edges[side])+' mm（'+threshold+'以下）')}
+ return warnings;
+}
+function drawPartWarnings(c,g){
+ const overlay=c.closest('.material').querySelector('.dimensionOverlay');
+ for(const entry of c.warningLayout){const p=entry.part,a=cutHits.find(a=>a.id===p.id);if(!a)continue;
+  const target=[a.x+a.w/2,a.y],end=[Math.max(entry.x+8,Math.min(entry.x+entry.width-8,target[0])),entry.y+28+entry.messages.length*36];
+  g.save();g.strokeStyle='#a33f69';g.lineWidth=1;g.setLineDash([3,3]);g.beginPath();g.moveTo(...target);g.lineTo(...end);g.stroke();g.restore();
+  const label=document.createElement('div');label.className='partWarning';label.dataset.warningPart=p.id;label.style.cssText=`left:${entry.x}px;top:${entry.y}px;width:${entry.width}px`;label.textContent='⚠ '+p.name+'\n'+entry.messages.join('\n');overlay.append(label);
+ }
+}
+function outline(p){return p.outline||[[0,0],[p.w,0],[p.w,p.h],[0,p.h]]}
+function signedArea(r){return r.reduce((s,a,i)=>{let b=r[(i+1)%r.length];return s+a[0]*b[1]-b[0]*a[1]},0)/2}
+function onSegment(a,b,p){return Math.abs((b[0]-a[0])*(p[1]-a[1])-(b[1]-a[1])*(p[0]-a[0]))<1e-6&&p[0]>=Math.min(a[0],b[0])-1e-6&&p[0]<=Math.max(a[0],b[0])+1e-6&&p[1]>=Math.min(a[1],b[1])-1e-6&&p[1]<=Math.max(a[1],b[1])+1e-6}
+function crosses(a,b,c,d){const cross=(a,b,c)=>(b[0]-a[0])*(c[1]-a[1])-(b[1]-a[1])*(c[0]-a[0]);let x=cross(a,b,c),y=cross(a,b,d),z=cross(c,d,a),w=cross(c,d,b);return (x*y<0&&z*w<0)||onSegment(a,b,c)||onSegment(a,b,d)||onSegment(c,d,a)||onSegment(c,d,b)}
+function contains(r,p,boundary=true){return (boundary&&r.some((a,i)=>onSegment(a,r[(i+1)%r.length],p)))||inside(p[0],p[1],r)}
+function simpleRing(r){if(!Array.isArray(r)||r.length<3||r.length>1024||r.some(a=>!Array.isArray(a)||a.length!==2||!a.every(Number.isFinite))||Math.abs(signedArea(r))<.01)return false;for(let i=0;i<r.length;i++){if(Math.hypot(r[i][0]-r[(i+1)%r.length][0],r[i][1]-r[(i+1)%r.length][1])<.001)return false;for(let j=i+1;j<r.length;j++){if(j===i+1||(i===0&&j===r.length-1))continue;if(crosses(r[i],r[(i+1)%r.length],r[j],r[(j+1)%r.length]))return false}}return true}
+function ringsCross(a,b){return a.some((v,i)=>b.some((w,j)=>crosses(v,a[(i+1)%a.length],w,b[(j+1)%b.length])))}
+function profileValid(p){let out=outline(p);if(!simpleRing(out)||out.some(a=>a[0]<0||a[1]<0||a[0]>p.w||a[1]>p.h))return false;if(p.holes!==undefined&&(!Array.isArray(p.holes)||p.holes.length>30))return false;let hs=p.holes||[];for(let i=0;i<hs.length;i++){let h=hs[i];if(!simpleRing(h)||h.some(a=>!contains(out,a))||ringsCross(out,h))return false;for(let j=0;j<i;j++)if(ringsCross(h,hs[j])||contains(h,hs[j][0])||contains(hs[j],h[0]))return false}return true}
+function profilePath(g,p,tx){g.beginPath();for(let r of [outline(p),...(p.holes||[])]){r.forEach((v,i)=>{let q=tx(v);if(i)g.lineTo(...q);else g.moveTo(...q)});g.closePath()}}
+
+let shapeDrafts=new Map(),shapeDrag=null,pointHover=null;
+function cuttingMode(){return methodConfirmed?$('cutMode').value:''}
+function draft(){let p=selected();if(!shapeDrafts.has(p.id))shapeDrafts.set(p.id,{points:[],index:-1,snap:5,radius:10,circleActive:!(p.holes||[]).length,x:n(p.w/2),y:n(p.h/2),diameter:Math.min(60,Math.floor(Math.min(p.w,p.h)/2))});return shapeDrafts.get(p.id)}
+function roundedContour(points,radius,chosen=null,open=false){
+ if(!Number.isFinite(radius)||radius<0)return {error:'角丸半径は0以上の数値にしてください。',points};
+ if(!radius||points.length<3)return {points};
+ if(!open&&!simpleRing(points))return {error:'交差しない輪郭を作ってから角を丸めてください。',points};
+ let corners=[];
+ for(let i=0;i<points.length;i++){
+  let q=points[i];if((open&&(i===0||i===points.length-1))||(chosen&&!chosen.includes(i))){corners.push({q,d:0,lb:i<points.length-1?Math.hypot(points[i+1][0]-q[0],points[i+1][1]-q[1]):Math.hypot(points[0][0]-q[0],points[0][1]-q[1])});continue}let a=points[(i+points.length-1)%points.length],b=points[(i+1)%points.length],la=Math.hypot(a[0]-q[0],a[1]-q[1]),lb=Math.hypot(b[0]-q[0],b[1]-q[1]),u=[(a[0]-q[0])/la,(a[1]-q[1])/la],v=[(b[0]-q[0])/lb,(b[1]-q[1])/lb],angle=Math.acos(Math.max(-1,Math.min(1,u[0]*v[0]+u[1]*v[1]))),cross=u[0]*v[1]-u[1]*v[0];
+  if(Math.abs(cross)<1e-8){corners.push({q,d:0,la,lb});continue}
+  let d=radius/Math.tan(angle/2),bis=[u[0]+v[0],u[1]+v[1]],norm=Math.hypot(...bis),center=[q[0]+bis[0]/norm*radius/Math.sin(angle/2),q[1]+bis[1]/norm*radius/Math.sin(angle/2)],start=[q[0]+u[0]*d,q[1]+u[1]*d],end=[q[0]+v[0]*d,q[1]+v[1]*d];
+  corners.push({q,d,la,lb,center,start,end,sign:-Math.sign(cross)});
+ }
+ for(let i=0;i<corners.length-(open?1:0);i++)if(corners[i].d+corners[(i+1)%corners.length].d>=corners[i].lb-.001)return {error:'角丸が隣の角に重なります。半径Rを小さくしてください。',points};
+ let result=[],arcs=[];for(let c of corners){if(!c.d){result.push(c.q);continue}const begin=result.length;let a=Math.atan2(c.start[1]-c.center[1],c.start[0]-c.center[0]),b=Math.atan2(c.end[1]-c.center[1],c.end[0]-c.center[0]),delta=b-a;if(c.sign>0&&delta<0)delta+=2*Math.PI;if(c.sign<0&&delta>0)delta-=2*Math.PI;let steps=Math.max(2,Math.ceil(Math.abs(delta)/(Math.PI/16)));for(let i=0;i<=steps;i++){let t=a+delta*i/steps;result.push([Math.round((c.center[0]+radius*Math.cos(t))*1e9)/1e9,Math.round((c.center[1]+radius*Math.sin(t))*1e9)/1e9])}arcs.push({corner:c.q,points:result.slice(begin),radius})}
+ return {points:result,arcs};
+}
+function candidate(){if(!cuttingMode()||awaitingPartSelection)return [];let d=draft();return cuttingMode()==='circle'?(d.circleActive===false?[]:Array.from({length:96},(_,i)=>[d.x+d.diameter/2*Math.cos(i*Math.PI/48),d.y+d.diameter/2*Math.sin(i*Math.PI/48)])):selectedRounded().points}
+function cornerMode(){return cuttingMode()==='scroll'&&$('scrollTask').value==='corners'}
+function openCut(){return cuttingMode()==='scroll'&&!cornerMode()&&$('lineType').value==='open'}
+function nearBoundary(r,p){let best=null;for(let i=0;i<r.length;i++){let a=r[i],b=r[(i+1)%r.length],dx=b[0]-a[0],dy=b[1]-a[1],t=Math.max(0,Math.min(1,((p[0]-a[0])*dx+(p[1]-a[1])*dy)/(dx*dx+dy*dy))),q=[a[0]+dx*t,a[1]+dy*t],distance=Math.hypot(q[0]-p[0],q[1]-p[1]);if(!best||distance<best.distance)best={point:q,t:i+t,distance}}return best}
+function boundaryWalk(r,a,b){let sa=nearBoundary(r,a).t,sb=nearBoundary(r,b).t;if(sb<=sa+1e-8)sb+=r.length;let out=[a];for(let k=Math.floor(sa)+1;k<sb-1e-8;k++)out.push(r[k%r.length]);out.push(b);return out}
+function cleanRing(r){let out=[];for(let v of r)if(!out.length||Math.hypot(v[0]-out.at(-1)[0],v[1]-out.at(-1)[1])>1e-6)out.push(v);if(out.length>1&&Math.hypot(out[0][0]-out.at(-1)[0],out[0][1]-out.at(-1)[1])<1e-6)out.pop();if(signedArea(out)<0)out.reverse();return out}
+function pathSimple(path){if(path.length<2||path.some(v=>!v.every(Number.isFinite)))return false;for(let i=0;i<path.length-1;i++){if(Math.hypot(path[i][0]-path[i+1][0],path[i][1]-path[i+1][1])<1e-6)return false;for(let j=i+2;j<path.length-1;j++)if(crosses(path[i],path[i+1],path[j],path[j+1]))return false}return true}
+function properCross(a,b,c,d){let cross=(a,b,c)=>(b[0]-a[0])*(c[1]-a[1])-(b[1]-a[1])*(c[0]-a[0]);let side=v=>Math.abs(v)<1e-6?0:Math.sign(v);return side(cross(a,b,c))*side(cross(a,b,d))<0&&side(cross(c,d,a))*side(cross(c,d,b))<0}
+function ringWithin(r,outer){if(r.some(v=>!contains(outer,v)))return false;for(let i=0;i<r.length;i++){let a=r[i],b=r[(i+1)%r.length];for(let j=0;j<outer.length;j++)if(properCross(a,b,outer[j],outer[(j+1)%outer.length]))return false;for(let t of [.01,.25,.5,.75,.99])if(!contains(outer,[a[0]+(b[0]-a[0])*t,a[1]+(b[1]-a[1])*t]))return false}return true}
+function localMaterial(p,v){let rings=[outline(p),...(p.holes||[])];if(rings.some(r=>r.some((a,i)=>onSegment(a,r[(i+1)%r.length],v))))return false;return inside(v[0],v[1],rings[0])&&!rings.slice(1).some(r=>inside(v[0],v[1],r))}
+function materialOverlap(a,b){
+ if(a.stock!==b.stock||Math.min(a.x+a.w,b.x+b.w)-Math.max(a.x,b.x)<1e-6||Math.min(a.y+a.h,b.y+b.h)-Math.max(a.y,b.y)<1e-6)return false;
+ let ar=[outline(a),...(a.holes||[])].map(r=>r.map(v=>[v[0]+a.x,v[1]+a.y])),br=[outline(b),...(b.holes||[])].map(r=>r.map(v=>[v[0]+b.x,v[1]+b.y]));
+ const both=v=>localMaterial(a,[v[0]-a.x,v[1]-a.y])&&localMaterial(b,[v[0]-b.x,v[1]-b.y]);
+ for(let r of [...ar,...br])for(let i=0;i<r.length;i++){let v=r[i],w=r[(i+1)%r.length],dx=w[0]-v[0],dy=w[1]-v[1],len=Math.hypot(dx,dy),e=Math.min(.001,len*.001);for(let t of [.25,.5,.75]){let m=[v[0]+dx*t,v[1]+dy*t];for(let sign of [-1,1])if(both([m[0]-dy/len*e*sign,m[1]+dx/len*e*sign]))return true}}
+ for(let r of ar)for(let s of br)for(let i=0;i<r.length;i++)for(let j=0;j<s.length;j++)if(properCross(r[i],r[(i+1)%r.length],s[j],s[(j+1)%s.length]))return true;
+ return false;
+}
+function fitProfile(p,r,holes=[]){r=cleanRing(r);let minX=Math.min(...r.map(v=>v[0])),minY=Math.min(...r.map(v=>v[1])),maxX=Math.max(...r.map(v=>v[0])),maxY=Math.max(...r.map(v=>v[1]));let q=structuredClone(p);q.x=p.x+minX;q.y=p.y+minY;q.w=maxX-minX;q.h=maxY-minY;q.outline=r.map(v=>[v[0]-minX,v[1]-minY]);q.holes=holes.map(h=>h.map(v=>[v[0]-minX,v[1]-minY]));delete q.radiusNote;return q}
+function sharpCorners(){let r=outline(selected());return r.map((q,i)=>{let a=r[(i+r.length-1)%r.length],b=r[(i+1)%r.length],u=[q[0]-a[0],q[1]-a[1]],v=[b[0]-q[0],b[1]-q[1]],angle=Math.acos(Math.max(-1,Math.min(1,(u[0]*v[0]+u[1]*v[1])/(Math.hypot(...u)*Math.hypot(...v)))));return angle>.4?i:-1}).filter(i=>i>=0)}
+function selectedRounded(){let d=draft();return cornerMode()?roundedContour(outline(selected()),d.radius||0,d.corners||[]):roundedContour(d.points,d.radius||0,null,openCut())}
+function processPlan(){
+ let p=selected(),d=draft(),out=outline(p),holes=p.holes||[],r=candidate(),keep=$('keepShape').value;
+ if(p.used)return {error:'加工する前に、組み立てから外してください。'};
+ if(cuttingMode()==='scroll'){let rr=selectedRounded();if(rr.error)return {error:rr.error};}
+ if(cornerMode()){
+  if(!(d.corners||[]).length)return {error:'丸める角をクリックしてください。'};
+  if(!d.radius||d.radius<0)return {error:'角丸半径Rを0より大きくしてください。'};
+  if(!simpleRing(r)||!ringWithin(r,out))return {error:'この半径では角丸を作れません。半径を小さくしてください。'};
+  if(holes.some(h=>!ringWithin(h,r)||ringsCross(h,r)))return {error:'角丸が既存の穴に重なっています。'};
+  let q=fitProfile(p,r,holes);q.radiusNote=d.radius;return {pieces:[q],preview:[q]};
+ }
+ if(openCut()){
+  if(!pathSimple(r))return {error:'板の端から別の端へ、交差しない線を描いてください。'};
+  let sa=nearBoundary(out,r[0]),sb=nearBoundary(out,r.at(-1));if(sa.distance>1e-5||sb.distance>1e-5)return {error:'始点と終点を板の外周に置いてください。外周付近では線の端に吸着します。'};
+  if(Math.hypot(r[0][0]-r.at(-1)[0],r[0][1]-r.at(-1)[1])<1e-5)return {error:'始点と終点は別の位置にしてください。'};
+  for(let i=0;i<r.length-1;i++){
+   let a=r[i],b=r[i+1];for(let j=0;j<out.length;j++)if(properCross(a,b,out[j],out[(j+1)%out.length]))return {error:'線が途中で外周を横切っています。'};
+   for(let t of [.01,.25,.5,.75,.99]){let v=[a[0]+(b[0]-a[0])*t,a[1]+(b[1]-a[1])*t];if(!contains(out,v)||nearBoundary(out,v).distance<1e-7)return {error:'線の途中は板の内側を通してください。'}}
+   if(i>0&&nearBoundary(out,a).distance<1e-7)return {error:'途中の点は外周から離してください。'};
+   for(let h of holes)if(h.some((v,j)=>crosses(a,b,v,h[(j+1)%h.length])))return {error:'既存の穴を横切る線は変更してください。'};
+  }
+  let a=cleanRing([...r,...boundaryWalk(out,r.at(-1),r[0]).slice(1,-1)]),b=cleanRing([...r].reverse().concat(boundaryWalk(out,r[0],r.at(-1)).slice(1,-1)));
+  if(!simpleRing(a)||!simpleRing(b))return {error:'この線では2つに切り分けられません。'};
+  let pieces=[fitProfile(p,a,holes.filter(h=>contains(a,h[0]))),fitProfile(p,b,holes.filter(h=>contains(b,h[0])))];pieces.sort((a,b)=>Math.abs(signedArea(outline(a)))-Math.abs(signedArea(outline(b))));if(d.radius>0)pieces.forEach(q=>q.radiusNote=d.radius);return {pieces:keep==='both'?pieces:[pieces[keep==='inside'?0:1]],preview:pieces};
+ }
+ if(cuttingMode()==='circle'&&(!Number.isFinite(d.diameter)||d.diameter<=0))return {error:'直径は0より大きい数値にしてください。'};
+ if(!simpleRing(r)||!ringWithin(r,out))return {error:'3点以上で、部品内に交差しない輪郭を作ってください。'};
+ if(ringsCross(out,r))return {error:'閉じた輪郭は外周から離してください。端から切る場合は「端から端の線」を選んでください。'};
+ for(let h of holes){if(ringsCross(h,r)||contains(h,r[0]))return {error:'輪郭が既存の穴に重なっています。'}}
+ let inner=fitProfile(p,r,holes.filter(h=>contains(r,h[0]))),outer=structuredClone(p);outer.holes=[...holes.filter(h=>!contains(r,h[0])),cleanRing(r)];
+ if(cuttingMode()==='scroll'&&d.radius>0){inner.radiusNote=d.radius;outer.radiusNote=d.radius;}
+ let pieces=cuttingMode()==='circle'?[outer]:(keep==='both'?[outer,inner]:[keep==='inside'?inner:outer]);return {pieces,preview:[inner,outer]};
+}
+function commitScroll(){if(awaitingPartSelection)return;let plan=processPlan();if(plan.error){message(plan.error);return}if(plan.pieces.some(p=>!profileValid(p))){message('加工形状を確認してください。');return}let p=selected(),remaining=state.parts.filter(q=>q!==p);if(plan.pieces.some(q=>remaining.some(a=>materialOverlap(a,q)))||(plan.pieces.length===2&&materialOverlap(...plan.pieces))){message('部品の重なりを検出しました。切断線を変更してください。');return}
+ checkpoint();let number=Math.max(0,...state.parts.filter(v=>v.stock===p.stock).map(v=>Number(v.name.match(/-(\d+)$/)?.[1])||0));plan.pieces.forEach((q,i)=>{if(i){q.id='p'+state.next++;q.name=p.stock+'-'+(++number)}else{q.id=p.id;q.name=p.name}});state.parts.splice(state.parts.indexOf(p),1,...plan.pieces);state.selected=plan.pieces[0].id;shapeDrafts.delete(p.id);if(cuttingMode()==='circle')draft().circleActive=false;shapeDrag=null;pointHover=null;awaitingPartSelection=true;$('cutMode').value='saw';methodConfirmed=false;directionConfirmed=false;showCutStage('materials');message(plan.pieces.length===2?'2つの部品として残しました。Step2で個別に配置できます。':'');refresh();}
+function drawPlanPreview(g,p,tx){if(awaitingPartSelection||cuttingMode()!=='scroll')return;let plan=processPlan();if(!plan.error){let keep=$('keepShape').value;for(let i=0;i<plan.preview.length;i++){let q=plan.preview[i];profilePath(g,q,v=>tx([v[0]+q.x-p.x,v[1]+q.y-p.y]));let retained=cornerMode()||keep==='both'||(keep==='inside'?i===0:i===1);g.fillStyle=retained?(i===0?'#269e6d66':'#388feb66'):'#9b9b9b44';g.fill('evenodd')}}
+ if(cornerMode()){let d=draft(),r=outline(p);for(let i of sharpCorners()){let q=tx(r[i]);g.beginPath();g.arc(...q,7,0,Math.PI*2);g.fillStyle=(d.corners||[]).includes(i)?'#e79522':'#fff';g.fill();g.strokeStyle='#28634d';g.lineWidth=2;g.stroke()}}
+}
+function updateScrollUI(){let cm=cornerMode(),open=openCut(),scroll=cuttingMode()==='scroll';$('scrollTaskRow').hidden=!scroll;$('lineTypeRow').hidden=!scroll||cm;$('keepShape').closest('label').hidden=cm;$('cornerButtons').hidden=!cm;$('deletePoint').closest('.row').hidden=cm;$('pointCount').hidden=cm;document.querySelector('.pointAdvanced').hidden=cm;for(let o of $('keepShape').options){o.textContent=o.value==='both'?'両方を残す':(open?(o.value==='inside'?'端側・小さい方（緑）を残す':'本体側・大きい方（青）を残す'):(o.value==='inside'?'内側（緑）を残す':'外側（青）を残す'))}$('processGuide').textContent=cm?'丸印をクリックして角を選択。オレンジの角だけを丸めます。':(open?'外周から外周へ線を描きます。緑＝小さい方、青＝大きい方。初期設定では端側の小片を除き、大きい方を残します。':'点を結んで閉じた輪郭を描きます。緑＝内側、青＝外側、灰色＝切り落とす部分。');}
+
+function shapeError(){if(awaitingPartSelection)return '次に加工する部品をクリックしてください。';if(cuttingMode()==='circle'&&draft().circleActive===false)return '次の穴を開けるには、板上で中心をクリックするか、中心・直径を入力してください。';return processPlan().error||''}
+function shapeRefresh(){updateCutFlow();let mode=cuttingMode();if(!mode){$('sawControls').hidden=true;$('shapeControls').hidden=true;$('cutLegend').textContent=awaitingPartSelection?'図または右側の一覧から、次に加工する部品を選んでください。':'右側の「切断方法」を選んでください。';return}$('sawControls').hidden=mode!=='saw';$('shapeControls').hidden=mode==='saw';$('cutLegend').textContent=mode==='saw'?'赤い実線：仕上がり寸法線 ／ 灰色の破線：切る位置の目安 ／ 薄い赤い帯：切断・仕上げの余裕':'赤線：加工する輪郭 ／ 赤い寸法：選択点・マウス位置までの距離';if(mode==='saw')return;let d=draft();updateScrollUI();$('plotSnap').value=d.snap||5;$('cornerRadius').value=d.radius||0;for(let id of ['pointX','pointY','newPointX','newPointY'])$(id).step=d.snap||5;$('scrollOptions').hidden=mode!=='scroll';$('circleOptions').hidden=mode!=='circle';$('shapeTitle').textContent=selected().name+'：'+(mode==='scroll'?(cornerMode()?'角を選んで丸める':'点を打って輪郭を作る'):'円の中心と直径を指定');$('shapeHelp').textContent=mode==='scroll'?'左上が原点。クリックで点を追加、ドラッグで移動（'+(d.snap||5)+'刻み）。最後と最初の点は自動で結びます。':'板上をクリックして中心を指定。中心はドラッグで移動、円周はドラッグで直径を変更します。';for(let [id,key] of [['circleX','x'],['circleY','y'],['circleD','diameter']])$(id).value=d[key];$('pointCount').textContent=d.points.length+'点';$('deletePoint').disabled=d.index<0;$('pointX').value=d.index>=0?d.points[d.index][0]:'';$('pointY').value=d.index>=0?d.points[d.index][1]:'';$('pointX').disabled=$('pointY').disabled=d.index<0;let error=shapeError();$('shapeStatus').textContent=error||'この輪郭で加工できます。';$('applyShape').disabled=!!error;syncMachiningSliders();drawShapeEditor()}
+// Red dimensions show finished part sizes for saw cuts and distances to points in the shape editor.
+function positionDimension(g,axis,start,end,base,lane,value){
+ if(end-start<.01)return;
+ g.save();g.strokeStyle=g.fillStyle='#c82c2c';g.lineWidth=1;g.font='600 12px system-ui';
+ const horizontal=axis==='w',xy=(u,v)=>horizontal?[u,v]:[v,u];
+ const line=(a,b,c,d)=>{g.beginPath();g.moveTo(...xy(a,b));g.lineTo(...xy(c,d));g.stroke()};
+ for(const u of [start,end])line(u,base,u,lane+(lane>base?5:-5));line(start,lane,end,lane);
+ const arrow=(u,dir)=>{g.beginPath();g.moveTo(...xy(u,lane));g.lineTo(...xy(u+dir*5,lane-2));g.lineTo(...xy(u+dir*5,lane+2));g.closePath();g.fill()};arrow(start,1);arrow(end,-1);
+ g.translate(...xy((start+end)/2,lane));if(!horizontal)g.rotate(-Math.PI/2);
+ const text=String(n(value)),tw=g.measureText(text).width;g.fillStyle='#fffaf3';g.fillRect(-tw/2-3,-15,tw+6,15);g.fillStyle='#c82c2c';g.textAlign='center';g.fillText(text,0,-3);g.restore();
+}
+function pointDimensions(c,g,p,v,tx){
+ const a=tx([0,0]),b=tx([p.w,p.h]),q=tx(v);c.positionDimensions={x:v[0],right:n(p.w-v[0]),y:v[1],bottom:n(p.h-v[1])};
+ positionDimension(g,'w',a[0],q[0],a[1],a[1]-22,v[0]);positionDimension(g,'w',q[0],b[0],a[1],a[1]-22,p.w-v[0]);
+ positionDimension(g,'h',a[1],q[1],b[0],b[0]+32,v[1]);positionDimension(g,'h',q[1],b[1],b[0],b[0]+32,p.h-v[1]);
+ g.save();g.strokeStyle='#c82c2c88';g.setLineDash([4,3]);g.lineWidth=1;g.beginPath();g.moveTo(q[0],a[1]);g.lineTo(q[0],b[1]);g.moveTo(a[0],q[1]);g.lineTo(b[0],q[1]);g.stroke();g.restore();
+}
+function drawShapeEditor(){let c=$('shapeCanvas'),g=c.getContext('2d'),p=selected(),d=draft(),w=c.clientWidth,h=c.clientHeight||250;if(!w)return;c.width=w*(devicePixelRatio||1);c.height=h*(devicePixelRatio||1);g.scale(devicePixelRatio||1,devicePixelRatio||1);let scale=Math.min((w-100)/p.w,(h-100)/p.h),ox=(w-p.w*scale)/2,oy=(h-p.h*scale)/2;c.mapping={scale,ox,oy};let tx=v=>[ox+v[0]*scale,oy+v[1]*scale];g.fillStyle='#eef1e8';g.fillRect(0,0,w,h);profilePath(g,p,tx);g.fillStyle=partWarnings(p).length?'#efc5d4':'#ebc28e';g.fill('evenodd');g.save();g.clip('evenodd');g.strokeStyle='#ae814b66';for(let y=8;y<p.h;y+=12){g.beginPath();g.moveTo(...tx([0,y]));g.lineTo(...tx([p.w,y]));g.stroke()}g.restore();profilePath(g,p,tx);g.strokeStyle='#55745b';g.stroke();drawPlanPreview(g,p,tx);g.fillStyle='#74816c';g.font='11px system-ui';g.fillText('0',Math.max(0,ox-12),oy-6);g.fillText(n(p.w),ox+p.w*scale-15,oy-6);g.fillText(n(p.h),Math.max(0,ox-20),oy+p.h*scale+14);let r=candidate();g.strokeStyle='#ca3833';g.lineWidth=2;g.beginPath();r.forEach((v,i)=>i?g.lineTo(...tx(v)):g.moveTo(...tx(v)));if(r.length>=3&&!openCut())g.closePath();g.stroke();if(cuttingMode()==='scroll'){if(!cornerMode())d.points.forEach((v,i)=>{let q=tx(v);g.beginPath();g.arc(...q,i===d.index?5:3.5,0,Math.PI*2);g.fillStyle=i===d.index?'#245f46':'#c83232';g.fill();g.fillStyle='#8e2c29';g.fillText(i+1,q[0]+6,q[1]-5)})}else if(!awaitingPartSelection&&d.circleActive!==false){let q=tx([d.x,d.y]);g.beginPath();g.moveTo(q[0]-7,q[1]);g.lineTo(q[0]+7,q[1]);g.moveTo(q[0],q[1]-7);g.lineTo(q[0],q[1]+7);g.stroke()}if(cuttingMode()==='scroll'){
+ const v=pointHover?.id===p.id?pointHover.pos:(d.index>=0?d.points[d.index]:null);c.coordinateLabel=null;c.positionDimensions=null;
+ if(v&&!cornerMode()&&!awaitingPartSelection){pointDimensions(c,g,p,v,tx);const q=tx(v),label='X: '+n(v[0])+'   Y: '+n(v[1]);g.font='600 13px system-ui';const tw=g.measureText(label).width+16,th=26;
+ let x=q[0]+14,y=q[1]-36;if(x+tw>w-4)x=q[0]-tw-14;if(y<4)y=q[1]+14;x=Math.max(4,Math.min(w-tw-4,x));y=Math.max(4,Math.min(h-th-4,y));
+ if(pointHover){g.strokeStyle='#28634d';g.lineWidth=1;g.beginPath();g.moveTo(q[0]-5,q[1]);g.lineTo(q[0]+5,q[1]);g.moveTo(q[0],q[1]-5);g.lineTo(q[0],q[1]+5);g.stroke()}
+ g.fillStyle='#fffffff2';g.fillRect(x,y,tw,th);g.strokeStyle='#60876a';g.lineWidth=1;g.strokeRect(x,y,tw,th);g.fillStyle='#234f38';g.fillText(label,x+8,y+18);c.coordinateLabel={text:label,x,y,width:tw,height:th,point:[...v]};
+ }
+}}
+function shapeAt(e){let c=$('shapeCanvas'),r=c.getBoundingClientRect(),m=c.mapping,p=selected(),step=cuttingMode()==='scroll'?(draft().snap||5):5,raw=[(e.clientX-r.left-m.ox)/m.scale,(e.clientY-r.top-m.oy)/m.scale],v=[Math.max(0,Math.min(p.w,Math.round(raw[0]/step)*step)),Math.max(0,Math.min(p.h,Math.round(raw[1]/step)*step))];if(openCut()){let nearest=nearBoundary(outline(p),v);if(nearest.distance*m.scale<12)v=nearest.point}return v}
+function syncMachiningSliders(){
+ const p=selected();if(!p)return;
+ for(const [slider,input,maximum] of [['radiusSlider','cornerRadius',Math.ceil(Math.max(p.w,p.h)/2)],['diameterSlider','circleD',Math.max(5,Math.floor(Math.min(p.w,p.h)/5)*5)]]){
+  const range=$(slider),value=Number($(input).value);range.max=Math.max(maximum,Number.isFinite(value)?Math.ceil(value/Number(range.step))*Number(range.step):maximum);range.value=value;range.setAttribute('aria-valuetext',value+' mm');range.title=value+' mm';
+ }
+}
+function shapeRawPoint(e){const c=$('shapeCanvas'),r=c.getBoundingClientRect(),m=c.mapping;return [(e.clientX-r.left-m.ox)/m.scale,(e.clientY-r.top-m.oy)/m.scale]}
+function editableArcAt(e){
+ if(awaitingPartSelection||!$('shapeCanvas').mapping)return null;
+ const v=shapeRawPoint(e),d=draft(),scale=$('shapeCanvas').mapping.scale;
+ if(cuttingMode()==='circle'&&d.circleActive!==false&&Math.abs(Math.hypot(v[0]-d.x,v[1]-d.y)-d.diameter/2)*scale<=9)return {kind:'diameter',value:d.diameter,start:v};
+ if(cuttingMode()==='scroll'){
+  let best=null,distance=9/scale;
+  for(const arc of selectedRounded().arcs||[])for(let i=0;i<arc.points.length-1;i++){
+   const a=arc.points[i],b=arc.points[i+1],dx=b[0]-a[0],dy=b[1]-a[1],t=Math.max(0,Math.min(1,((v[0]-a[0])*dx+(v[1]-a[1])*dy)/(dx*dx+dy*dy))),q=[a[0]+dx*t,a[1]+dy*t],dist=Math.hypot(v[0]-q[0],v[1]-q[1]);
+   if(dist<distance){distance=dist;best={kind:'radius',value:d.radius,start:v,direction:q.map((x,j)=>(x-arc.corner[j])/arc.radius)}}
+  }
+  return best;
+ }
+ return null;
+}
+function installArcDragging(){
+ const c=$('shapeCanvas'),down=c.onpointerdown,move=c.onpointermove,up=c.onpointerup,cancel=c.onpointercancel;let arcDrag=null;
+ const setValue=value=>{const input=$(arcDrag.kind==='diameter'?'circleD':'cornerRadius');input.value=value;input.dispatchEvent(new Event('input',{bubbles:true}))};
+ c.onpointerdown=e=>{if(e.button===0&&(arcDrag=editableArcAt(e))){e.preventDefault();c.setPointerCapture(e.pointerId);c.style.cursor='grabbing';return}down(e)};
+ c.onpointermove=e=>{
+  if(!arcDrag){move(e);if(shapeDrag===null)c.style.cursor=editableArcAt(e)?'grab':'crosshair';return}
+  const v=shapeRawPoint(e),d=draft();
+  if(arcDrag.kind==='diameter')setValue(Math.max(5,Math.round(Math.hypot(v[0]-d.x,v[1]-d.y)*2/5)*5));
+  else{const k=arcDrag.direction,den=k[0]*k[0]+k[1]*k[1];setValue(Math.max(0,Math.round(arcDrag.value+((v[0]-arcDrag.start[0])*k[0]+(v[1]-arcDrag.start[1])*k[1])/Math.max(1e-9,den))))}
+ };
+ c.onpointerup=e=>{if(arcDrag){arcDrag=null;c.style.cursor='grab';return}up(e)};
+ c.onpointercancel=e=>{if(arcDrag){setValue(arcDrag.value);arcDrag=null;c.style.cursor='crosshair';return}cancel(e)};
+}
+function initShapeControls(){
+$('scrollTask').onchange=()=>{shapeDrag=null;pointHover=null;shapeRefresh();drawMaterials()};$('lineType').onchange=()=>{$('keepShape').value='outside';shapeDrag=null;shapeRefresh();drawMaterials()};
+$('allCorners').onclick=()=>{draft().corners=sharpCorners();shapeRefresh();drawMaterials()};$('noCorners').onclick=()=>{draft().corners=[];shapeRefresh();drawMaterials()};
+
+$('plotSnap').onchange=()=>{draft().snap=Number($('plotSnap').value);shapeRefresh()};
+for(const [slider,input] of [['radiusSlider','cornerRadius'],['diameterSlider','circleD']]){
+ $(slider).oninput=()=>{$(input).value=$(slider).value;$(input).dispatchEvent(new Event('input',{bubbles:true}))};
+ $(input).addEventListener('input',syncMachiningSliders);
+}
+$('cornerRadius').oninput=()=>{draft().radius=Number($('cornerRadius').value);let error=shapeError();$('shapeStatus').textContent=error||'この輪郭で加工できます。';$('applyShape').disabled=!!error;drawShapeEditor();drawMaterials()};
+$('addPoint').onclick=()=>{let d=draft(),p=selected(),step=d.snap||5,v=[$('newPointX').value,$('newPointY').value].map(a=>a===''?NaN:Math.round(Number(a)/step)*step);if(v.some(a=>!Number.isFinite(a))||v[0]<0||v[0]>p.w||v[1]<0||v[1]>p.h){message('部品の範囲内のX・Y座標を入力してください。');return}if(d.points.length>=64){message('輪郭は64点までです。');return}d.points.push(v);d.index=d.points.length-1;shapeRefresh();drawMaterials()};
+$('cutMode').onchange=()=>{$('keepShape').value='outside';methodConfirmed=true;directionConfirmed=false;materialDrag=null;if(cuttingMode()==='circle')draft().circleActive=true;showCutStage(!cuttingMode()||cuttingMode()==='saw'?'materials':'editor');shapeRefresh();drawMaterials();preview()};
+$('shapeCanvas').onpointerdown=e=>{if(e.button!==0)return;if(awaitingPartSelection){pick(state.selected);return}pointHover=null;let d=draft(),v=shapeAt(e),m=$('shapeCanvas').mapping;if(cuttingMode()==='scroll'){if(cornerMode()){let r=outline(selected()),i=sharpCorners().find(i=>Math.hypot(r[i][0]-v[0],r[i][1]-v[1])*m.scale<16);if(i!==undefined){d.corners=d.corners||[];d.corners=d.corners.includes(i)?d.corners.filter(j=>j!==i):[...d.corners,i];}shapeRefresh();drawMaterials();return}let i=d.points.findIndex(a=>Math.hypot(a[0]-v[0],a[1]-v[1])*m.scale<11);if(i<0){if(d.points.length>=64){message('輪郭は64点までです。');return}d.points.push(v);i=d.points.length-1}d.index=i;shapeDrag=i}else{d.circleActive=true;[d.x,d.y]=v;shapeDrag='circle'}$('shapeCanvas').setPointerCapture(e.pointerId);shapeRefresh();drawMaterials()};
+$('shapeCanvas').onpointermove=e=>{let d=draft(),v=shapeAt(e);if(cuttingMode()==='scroll'){pointHover={id:selected().id,pos:v};$('mousePosition').textContent='マウス位置 X：'+n(v[0])+' ／ Y：'+n(v[1])+'（左上が0）';$('newPointX').value=v[0];$('newPointY').value=v[1];}if(shapeDrag===null){drawShapeEditor();return}if(shapeDrag==='circle')[d.x,d.y]=v;else d.points[shapeDrag]=v;shapeRefresh();drawMaterials()};$('shapeCanvas').onpointerup=$('shapeCanvas').onpointercancel=()=>{shapeDrag=null;pointHover=null;drawShapeEditor()};$('shapeCanvas').onpointerleave=()=>{if(shapeDrag===null){pointHover=null;drawShapeEditor()}};
+for(let [id,key] of [['circleX','x'],['circleY','y'],['circleD','diameter']])$(id).oninput=()=>{draft().circleActive=true;draft()[key]=Number($(id).value);let err=shapeError();$('shapeStatus').textContent=err||'この輪郭で加工できます。';$('applyShape').disabled=!!err;drawShapeEditor();drawMaterials()};
+for(let [id,i] of [['pointX',0],['pointY',1]])$(id).onchange=()=>{let d=draft(),v=Number($(id).value);if(d.index>=0&&Number.isFinite(v))d.points[d.index][i]=Math.round(v/(d.snap||5))*(d.snap||5);shapeRefresh();drawMaterials()};
+$('deletePoint').onclick=()=>{let d=draft();if(d.index>=0)d.points.splice(d.index,1);d.index=d.points.length-1;shapeRefresh();drawMaterials()};$('clearPoints').onclick=()=>{draft().points=[];draft().index=-1;shapeRefresh();drawMaterials()};$('keepShape').onchange=()=>{shapeRefresh();drawMaterials()};
+$('applyShape').onclick=commitScroll;installArcDragging();
+}
+
+function valid(s){if(s?.references!==undefined&&!validReferences(s.references))return false;if(!s||s.version!==1||typeof s.title!=='string'||s.title.length>200||!Number.isSafeInteger(s.next)||s.next<4||!Array.isArray(s.parts)||!s.parts.length||s.parts.length>500||!Number.isFinite(s.kerf)||s.kerf<0||s.kerf>10)return false;let ids=new Set;for(const p of s.parts){let stock=STOCK.find(v=>v.id===p.stock);if(!stock||typeof p.id!=='string'||!/^p\d+$/.test(p.id)||ids.has(p.id)||Number(p.id.slice(1))>=s.next||typeof p.name!=='string'||p.name.length>100||typeof p.used!=='boolean'||![p.x,p.y,p.w,p.h].every(Number.isFinite)||p.x<0||p.y<0||p.w<=0||p.h<=0||p.x+p.w>stock.w+.001||p.y+p.h>stock.h+.001||![p.pos,p.rot].every(a=>Array.isArray(a)&&a.length===3&&a.every(n=>Number.isFinite(n)&&Math.abs(n)<=100000)))return false;ids.add(p.id)}if(!s.parts.every(profileValid))return false;for(let i=0;i<s.parts.length;i++)for(let j=i+1;j<s.parts.length;j++){let a=s.parts[i],b=s.parts[j];if(materialOverlap(a,b))return false}return ids.has(s.selected)&&s.parts.every(profileValid)}
+function migrate(s){if(![5,10].includes(s.kerf))s.kerf=5;if(s.title==='わたしの木工作品')s.title='板材設計';for(let stock of STOCK){let parts=s.parts.filter(p=>p.stock===stock.id);if(parts.some(p=>/^[ABC]-\d+[ab]+$/.test(p.name)))parts.forEach((p,i)=>p.name=stock.id+'-'+(i+1));}return s}
+try{const s=designForRuntime(JSON.parse(localStorage.getItem(KEY)));if(valid(s))state=migrate(s)}catch(e){}
+// Selection and camera navigation do not change the saved design.
+function designSnapshot(value=state){const {selected,...design}=value;return JSON.stringify(design)}
+let savedDesignSnapshot=designSnapshot(fresh());
+try{savedDesignSnapshot=localStorage.getItem(KEY+'-saved-design')||savedDesignSnapshot}catch(e){}
+function markDesignSaved(){savedDesignSnapshot=designSnapshot();try{localStorage.setItem(KEY+'-saved-design',savedDesignSnapshot)}catch(e){}}
+function hasUnsavedDesign(){return designSnapshot()!==savedDesignSnapshot}
+function requestOpenDesign(){
+ if(!hasUnsavedDesign()){$('file').click();return}
+ dialog('<h2>保存していない変更があります</h2><p>別の設計を開くと、現在の未保存の変更が置き換わります。本当に開きますか？</p><p>残しておきたい場合は、キャンセルして「設計を保存」を押してください。</p><div class="row"><button id="cancelOpenDesign">キャンセル</button><button id="confirmOpenDesign">保存せずに開く</button></div>');
+ $('cancelOpenDesign').onclick=()=>$('dialog').close();
+ $('confirmOpenDesign').onclick=()=>{$('dialog').close();$('file').click()};
+ $('cancelOpenDesign').focus();
+}
+function persist(){try{localStorage.setItem(KEY,JSON.stringify(designForSave()))}catch(e){message('自動保存できません。「設計を保存」でファイルを保存してください。')}}
+function message(t=''){$('message').textContent=t}function checkpoint(){redoHistory.length=0;history.push(JSON.stringify(state));if(history.length>80)history.shift()}function selected(){return state.parts.find(p=>p.id===state.selected)}function n(v){return Math.round(v*100)/100}function esc(v){return String(v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+let liftDefaultPart=null,liftDefaultThickness=null;
+function partThickness(p){const value=p.thickness??STOCK.find(s=>s.id===p.stock)?.thickness;return Number.isFinite(value)&&value>0?value:12}
+function syncLiftDefault(p){
+ const thickness=partThickness(p);
+ if(liftDefaultPart!==p||liftDefaultThickness!==thickness){$('liftAmount').value=thickness;$('liftSpecified').disabled=!validLiftAmount(thickness);liftDefaultPart=p;liftDefaultThickness=thickness}
+}
+function refresh(){groundAllParts();prepareCut();let p=selected();syncLiftDefault(p);$('cutPartSelect').innerHTML='<option value="" disabled>部品を選んでください</option>'+state.parts.map(a=>`<option value="${a.id}">${esc(a.name)} — ${n(a.w)} × ${n(a.h)}</option>`).join('');$('cutPartSelect').value=awaitingPartSelection?'':p.id;$('kerf').value=state.kerf;$('count').textContent=state.parts.length+'個';$('partName').value=p.name;$('partDim').textContent=`${n(p.w)} × ${n(p.h)} × 12 ｜材料 ${p.stock} ｜木目 ↔ ${n(p.w)} mm方向`;$('fitSelected').disabled=!state.parts.some(p=>p.used);if($('cubeFit'))$('cubeFit').disabled=$('fitSelected').disabled;$('transform').hidden=false;$('partName').closest('.right').firstElementChild.hidden=false;['px','py','pz','rx','ry','rz'].forEach((id,i)=>$(id).value=n(i<3?toZUp(p.pos)[i]:rotationAngles(p)[i-3]));$('undo').disabled=!history.length;$('redo').disabled=!redoHistory.length;$('partList').innerHTML=state.parts.map(a=>`<button class="part ${!assemblySelectionCleared&&a.id===p.id?'selected':''} ${a.used?'placed':''}" data-part="${a.id}" aria-pressed="${a.used}"><span>${esc(a.name)}<br><small>${n(a.w)} × ${n(a.h)}${partWarnings(a).length?' ⚠ 要確認':''}</small></span><span class="badge">${a.used?'配置済み':'未配置'}</span></button>`).join('');$('assemblyCount').textContent=`${state.parts.filter(p=>p.used).length} / ${state.parts.length} 部品を配置`;drawMaterials();preview();shapeRefresh();render();persist()}
+function pick(id){
+ const candidate=state.parts.find(p=>p.id===id);
+ if(activeStep===1&&candidate?.used){
+  awaitingPartSelection=true;methodConfirmed=false;directionConfirmed=false;showCutStage('materials');refresh();
+  dialog('<h2>'+esc(candidate.name)+'は組み立てに配置されています</h2><p>切断するには、先に組み立てから外してください。</p><p>Step2の部品一覧で「'+esc(candidate.name)+'」をもう一度クリックすると、配置を解除できます。</p>');return false;
+ }
+assemblySelectionCleared=false;$('keepShape').value='outside';$('cutMode').value='saw';methodConfirmed=false;directionConfirmed=false;showCutStage('materials');awaitingPartSelection=false;pointHover=null;state.selected=id;if(cuttingMode()==='circle')draft().circleActive=true;cutPartId=null;let p=selected(),c=cutSettings.get(id);if(c&&(!Number.isFinite(c.at)||c.at<=0||c.at>=p[c.axis]-state.kerf))cutSettings.delete(id);message();refresh()}
+$('partList').onclick=e=>{let b=e.target.closest('[data-part]');if(b){pick(b.dataset.part);if(selected().used){checkpoint();selected().used=false;refresh()}else placeSelectedPart()}};
+function dimensionLanes(parts,axis,scale){
+ const lanes=[],result=new Map(),shared=new Map();
+ for(const p of [...parts].sort((a,b)=>a[axis]-b[axis]||a[axis==='w'?'x':'y']-b[axis==='w'?'x':'y'])){
+  const key=p[axis==='w'?'x':'y']+':'+p[axis];if(shared.has(key)){result.set(p.id,shared.get(key));continue}
+  const start=p[axis==='w'?'x':'y']*scale,end=start+p[axis]*scale,center=(start+end)/2,halfLabel=Math.max(10,String(n(p[axis])).length*3.5+3);
+  const interval=[Math.min(start,center-halfLabel),Math.max(end,center+halfLabel)];
+  let lane=lanes.findIndex(entries=>entries.every(a=>interval[0]>=a[1]-.001||interval[1]<=a[0]+.001));
+  if(lane<0){lane=lanes.length;lanes.push([])}lanes[lane].push(interval);result.set(p.id,lane);shared.set(key,lane);
+ }
+ return {result,count:lanes.length};
+}
+function roundedArcGroups(r,radius){
+ const flags=r.map((b,i)=>{let a=r[(i+r.length-1)%r.length],c=r[(i+1)%r.length],ab=Math.hypot(a[0]-b[0],a[1]-b[1]),bc=Math.hypot(b[0]-c[0],b[1]-c[1]),ac=Math.hypot(a[0]-c[0],a[1]-c[1]),cross=Math.abs((a[0]-b[0])*(c[1]-b[1])-(a[1]-b[1])*(c[0]-b[0]));if(cross<1e-7||ab>radius*.5||bc>radius*.5)return false;let measured=ab*bc*ac/(2*cross);return Math.abs(measured-radius)<Math.max(.3,radius*.12)});
+ const first=flags.findIndex(v=>!v);if(first<0)return [];let groups=[],run=[];
+ for(let j=1;j<=r.length;j++){let i=(first+j)%r.length;if(flags[i])run.push(i);else if(run.length){if(run.length>=2)groups.push([r[(run[0]+r.length-1)%r.length],...run.map(k=>r[k]),r[(run.at(-1)+1)%r.length]]);run=[]}}
+ return groups;
+}
+function machiningAnnotations(parts){
+ const dims=[],leaders=[],seen=new Set();
+ function dimension(p,axis,value,anchor){if(value<=.001||Math.abs(value-p[axis])<.001)return;let start=p[axis==='w'?'x':'y'],key=axis+':'+start+':'+n(value);if(seen.has(key))return;seen.add(key);dims.push({id:'m'+dims.length,axis,value:n(value),x:axis==='w'?p.x:0,y:axis==='h'?p.y:0,w:axis==='w'?value:0,h:axis==='h'?value:0,p,anchor})}
+ for(let p of parts){
+  const rings=[...(p.outline?[p.outline]:[]),...(p.holes||[])];
+  rings.forEach((r,i)=>{let circle=circleOf(r);
+   if(circle){dimension(p,'w',circle.x,[circle.x,circle.y]);dimension(p,'h',circle.y,[circle.x,circle.y]);leaders.push({p,label:'⌀'+circle.d,point:[circle.x+circle.d/2*.707,circle.y+circle.d/2*.707],circle});return}
+   const rounded=Number.isFinite(p.radiusNote)&&r.length>4;
+   const vertices=rounded?[[Math.min(...r.map(v=>v[0])),Math.min(...r.map(v=>v[1]))],[Math.max(...r.map(v=>v[0])),Math.max(...r.map(v=>v[1]))]]:r;
+   for(let v of vertices){dimension(p,'w',v[0],v);dimension(p,'h',v[1],v)}
+   if(rounded){let arcs=roundedArcGroups(r,p.radiusNote);if(arcs.length){let arc=[...arcs].sort((a,b)=>{let aa=a[Math.floor(a.length/2)],bb=b[Math.floor(b.length/2)];return aa[1]-bb[1]||aa[0]-bb[0]})[0];leaders.push({p,kind:'radius',arcs,label:(arcs.length>1?arcs.length+'×':'')+'R'+n(p.radiusNote),point:arc[Math.floor(arc.length/2)]})}else leaders.push({p,kind:'radius',arcs:[],label:'R'+n(p.radiusNote),point:r.reduce((a,b)=>b[0]-b[1]>a[0]-a[1]?b:a)})}
+  });
+ }
+ return {dims,leaders};
+}
+function verticalDimensionSide(item,width){const center=item.p?item.p.x+item.anchor[0]:item.x+item.w/2;return center<width/2?'left':'right'}
+function verticalDimensionX(layout,id){const offset=25+layout.verticalLanes.result.get(id)*24;return layout.verticalSides.get(id)==='left'?layout.left-offset:layout.right+offset}
+function drawMachiningDimensions(c,g){
+ const layout=c.dimensionLayout,plan=c.machiningPlan,scale=c.materialScale,ox=c.materialOrigin[0],oy=c.materialOrigin[1];
+ c.machiningLabels=[];
+ const tx=(p,v)=>[ox+(p.x+v[0])*scale,oy+(p.y+v[1])*scale];
+ g.save();g.strokeStyle='#87917c';g.fillStyle='#6f7e62';g.lineWidth=.8;g.font='12px system-ui';
+ function line(a,b){g.beginPath();g.moveTo(...a);g.lineTo(...b);g.stroke()}
+ function arrow(a,b){let len=Math.hypot(b[0]-a[0],b[1]-a[1]);if(!len)return;let dx=(b[0]-a[0])/len,dy=(b[1]-a[1])/len;g.beginPath();g.moveTo(...a);g.lineTo(a[0]+dx*5-dy*1.5,a[1]+dy*5+dx*1.5);g.lineTo(a[0]+dx*5+dy*1.5,a[1]+dy*5-dx*1.5);g.closePath();g.fill()}
+ function text(value,x,y,rotate=false){g.save();g.translate(x,y);if(rotate)g.rotate(-Math.PI/2);g.textAlign='center';let w=g.measureText(value).width;g.fillStyle='#f4f7ef';g.fillRect(-w/2-2,-12,w+4,15);g.fillStyle='#6f7e62';g.fillText(value,0,0);g.restore();c.machiningLabels.push({text:value,x,y})}
+ for(let d of plan.dims){let a=tx(d.p,[0,0]),b=tx(d.p,d.anchor),horizontal=d.axis==='w';
+  if(horizontal){let base=layout.bottom+25+(layout.horizontalLanes.result.get(d.id))*24;line([a[0],oy+(d.p.y+d.p.h)*scale+3],[a[0],base+4]);line([b[0],b[1]+3],[b[0],base+4]);line([a[0],base],[b[0],base]);arrow([a[0],base],[b[0],base]);arrow([b[0],base],[a[0],base]);text(String(d.value),(a[0]+b[0])/2,base-5)}
+  else{let left=layout.verticalSides.get(d.id)==='left',sign=left?-1:1,base=verticalDimensionX(layout,d.id);line([ox+(d.p.x+(left?0:d.p.w))*scale+sign*3,a[1]],[base+sign*4,a[1]]);line([b[0]+sign*3,b[1]],[base+sign*4,b[1]]);line([base,a[1]],[base,b[1]]);arrow([base,a[1]],[base,b[1]]);arrow([base,b[1]],[base,a[1]]);text(String(d.value),base-5,(a[1]+b[1])/2,true)}
+ }
+ plan.leaders.forEach((d,i)=>{
+  if(d.circle){let q=tx(d.p,[d.circle.x,d.circle.y]),r=d.circle.d/2*scale;g.setLineDash([10,3,2,3]);line([q[0]-r-6,q[1]],[q[0]+r+6,q[1]]);line([q[0],q[1]-r-6],[q[0],q[1]+r+6]);g.setLineDash([])}
+  if(d.kind==='radius'){
+   const start=tx(d.p,d.point),overlay=c.closest('.material').querySelector('.dimensionOverlay'),labelWidth=g.measureText(d.label).width+18;
+   const placement=c.radiusPlacements.get(d);let x=placement.x,y=placement.y;
+   line(start,[x,y+22]);line([x,y+22],[x+labelWidth,y+22]);arrow(start,[x,y+22]);
+   const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');svg.setAttribute('class','radiusHighlight');svg.setAttribute('width',c.clientWidth);svg.setAttribute('height',c.clientHeight);svg.style.display='none';
+   for(let arc of d.arcs){let path=document.createElementNS(svg.namespaceURI,'path');path.setAttribute('d',arc.map((v,i)=>(i?'L':'M')+tx(d.p,v).join(',')).join(' '));svg.append(path)}
+   overlay.append(svg);const button=document.createElement('button');button.className='radiusAnnotation';button.textContent=d.label;button.style.left=x+'px';button.style.top=y+'px';button.setAttribute('aria-label',d.p.name+' '+d.label+'の丸みを強調');button.setAttribute('aria-pressed','false');
+   let pinned=false;const highlight=on=>{svg.style.display=on?'block':'none';button.classList.toggle('highlighted',on)};
+   button.onpointerenter=()=>highlight(true);button.onpointerleave=()=>highlight(pinned||document.activeElement===button);button.onfocus=()=>highlight(true);button.onblur=()=>highlight(pinned);button.onclick=()=>{pinned=!pinned;button.setAttribute('aria-pressed',String(pinned));highlight(pinned)};overlay.append(button);
+   c.machiningLabels.push({text:d.label,x,y,point:d.point,arcCount:d.arcs.length});return;
+  }
+  let start=tx(d.p,d.point),row=c.leaderLanes.result.get('l'+i),base=layout.bottom+25+(layout.horizontalLanes.count+row)*24,labelX=Math.max(28,Math.min(c.clientWidth-35,start[0]+30));line(start,[labelX-15,base]);line([labelX-15,base],[labelX+25,base]);arrow(start,[labelX-15,base]);text(d.label,labelX+5,base-5);
+ });g.restore();
+}
+
+// Context actions are attached only to the material and part names in Step1.
+let resetContextMenu=null;
+function closeResetContextMenu(){resetContextMenu?.remove();resetContextMenu=null}
+function resetMaterialTarget(target){
+ const p=target.part?state.parts.find(p=>p.id===target.part):null;
+ if(target.part&&!p)return;
+ let replacement,removed;
+ if(p){
+  replacement={id:p.id,name:p.name,stock:p.stock,x:p.x,y:p.y,w:p.w,h:p.h,used:false,pos:[0,6,0],rot:[0,0,0]};
+  removed=state.parts.filter(q=>q===p||(q.stock===p.stock&&q.x>=p.x-.001&&q.y>=p.y-.001&&q.x+q.w<=p.x+p.w+.001&&q.y+q.h<=p.y+p.h+.001));
+  if(state.parts.some(q=>!removed.includes(q)&&materialOverlap(q,replacement))){message('この部品だけを初期化すると他の部品と重なります。材料名を右クリックして材料全体を初期化してください。');return}
+ }else{
+  replacement=structuredClone(fresh().parts.find(p=>p.stock===target.stock));
+  if(!replacement)return;
+  replacement.id='p'+state.next;
+  removed=state.parts.filter(p=>p.stock===target.stock);
+ }
+ checkpoint();if(!p)state.next++;
+ const index=state.parts.findIndex(q=>removed.includes(q));
+ state.parts=state.parts.filter(q=>!removed.includes(q));state.parts.splice(Math.max(0,index),0,replacement);
+ removed.forEach(q=>{shapeDrafts.delete(q.id);cutSettings.delete(q.id)});
+ state.selected=replacement.id;cutPartId=null;shapeDrag=null;pointHover=null;materialDrag=null;
+ awaitingPartSelection=true;methodConfirmed=false;directionConfirmed=false;$('cutMode').value='saw';
+ showCutStage('materials');message();refresh();
+}
+$('materials').addEventListener('contextmenu',e=>{
+ if($('step1').hidden)return;
+ let target=null,caption=e.target.closest('.caption strong'),c=e.target.closest('canvas[data-stock]');
+ if(caption)target={stock:caption.closest('.material').id.replace('stock-','')};
+ if(c){let r=c.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top;
+  let hit=[...(c.partNameHits||[])].reverse().find(h=>x>=h.x-3&&x<=h.x+h.w+3&&y>=h.y-3&&y<=h.y+h.h+3);
+  if(hit)target={part:hit.id};
+ }
+ if(!target)return;
+ e.preventDefault();closeResetContextMenu();
+ const menu=document.createElement('div');menu.id='resetContextMenu';menu.setAttribute('role','menu');
+ Object.assign(menu.style,{position:'fixed',zIndex:'10000',padding:'5px',background:'#fff',border:'1px solid #bdcabb',borderRadius:'8px',boxShadow:'0 4px 18px #253d3733'});
+ const button=document.createElement('button');button.textContent='この部品を初期化する';button.setAttribute('role','menuitem');
+ button.onclick=()=>{closeResetContextMenu();resetMaterialTarget(target)};
+ menu.append(button);document.body.append(menu);resetContextMenu=menu;
+ menu.style.left=Math.max(4,Math.min(e.clientX,innerWidth-menu.offsetWidth-4))+'px';
+ menu.style.top=Math.max(4,Math.min(e.clientY,innerHeight-menu.offsetHeight-4))+'px';button.focus();
+});
+document.addEventListener('pointerdown',e=>{if(resetContextMenu&&!resetContextMenu.contains(e.target))closeResetContextMenu()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeResetContextMenu()});
+document.addEventListener('scroll',closeResetContextMenu,true);window.addEventListener('resize',closeResetContextMenu);
+
+function drawMaterials(){
+ if($('step1').hidden||document.querySelector('.materialStage')?.hidden)return;
+ if(!$('materials').children.length){
+  $('materials').innerHTML=STOCK.map(s=>`<div class="material" id="stock-${s.id}"><div class="caption"><strong>材料 ${s.id}</strong><span>${s.w} × ${s.h} × 12</span></div><div class="selection"></div><div class="materialDrawing"><div class="dimensionSurface"><canvas data-stock="${s.id}" aria-label="材料${s.id}の切断図"></canvas><div class="dimensionOverlay"></div></div></div><div class="dimensionFallback"></div><div class="processedDetails"></div></div>`).join('');
+  document.querySelectorAll('[data-stock]').forEach(c=>{
+   c.onpointerdown=e=>{
+    if(e.button!==0)return;
+    let r=c.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top;
+    let hit=[...cutHits].reverse().find(a=>{if(a.stock!==c.dataset.stock)return false;let p=state.parts.find(p=>p.id===a.id);return localMaterial(p,[(x-a.x)/a.scale,(y-a.y)/a.scale])});
+    let line=c.cutLine,near=line&&(line.axis==='w'?Math.abs(x-line.x)<=13&&y>=line.y-15&&y<=line.y+line.h+15:Math.abs(y-line.y)<=13&&x>=line.x-15&&x<=line.x+line.w+15);
+    if(near){materialDrag={id:state.selected,stock:c.dataset.stock};c.setPointerCapture(e.pointerId);e.preventDefault();return}
+    if(hit)pick(hit.id);else{let first=state.parts.find(a=>a.stock===c.dataset.stock);if(first)pick(first.id);}
+   };
+   c.onpointermove=e=>{
+    let r=c.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top;
+    if(!materialDrag){let l=c.cutLine;c.style.cursor=l&&(l.axis==='w'?Math.abs(x-l.x)<13:Math.abs(y-l.y)<13)?(l.axis==='w'?'ew-resize':'ns-resize'):'pointer';return}
+    if(materialDrag.stock!==c.dataset.stock)return;
+    let p=selected(),a=cutHits.find(a=>a.id===materialDrag.id),axis=$('cutDir').value;if(!a||p.id!==materialDrag.id)return;
+    let max= Math.ceil((p[axis]-Number($('kerf').value))/5)*5-5;
+    if(max<5)return;
+    let mm=axis==='w'?(x-a.x)/a.scale:(y-a.y)/a.scale;
+    $('cutAt').value=Math.max(5,Math.min(max,Math.round(mm/5)*5));preview();
+   };
+   c.onpointerup=c.onpointercancel=()=>{materialDrag=null};
+   c.closest('.material').addEventListener('click',e=>{if(e.target.closest('button,canvas,details'))return;let first=state.parts.find(a=>a.stock===c.dataset.stock);if(first)pick(first.id)});
+  });
+ }
+ cutHits=[];
+ const commonScale=Math.max(.2,Math.min((document.querySelector('#stock-A .materialDrawing').clientWidth-56)/610,Math.max(80,$('materials').clientHeight-290-(state.parts.some(p=>p.outline||(p.holes||[]).length)?80:0))/340));
+ document.querySelectorAll('[data-stock]').forEach(c=>{
+  let s=STOCK.find(s=>s.id===c.dataset.stock),p=selected(),active=!awaitingPartSelection&&p.stock===s.id,card=$('stock-'+s.id);
+  card.classList.toggle('active',active);card.querySelector('.selection').textContent=active?'選択中：'+p.name:'';
+  const stockParts=state.parts.filter(a=>a.stock===s.id),scale=commonScale,boardWidth=s.w*scale;
+  const available=c.closest('.materialDrawing').clientWidth;
+  const plan=machiningAnnotations(stockParts);plan.dims=plan.dims.filter(d=>!stockParts.some(p=>p[d.axis]===d.value&&p[d.axis==='w'?'x':'y']===d[d.axis==='w'?'x':'y']));
+  const horizontalLanes=dimensionLanes([...stockParts,...plan.dims.filter(d=>d.axis==='w')],'w',scale),verticalLanes=dimensionLanes([...stockParts,...plan.dims.filter(d=>d.axis==='h')],'h',scale);
+  const verticalItems=[...stockParts,...plan.dims.filter(d=>d.axis==='h')],verticalSides=new Map(verticalItems.map(d=>[d.id,verticalDimensionSide(d,s.w)]));
+  const leftCount=Math.max(0,...verticalItems.filter(d=>verticalSides.get(d.id)==='left').map(d=>verticalLanes.result.get(d.id)+1)),ox=leftCount?24+leftCount*24:12;
+  const mw=dimensionLanes(plan.dims.filter(d=>d.axis==='w'),'w',scale),mh=dimensionLanes(plan.dims.filter(d=>d.axis==='h'),'h',scale),ll=dimensionLanes(plan.leaders.map((d,i)=>({...d,leaderId:'l'+i})).filter(d=>d.kind!=='radius').map(d=>({id:d.leaderId,x:d.p.x+d.point[0],w:Math.max(55/scale,1),y:0,h:0})),'w',scale);
+  c.machiningPlan=plan;c.machiningLanes={w:mw,h:mh};c.leaderLanes=ll;c.materialScale=scale;
+  const radiusRight=Math.max(0,...plan.leaders.filter(d=>d.kind==='radius').map(d=>ox+(d.p.x+d.point[0])*scale+140));
+  const w=Math.max(available,radiusRight,ox+boardWidth+100+(verticalLanes.count-1)*24);
+  // Keep all radius labels outside the stock, in non-overlapping rows above it.
+  const radiusRows=[],radiusPlacements=new Map(),measure=c.getContext('2d');measure.font='12px system-ui';
+  for(const d of plan.leaders.filter(d=>d.kind==='radius').sort((a,b)=>a.p.x+a.point[0]-b.p.x-b.point[0])){
+   const labelWidth=measure.measureText(d.label).width+18,x=Math.max(4,Math.min(w-labelWidth-4,ox+(d.p.x+d.point[0])*scale+16));
+   let row=radiusRows.findIndex(r=>r.every(box=>x>box.end+12||x+labelWidth+12<box.start));if(row<0){row=radiusRows.length;radiusRows.push([])}
+   radiusRows[row].push({start:x,end:x+labelWidth});radiusPlacements.set(d,{x,y:4+row*28,width:labelWidth});
+  }
+  const baseOy=Math.max(48,40+radiusRows.length*28);
+  const warningLayout=[],warningRows=[];
+  for(const part of stockParts){const messages=partWarnings(part);if(!messages.length)continue;const width=Math.min(290,w-8),x=Math.max(4,Math.min(w-width-4,ox+(part.x+part.w/2)*scale-width/2)),height=28+messages.length*36;
+   let row=warningRows.findIndex(r=>r.boxes.every(b=>x+width+8<b.x||b.x+b.width+8<x));if(row<0){row=warningRows.length;warningRows.push({boxes:[],height:0})}warningRows[row].height=Math.max(warningRows[row].height,height);const entry={part,messages,x,width,row};warningRows[row].boxes.push(entry);warningLayout.push(entry);
+  }
+  for(const entry of warningLayout)entry.y=4+radiusRows.length*28+warningRows.slice(0,entry.row).reduce((sum,r)=>sum+r.height+8,0);
+  c.warningLayout=warningLayout;const oy=baseOy+warningRows.reduce((sum,r)=>sum+r.height+8,0),h=oy+s.h*scale+48+(horizontalLanes.count+ll.count-1)*24;
+  c.radiusPlacements=radiusPlacements;c.materialOrigin=[ox,oy];
+  c.parentElement.style.width=w+'px';c.style.width=w+'px';c.style.height=h+'px';
+  let dpr=devicePixelRatio||1;c.width=Math.round(w*dpr);c.height=Math.round(h*dpr);let g=c.getContext('2d');g.scale(dpr,dpr);
+  c.partNameHits=[];c.dimensionLayout={left:ox,verticalSides,right:ox+boardWidth,bottom:oy+s.h*scale,horizontalLanes,verticalLanes};
+  g.fillStyle='#d5d8ce';g.fillRect(ox,oy,s.w*scale,s.h*scale);c.cutLine=null;c.positionDimensions=null;c.sawGuide=null;
+  state.parts.filter(a=>a.stock===s.id).sort((a,b)=>Number(a.id===state.selected)-Number(b.id===state.selected)).forEach(a=>{
+   let x=ox+a.x*scale,y=oy+a.y*scale,pw=a.w*scale,ph=a.h*scale,isSelected=!awaitingPartSelection&&a.id===state.selected;
+   g.fillStyle=partWarnings(a).length?(isSelected?'#e4a4ba':'#efc5d4'):(isSelected?'#ecc080':'#f0ddbc');profilePath(g,a,v=>[x+v[0]*scale,y+v[1]*scale]);g.fill('evenodd');g.save();g.clip('evenodd');
+   for(let k=7;k<170;k+=12){g.strokeStyle='#a9783f55';g.lineWidth=.7;g.beginPath();g.moveTo(ox,oy+k*scale);g.bezierCurveTo(ox+s.w*.25*scale,oy+(k-3)*scale,ox+s.w*.65*scale,oy+(k+3)*scale,ox+s.w*scale,oy+k*scale);g.stroke()}
+   g.restore();g.strokeStyle=isSelected?'#246749':'#ae9673';g.lineWidth=isSelected?3:1;profilePath(g,a,v=>[x+v[0]*scale,y+v[1]*scale]);g.stroke();
+   if(pw>24&&ph>16){g.fillStyle='#433e2e';g.font=(isSelected?'bold ':'')+'12px system-ui';g.fillText(a.name,x+5,y+16,Math.max(1,pw-10));c.partNameHits.push({id:a.id,x:x+5,y:y+3,w:Math.min(g.measureText(a.name).width,pw-10),h:16})}
+   cutHits.push({stock:s.id,id:a.id,x,y,w:pw,h:ph,scale});
+  });
+  if(active&&directionConfirmed&&!awaitingPartSelection&&cuttingMode()==='saw'){
+   let a=cutHits.find(a=>a.id===p.id),axis=$('cutDir').value,at=Number($('cutAt').value),kerf=Number($('kerf').value);
+   if(Number.isFinite(at)&&at>0&&at+kerf<p[axis]){
+    let x=a.x+(axis==='w'?at*scale:0),y=a.y+(axis==='h'?at*scale:0);
+    c.cutLine={axis,x,y,w:axis==='w'?0:a.w,h:axis==='w'?a.h:0};
+    g.fillStyle='#d6303045';g.fillRect(x,y,axis==='w'?Math.max(0,Math.min(kerf,p.w-at))*scale:a.w,axis==='h'?Math.max(0,Math.min(kerf,p.h-at))*scale:a.h);
+    const farX=x+(axis==='w'?kerf*scale:0),farY=y+(axis==='h'?kerf*scale:0);
+    g.save();g.strokeStyle='#d63030';g.lineWidth=1.2;
+    for(const [sx,sy] of [[x,y],[farX,farY]]){g.beginPath();g.moveTo(sx,sy);g.lineTo(sx+(axis==='h'?a.w:0),sy+(axis==='w'?a.h:0));g.stroke()}
+    g.strokeStyle='#424748';g.lineWidth=1;g.setLineDash([6,4]);g.beginPath();g.moveTo((x+farX)/2,(y+farY)/2);g.lineTo((x+farX)/2+(axis==='h'?a.w:0),(y+farY)/2+(axis==='w'?a.h:0));g.stroke();g.restore();
+    c.sawGuide={axis,finish:[n(at),n(at+kerf)],cut:n(at+kerf/2),allowance:kerf};
+    g.fillStyle='#d63030';for(let q of [[x,y],[x+(axis==='h'?a.w:0),y+(axis==='w'?a.h:0)]]){g.beginPath();g.arc(q[0],q[1],5,0,Math.PI*2);g.fill()}
+    c.positionDimensions={axis,near:n(at),far:n(p[axis]-at-kerf)};
+    if(axis==='w'){
+     positionDimension(g,'w',a.x,x,a.y,oy-22,at);
+     positionDimension(g,'w',farX,a.x+a.w,a.y,oy-22,p.w-at-kerf);
+    }else{
+     const lane=c.dimensionLayout.right+25+verticalLanes.count*24+22;
+     positionDimension(g,'h',a.y,y,a.x+a.w,lane,at);
+     positionDimension(g,'h',farY,a.y+a.h,a.x+a.w,lane,p.h-at-kerf);
+    }
+   }
+  }
+  if(active&&cuttingMode()!=='saw'){let a=cutHits.find(a=>a.id===p.id),r=candidate();g.beginPath();r.forEach((v,i)=>{let x=a.x+v[0]*scale,y=a.y+v[1]*scale;if(i)g.lineTo(x,y);else g.moveTo(x,y)});if(r.length>=3&&!openCut())g.closePath();g.strokeStyle='#ca3833';g.lineWidth=2;g.stroke()}
+  drawDimensions(c,g);drawMachiningDimensions(c,g);drawPartWarnings(c,g);
+ });
+}
+function drawDimensions(c,g){
+ const overlay=c.closest('.material').querySelector('.dimensionOverlay');overlay.replaceChildren();
+ const entries=cutHits.filter(a=>a.stock===c.dataset.stock),layout=c.dimensionLayout,seen=new Set();
+ g.save();g.strokeStyle='#899080';g.fillStyle='#899080';g.lineWidth=.8;
+ function line(x1,y1,x2,y2){g.beginPath();g.moveTo(x1,y1);g.lineTo(x2,y2);g.stroke()}
+ function arrow(x,y,dx,dy){g.beginPath();g.moveTo(x,y);g.lineTo(x+dx*5-dy*1.5,y+dy*5+dx*1.5);g.lineTo(x+dx*5+dy*1.5,y+dy*5-dx*1.5);g.closePath();g.fill()}
+ entries.forEach((a,i)=>{
+  const p=state.parts.find(p=>p.id===a.id);
+  for(const axis of ['w','h']){
+   const key=axis+':'+p[axis==='w'?'x':'y']+':'+p[axis];if(seen.has(key))continue;seen.add(key);
+   const horizontal=axis==='w',x=horizontal?a.x+a.w/2:verticalDimensionX(layout,p.id),y=horizontal?layout.bottom+25+layout.horizontalLanes.result.get(p.id)*24:a.y+a.h/2;
+   if(horizontal){for(let end of [a.x,a.x+a.w])line(end,a.y+a.h+3,end,y+5);line(a.x,y,a.x+a.w,y);arrow(a.x,y,1,0);arrow(a.x+a.w,y,-1,0)}
+   else{let left=layout.verticalSides.get(p.id)==='left',sign=left?-1:1;for(let end of [a.y,a.y+a.h])line((left?a.x:a.x+a.w)+sign*3,end,x+sign*5,end);line(x,a.y,x,a.y+a.h);arrow(x,a.y,0,1);arrow(x,a.y+a.h,0,-1)}
+   const btn=document.createElement('button');btn.type='button';btn.dataset.dimensionPart=p.id;btn.dataset.dimensionAxis=axis;btn.textContent=n(p[axis]);btn.setAttribute('aria-label',p.name+'の'+(horizontal?'横':'縦')+'寸法 '+n(p[axis])+' を変更');btn.title=p.name+'の'+(horizontal?'横':'縦')+'寸法を変更';btn.onclick=()=>{let q=selected(),same=q.stock===p.stock&&q[axis]===p[axis]&&q[axis==='w'?'x':'y']===p[axis==='w'?'x':'y'];editDimension(same?q.id:p.id,axis)};
+   btn.className='dimensionValue'+(horizontal?'':' vertical');btn.style.left=(horizontal?x:x-9)+'px';btn.style.top=(horizontal?y-10:y)+'px';overlay.append(btn);
+  }
+ });g.restore();
+}
+function circleOf(r){if(r.length<32)return null;let x=r.reduce((s,v)=>s+v[0],0)/r.length,y=r.reduce((s,v)=>s+v[1],0)/r.length,rs=r.map(v=>Math.hypot(v[0]-x,v[1]-y)),radius=rs.reduce((s,v)=>s+v,0)/rs.length;return rs.every(v=>Math.abs(v-radius)<.03)?{x:n(x),y:n(y),d:n(radius*2)}:null}
+function editDimension(id,axis){
+ $('cutMode').value='saw';showCutStage('materials');shapeRefresh();
+ if(pick(id)===false)return;$('cutMode').value='saw';methodConfirmed=true;directionConfirmed=true;shapeRefresh();setStep(1);const p=selected();
+ if(p.outline||(p.holes||[]).length){dialog('<h2>輪郭加工済みの部品</h2><p>のこぎりでの再分割は未対応です。加工前まで「元に戻す」で戻して切断してください。</p>');return}
+ if(p.used){dialog('<h2>'+esc(p.name)+'の寸法</h2><p>組み立てに配置している部品です。寸法を変えるには、先に「組み立てから外す」を押してください。</p>');return}
+ const prior={axis:$('cutDir').value,at:$('cutAt').value},size=p[axis];let committed=false;
+ dialog(`<h2>${esc(p.name)}の${axis==='w'?'横':'縦'}寸法を変更</h2><p>現在 ${n(size)} mm ／ 切りしろ ${state.kerf} mm</p><label>仕上がり寸法 (mm)<input id="dimensionInput" type="number" min="0.1" step="1" value="${n(size)}"></label><p class="hint">材料の${axis==='w'?'左端':'上端'}からの寸法です。小さくすると、切りしろを除いた残りが別の部品になります。</p><div id="dimensionError" class="dimensionEditError" role="status"></div><button id="applyDimension" class="primary">この寸法で切断</button>`);
+ const input=$('dimensionInput'),apply=$('applyDimension');
+ function update(){let v=Number(input.value),ok=input.value!==''&&Number.isFinite(v)&&v>0&&n(size-v-state.kerf)>0;apply.disabled=!ok;$('dimensionError').textContent=ok?`${n(v)} mm ＋ 切りしろ ${state.kerf} mm ＋ 残り ${n(size-v-state.kerf)} mm`:`0 mmより大きく、${n(size-state.kerf)} mm未満を入力してください。`;$('cutDir').value=axis;$('cutAt').value=input.value;preview()}
+ input.oninput=update;input.onkeydown=e=>{if(e.key==='Enter'&&!apply.disabled){e.preventDefault();apply.click()}};
+ apply.onclick=()=>{update();if(apply.disabled)return;committed=true;$('dialog').close();$('cut').click()};
+ $('dialog').addEventListener('close',()=>{if(!committed){$('cutDir').value=prior.axis;$('cutAt').value=prior.at;preview()}},{once:true});
+ update();input.focus();input.select();
+}
+function preview(){let p=selected(),axis=$('cutDir').value,at=Number($('cutAt').value),k=Number($('kerf').value),remain=n(p[axis]-at-k);$('cutLabel').textContent=axis==='w'?'左端から (mm)':'上端から (mm)';let ok=Number.isFinite(at)&&at>0&&remain>0&&[5,10].includes(k);$('cutPreview').textContent=ok?`${n(at)} mm ＋ 切りしろ ${k} mm ＋ ${remain} mm`:'両方の部品が残る寸法を入力してください。';$('cut').disabled=!ok||p.used;if(p.used)$('cutPreview').textContent='切断するには、先に組み立てから外してください。';if(p.outline||(p.holes||[]).length){$('cut').disabled=true;$('cutPreview').textContent='輪郭加工後の部品は、のこぎりで再分割できません。'}if(!cuttingMode()||!directionConfirmed)$('cut').disabled=true;if(awaitingPartSelection){$('cut').disabled=true;$('cutPreview').textContent='次に加工する部品をクリックしてください。';}cutSettings.set(p.id,{axis,at});drawMaterials()}
+$('cutDir').onchange=()=>{directionConfirmed=true;updateCutFlow();let p=selected(),axis=$('cutDir').value;if(Number($('cutAt').value)>=p[axis]-Number($('kerf').value))$('cutAt').value=Math.max(.1,Math.floor((p[axis]-Number($('kerf').value))/10)*5);preview()};$('cutAt').oninput=preview;$('kerf').oninput=preview;$('kerf').onchange=()=>{let v=Number($('kerf').value);if(![5,10].includes(v)){$('kerf').value=state.kerf;preview();return}checkpoint();state.kerf=v;refresh()};
+$('cut').onclick=()=>{preview();if($('cut').disabled)return;checkpoint();let p=selected(),axis=$('cutDir').value,at=Number($('cutAt').value),k=Number($('kerf').value),a=structuredClone(p),b=structuredClone(p);a.id='p'+state.next++;b.id='p'+state.next++;a.name=p.name;b.name=p.stock+'-'+(Math.max(0,...state.parts.filter(v=>v.stock===p.stock).map(v=>Number(v.name.match(/-(\d+)$/)?.[1])||0))+1);a[axis]=at;b[axis]=n(p[axis]-at-k);b[axis==='w'?'x':'y']=n(p[axis==='w'?'x':'y']+at+k);state.parts.splice(state.parts.indexOf(p),1,a,b);state.selected=a.id;state.kerf=k;awaitingPartSelection=true;$('cutMode').value='saw';methodConfirmed=false;directionConfirmed=false;showCutStage('materials');materialDrag=null;message();refresh()};
+function rotate(v,r){let [x,y,z]=v,[a,b,c]=r.map(v=>v*Math.PI/180);[y,z]=[y*Math.cos(a)-z*Math.sin(a),y*Math.sin(a)+z*Math.cos(a)];[x,z]=[x*Math.cos(b)+z*Math.sin(b),-x*Math.sin(b)+z*Math.cos(b)];return [x*Math.cos(c)-y*Math.sin(c),x*Math.sin(c)+y*Math.cos(c),z]}
+function floorHeight(p){if(p.isReference)return refFloor(p);return -Math.min(...[-6,6].flatMap(y=>outline(p).map(v=>rotate([v[0]-p.w/2,y,v[1]-p.h/2],p.rot)[1])))}
+function groundAllParts(){for(const p of state.parts)p.pos[1]=floorHeight(p)+(Number.isFinite(p.floorOffset)?Math.max(0,p.floorOffset):0)}
+function world(p,v){return rotate(v,p.rot).map((a,i)=>a+p.pos[i])}function corners(p){return [-6,6].flatMap(y=>outline(p).map(v=>world(p,[v[0]-p.w/2,y,v[1]-p.h/2])))}
+function bounds(){let ps=state.parts.filter(p=>p.used).flatMap(corners).concat(placedReferences().flatMap(refCorners));if(!ps.length)return {center:[0,70,0],size:650};let min=[0,1,2].map(i=>Math.min(...ps.map(p=>p[i]))),max=[0,1,2].map(i=>Math.max(...ps.map(p=>p[i])));return {center:min.map((v,i)=>(v+max[i])/2),size:Math.max(240,...max.map((v,i)=>v-min[i]))}}
+function camera(v,center){let [x,y,z]=v.map((a,i)=>a-center[i]),xx=x*Math.cos(yaw)+z*Math.sin(yaw),zz=-x*Math.sin(yaw)+z*Math.cos(yaw);return [xx,y*Math.cos(pitch)-zz*Math.sin(pitch),y*Math.sin(pitch)+zz*Math.cos(pitch)]}
+function fittedScale(parts,w,h,center){
+ const points=parts.flatMap(corners).concat(placedReferences().flatMap(refCorners));if(!points.length)return Math.min(w,h)*.75/650;
+ const original=[yaw,pitch],angles=fourViews?[viewAngles.top,original,viewAngles.front,viewAngles.side]:[original];let extentX=0,extentY=0;
+ for(const angle of angles){[yaw,pitch]=angle;for(const point of points){const q=camera(point,center);extentX=Math.max(extentX,Math.abs(q[0]));extentY=Math.max(extentY,Math.abs(q[1]))}}
+ [yaw,pitch]=original;return .72*Math.min(Math.max(1,w-64)/Math.max(.1,extentX*2),Math.max(1,h-84)/Math.max(.1,extentY*2));
+}
+// Every surface sample uses its own depth, including intersecting faces and holes.
+function facePlane(pts,values){
+ const a=pts[0];for(let i=1;i<pts.length-1;i++){
+  const b=pts[i],c=pts[i+1],dx=b[0]-a[0],dy=b[1]-a[1],ex=c[0]-a[0],ey=c[1]-a[1],det=dx*ey-dy*ex;
+  if(Math.abs(det)<1e-9)continue;
+  const u=((values[i]-values[0])*ey-(values[i+1]-values[0])*dy)/det;
+  const v=(dx*(values[i+1]-values[0])-ex*(values[i]-values[0]))/det;
+  return [u,v,values[0]-u*a[0]-v*a[1]];
+ }return [0,0,values[0]];
+}
+function planeValue(p,x,y){return p[0]*x+p[1]*y+p[2]}
+const depthSurface=document.createElement('canvas');
+function drawDepthFaces(faces,w,h){
+ const resolution=Math.min(devicePixelRatio||1,1.5),W=Math.ceil(w*resolution),H=Math.ceil(h*resolution);
+ depthSurface.width=W;depthSurface.height=H;
+ const g=depthSurface.getContext('2d'),img=g.createImageData(W,H),pixels=img.data,depth=new Float32Array(W*H);depth.fill(-Infinity);const owners=new Uint16Array(W*H),partIds=new Map([...state.parts,...placedReferences()].map((p,i)=>[p.id,i+1]));
+ const colors=[[196,152,100],[232,189,133],[184,137,82]],warnings=[[187,123,147],[239,184,204],[169,104,130]];
+ for(const f of faces){
+  const color=f.p.isReference?(referenceSelection===f.p.id?[239,133,118]:[112,165,190]).map(v=>v*(f.kind===2?.85:1)):((!assemblySelectionCleared&&f.p.id===state.selected)?[[193,92,81],[239,133,118],[170,71,61]]:partWarnings(f.p).length?warnings:colors)[f.kind],rings=f.rings;
+  const first=Math.max(0,Math.ceil(Math.min(...f.pts.map(v=>v[1]))*resolution-.5)),last=Math.min(H-1,Math.floor(Math.max(...f.pts.map(v=>v[1]))*resolution-.5));
+  for(let y=first;y<=last;y++){
+   const sy=(y+.5)/resolution,crossings=[];
+   for(const ring of rings)for(let i=0,j=ring.length-1;i<ring.length;j=i++){
+    const a=ring[j],b=ring[i];if((a[1]>sy)!==(b[1]>sy))crossings.push(a[0]+(sy-a[1])*(b[0]-a[0])/(b[1]-a[1]));
+   }
+   crossings.sort((a,b)=>a-b);
+   for(let i=0;i+1<crossings.length;i+=2){
+    const start=Math.max(0,Math.ceil(crossings[i]*resolution-.5)),end=Math.min(W-1,Math.floor(crossings[i+1]*resolution-.5));
+    for(let x=start;x<=end;x++){
+     const sx=(x+.5)/resolution,k=y*W+x,z=planeValue(f.depthPlane,sx,sy);if(z<depth[k]-1e-5)continue;
+     depth[k]=z;owners[k]=partIds.get(f.p.id);let mix=0;
+     if(!f.p.isReference&&f.kind<2){const v=planeValue(f.grainPlane,sx,sy)+f.p.h/2-7,dist=Math.abs(v-Math.round(v/11)*11),width=Math.hypot(f.grainPlane[0],f.grainPlane[1])/resolution;mix=.28*Math.max(0,1-dist/Math.max(.01,width*.8))}
+     const n=k*4;pixels[n]=color[0]*(1-mix)+149*mix;pixels[n+1]=color[1]*(1-mix)+97*mix;pixels[n+2]=color[2]*(1-mix)+40*mix;pixels[n+3]=255;
+    }
+   }
+  }
+ }
+ // Outlines obey the same surface depth, so hidden edges cannot bleed through.
+ for(const f of faces){const color=f.p.isReference?[66,107,130]:(!assemblySelectionCleared&&f.p.id===state.selected)?[157,40,32]:[134,100,63],radius=(f.kind===2?.35:(!assemblySelectionCleared&&f.p.id===state.selected)?.8:.5)*resolution;
+  for(const ring of f.rings)for(let i=0;i<ring.length;i++){
+   const a=ring[i],b=ring[(i+1)%ring.length],steps=Math.max(1,Math.ceil(Math.hypot(b[0]-a[0],b[1]-a[1])*resolution));
+   for(let j=0;j<=steps;j++){
+    const t=j/steps,cx=(a[0]+(b[0]-a[0])*t)*resolution,cy=(a[1]+(b[1]-a[1])*t)*resolution;
+    for(let y=Math.max(0,Math.floor(cy-radius));y<=Math.min(H-1,Math.ceil(cy+radius));y++)for(let x=Math.max(0,Math.floor(cx-radius));x<=Math.min(W-1,Math.ceil(cx+radius));x++){
+     if(Math.hypot(x+.5-cx,y+.5-cy)>radius+.3)continue;
+     const k=y*W+x,z=planeValue(f.depthPlane,(x+.5)/resolution,(y+.5)/resolution);if(z<depth[k]-.03)continue;
+     const n=k*4;pixels[n]=color[0];pixels[n+1]=color[1];pixels[n+2]=color[2];pixels[n+3]=255;
+    }
+   }
+  }
+ }
+ // A change of visible part marks a joint, even when both faces have the same color.
+ for(let y=0;y<H;y++)for(let x=0;x<W;x++){
+  const k=y*W+x,id=owners[k];if(!id)continue;
+  const right=x+1<W?k+1:-1,below=y+1<H?k+W:-1;
+  if((right>=0&&owners[right]&&owners[right]!==id)||(below>=0&&owners[below]&&owners[below]!==id)){
+   const n=k*4;pixels[n]=134;pixels[n+1]=100;pixels[n+2]=63;pixels[n+3]=255;
+  }
+ }
+ g.putImageData(img,0,0);ctx.drawImage(depthSurface,0,0,W,H,0,0,w,h);return {owners,partIds,W,H,resolution};
+}
+function renderScene(rect){const w=rect.w,h=rect.h;if(!w||!h)return;const dpr=devicePixelRatio||1;ctx.setTransform(dpr,0,0,dpr,rect.x*dpr,rect.y*dpr);ctx.clearRect(0,0,w,h);ctx.fillStyle='#f5f5ef';ctx.fillRect(0,0,w,h);let b=bounds();if(viewCenter)b.center=viewCenter;let scale=frameScale*zoom;const project=v=>{let q=camera(v,b.center);return [w/2+panX+q[0]*scale,h/2+panY-q[1]*scale,q[2]]};function line(a,b,color,width=1){a=project(a);b=project(b);ctx.strokeStyle=color;ctx.lineWidth=width;ctx.beginPath();ctx.moveTo(a[0],a[1]);ctx.lineTo(b[0],b[1]);ctx.stroke()}let cx=Math.round(b.center[0]/100)*100,cz=Math.round(b.center[2]/100)*100,ext=Math.min(2000,Math.max(500,Math.ceil(b.size/100)*100));for(let i=-ext;i<=ext;i+=100){line([cx+i,0,cz-ext],[cx+i,0,cz+ext],'#dfe4d9');line([cx-ext,0,cz+i],[cx+ext,0,cz+i],'#dfe4d9')}
+let faces=[];
+function addFace(p,rings,kind){let projected=rings.map(r=>r.map(project)),pts=projected[0],area=signedArea(pts.map(v=>v.slice(0,2)));if(p.isReference&&area<0){projected=projected.map(r=>r.slice().reverse());pts=projected[0];area=-area}if(area<=.000001)return;const axis=rotate([0,0,1],p.rot),grain=rings[0].map(v=>v.reduce((sum,a,i)=>sum+(a-p.pos[i])*axis[i],0));faces.push({p,kind,pts,holes:projected.slice(1),rings:projected,depth:pts.reduce((s,v)=>s+v[2],0)/pts.length,depthPlane:facePlane(pts,pts.map(v=>v[2])),grainPlane:facePlane(pts,grain)})}
+for(let p of state.parts.filter(p=>p.used)){
+ let out=outline(p);if(signedArea(out)<0)out=[...out].reverse();let rings=[out,...(p.holes||[]).map(h=>signedArea(h)>0?[...h].reverse():h)];
+ const at=(v,y)=>world(p,[v[0]-p.w/2,y,v[1]-p.h/2]);
+ addFace(p,rings.map(r=>r.map(v=>at(v,6))),1);addFace(p,rings.map(r=>[...r].reverse().map(v=>at(v,-6))),0);
+ for(let r of rings)for(let i=0;i<r.length;i++){let a=r[i],b=r[(i+1)%r.length];addFace(p,[[at(a,-6),at(b,-6),at(b,6),at(a,6)]],2)}
+}
+for(const p of placedReferences())for(const ring of referenceFaces(p))addFace(p,[ring],1);
+faces.sort((a,b)=>a.depth-b.depth);hitFaces=faces;
+const labelSurface=drawDepthFaces(faces,w,h);
+if(showLabels)drawVisibleObjectLabels(labelSurface,rect.labelFont||12);if(!faces.length){ctx.textAlign='center';ctx.fillStyle='#5f7668';ctx.font='17px system-ui';ctx.fillText('材料を切り分けて、ここで組み立てよう',w/2,h/2-12);ctx.font='12px system-ui';ctx.fillText('部品を選び「この部品を組み立てに使う」を押します',w/2,h/2+15);ctx.textAlign='left'}}
+function syncZoomControls(){const slider=$('zoomSlider');if(!slider)return;slider.value=Math.log10(zoom);const label=n(zoom*100)+'%';slider.setAttribute('aria-valuetext',label);slider.title=label;$('zoomOut').disabled=zoom<=.001;$('zoomIn').disabled=zoom>=10000}
+function setZoom(value){zoom=Math.max(.001,Math.min(10000,value));render()}
+let cubeFaces=[],cubeDrag=null;
+function drawViewCube(){
+ const c=$('viewCube');if(!c)return;const d=devicePixelRatio||1;c.width=142*d;c.height=168*d;const g=c.getContext('2d');g.scale(d,d);g.clearRect(0,0,142,168);
+ const project=v=>{const q=camera(v,[0,0,0]);return [71+q[0]*29,72-q[1]*29]};
+ const definitions=[['右側面',[1,0,0]],['左側面',[-1,0,0]],['平面',[0,1,0]],['底面',[0,-1,0]],['正面',[0,0,1]],['背面',[0,0,-1]]];cubeFaces=[];
+ for(const [label,normal] of definitions){if(camera(normal,[0,0,0])[2]<1e-6)continue;const axis=normal.findIndex(v=>v!==0),others=[0,1,2].filter(i=>i!==axis),verts=[[-1,-1],[1,-1],[1,1],[-1,1]].map(pair=>{let v=[0,0,0];v[axis]=normal[axis];v[others[0]]=pair[0];v[others[1]]=pair[1];return v});cubeFaces.push({label,normal,verts,pts:verts.map(project)})}
+ for(const f of cubeFaces){g.beginPath();f.pts.forEach((v,i)=>i?g.lineTo(...v):g.moveTo(...v));g.closePath();g.fillStyle=f.label==='平面'?'#f7fafc':f.label==='正面'?'#e6eef3':'#d4e1e9';g.fill();g.strokeStyle='#648495';g.lineWidth=1.3;g.stroke();const q=project(f.normal);
+ // Label axes lie in the actual cube face: horizontal along the face,
+ // vertical toward its top (Z-up in the displayed coordinate system).
+ const n=f.normal,u=n[1]?[1,0,0]:n[0]?[0,0,-n[0]]:[n[2],0,0],v=n[1]?[0,0,n[1]]:[0,-1,0];
+ const origin=project([0,0,0]),pu=project(u),pv=project(v);
+ g.save();g.transform((pu[0]-origin[0])/29,(pu[1]-origin[1])/29,(pv[0]-origin[0])/29,(pv[1]-origin[1])/29,q[0],q[1]);
+ g.fillStyle='#284e60';g.font='bold 12px system-ui';g.textAlign='center';g.textBaseline='middle';g.fillText(f.label,0,0);g.restore()}
+ g.font='10px system-ui';g.fillStyle='#687f8a';g.textAlign='center';g.fillText('面・辺・角で視点切替',71,151);
+}
+function cubeTarget(x,y){
+ const face=[...cubeFaces].reverse().find(f=>inside(x,y,f.pts));if(!face)return null;
+ for(const f of cubeFaces)for(let i=0;i<4;i++)if(Math.hypot(x-f.pts[i][0],y-f.pts[i][1])<8)return f.verts[i];
+ for(let i=0;i<4;i++){const a=face.pts[i],b=face.pts[(i+1)%4],dx=b[0]-a[0],dy=b[1]-a[1],t=Math.max(0,Math.min(1,((x-a[0])*dx+(y-a[1])*dy)/(dx*dx+dy*dy)));if(Math.hypot(x-a[0]-dx*t,y-a[1]-dy*t)<6)return face.verts[i].map((v,j)=>(v+face.verts[(i+1)%4][j])/2)}
+ return face.normal;
+}
+function installViewCube(){
+ const c=document.createElement('canvas');c.id='viewCube';c.setAttribute('aria-label','視点キューブ。面・辺・角をクリックして視点切替。ドラッグで回転。');c.title='面・辺・角をクリックして視点切替／ドラッグで回転';canvas.parentElement.append(c);
+ const fitButton=document.createElement('button');fitButton.id='cubeFit';fitButton.type='button';fitButton.title='FIT：配置した部品全体を画面に収める';fitButton.setAttribute('aria-label','FIT：配置した部品全体を画面に収める');fitButton.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H3v5M16 3h5v5M21 16v5h-5M8 21H3v-5"/><rect x="8" y="8" width="8" height="8" rx="1"/></svg>';fitButton.onclick=()=>$('fitSelected').click();canvas.parentElement.append(fitButton);
+ const at=e=>{const r=c.getBoundingClientRect();return [e.clientX-r.left,e.clientY-r.top]};
+ c.onpointerdown=e=>{if(e.button!==0)return;e.preventDefault();const point=at(e),target=cubeTarget(...point);if(!target)return;centerRotationAtViewport();cubeDrag={target,x:e.clientX,y:e.clientY,sx:e.clientX,sy:e.clientY,moved:false};c.setPointerCapture(e.pointerId)};
+ c.onpointermove=e=>{if(!cubeDrag){c.style.cursor=cubeTarget(...at(e))?'grab':'default';return}if(Math.hypot(e.clientX-cubeDrag.sx,e.clientY-cubeDrag.sy)>4)cubeDrag.moved=true;if(cubeDrag.moved){yaw+=(e.clientX-cubeDrag.x)*.008;pitch=Math.max(-Math.PI/2,Math.min(Math.PI/2,pitch+(e.clientY-cubeDrag.y)*.008));render()}cubeDrag.x=e.clientX;cubeDrag.y=e.clientY};
+ c.onpointerup=()=>{if(!cubeDrag)return;if(!cubeDrag.moved){const v=cubeDrag.target;yaw=Math.hypot(v[0],v[2])>1e-8?Math.atan2(-v[0],v[2]):0;pitch=Math.atan2(v[1],Math.hypot(v[0],v[2]));if(fourViews){fourViews=false;fixedScale=null;zoom=1}render()}cubeDrag=null};c.onpointercancel=()=>{cubeDrag=null};drawViewCube();
+}
+function drawAxisGuide(w,h){
+ const length=Math.min(50,w/5,h/5),origin=[length+24,h-length-35];
+ ctx.save();ctx.lineWidth=2;ctx.font='12px system-ui';ctx.textAlign='center';ctx.textBaseline='middle';
+ for(const [v,label,color] of [[[1,0,0],'X','#a26154'],[[0,0,-1],'Y','#628954'],[[0,1,0],'Z','#5e8797']]){
+  const q=camera(v,[0,0,0]),x=origin[0]+q[0]*length,y=origin[1]-q[1]*length;
+  ctx.strokeStyle=color;ctx.fillStyle=color;ctx.beginPath();ctx.moveTo(...origin);ctx.lineTo(x,y);ctx.stroke();
+  ctx.fillText(label,origin[0]+q[0]*(length+13),origin[1]-q[1]*(length+13));
+ }
+ ctx.restore();
+}
+function render(){
+ if(!viewW||!viewH)return;const original=[yaw,pitch],dpr=devicePixelRatio||1,allHits=[];
+ const panes=fourViews?[
+ {name:'平面図',mode:'top',x:0,y:0,w:viewW/2,h:viewH/2},
+ {name:'等角図',mode:'iso',x:viewW/2,y:0,w:viewW/2,h:viewH/2},
+ {name:'正面図',mode:'front',x:0,y:viewH/2,w:viewW/2,h:viewH/2},
+ {name:'右側面図',mode:'side',x:viewW/2,y:viewH/2,w:viewW/2,h:viewH/2}
+ ]:[{name:'',x:0,y:0,w:viewW,h:viewH}];canvas.viewPanes=panes;frameScale=(fixedScale??=fittedScale(state.parts.filter(p=>p.used),panes[0].w,panes[0].h,bounds().center));
+ for(const pane of panes){if(fourViews)[yaw,pitch]=pane.mode==='iso'?original:viewAngles[pane.mode];ctx.save();ctx.setTransform(dpr,0,0,dpr,0,0);ctx.beginPath();ctx.rect(pane.x,pane.y,pane.w,pane.h);ctx.clip();renderScene(pane);drawAxisGuide(pane.w,pane.h);
+  const offset=r=>r.map(v=>[v[0]+pane.x,v[1]+pane.y,v[2]]);allHits.push(...hitFaces.map(f=>({...f,pts:offset(f.pts),holes:f.holes.map(offset),pane})));
+  if(fourViews){ctx.fillStyle='#ffffffed';const labelY=pane.y===0?30:8;ctx.fillRect(8,labelY,80,25);ctx.fillStyle='#284b3d';ctx.font='bold 13px system-ui';ctx.fillText(pane.name,16,labelY+18);ctx.strokeStyle='#bac9bc';ctx.lineWidth=1;ctx.strokeRect(.5,.5,pane.w-1,pane.h-1)}ctx.restore();
+ }
+ [yaw,pitch]=original;hitFaces=allHits;syncZoomControls();drawViewCube();$('fit').setAttribute('aria-pressed',String(fourViews));
+}
+function resize(){let r=canvas.parentElement.getBoundingClientRect();viewW=r.width;viewH=r.height;canvas.width=Math.round(viewW*(devicePixelRatio||1));canvas.height=Math.round(viewH*(devicePixelRatio||1));render()}new ResizeObserver(resize).observe(canvas.parentElement);
+function inside(x,y,ps){let c=false;for(let i=0,j=ps.length-1;i<ps.length;j=i++){let a=ps[i],b=ps[j];if((a[1]>y)!==(b[1]>y)&&x<(b[0]-a[0])*(y-a[1])/(b[1]-a[1])+a[0])c=!c}return c}
+canvas.oncontextmenu=e=>e.preventDefault();
+function sceneHit(e){const r=canvas.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top;return hitFaces.filter(f=>x>=f.pane.x&&x<=f.pane.x+f.pane.w&&y>=f.pane.y&&y<=f.pane.y+f.pane.h&&inside(x,y,f.pts)&&!f.holes.some(h=>inside(x,y,h))).sort((a,b)=>planeValue(b.depthPlane,x-b.pane.x,y-b.pane.y)-planeValue(a.depthPlane,x-a.pane.x,y-a.pane.y))[0]}
+function centerRotationAtViewport(){
+ const scale=frameScale*zoom;if(!scale||(!panX&&!panY))return;
+ const center=viewCenter||bounds().center,right=[Math.cos(yaw),0,Math.sin(yaw)],up=[Math.sin(yaw)*Math.sin(pitch),Math.cos(pitch),-Math.cos(yaw)*Math.sin(pitch)];
+ viewCenter=center.map((v,i)=>v-right[i]*panX/scale+up[i]*panY/scale);
+ panX=panY=0;fixedScale=frameScale;
+}
+canvas.onpointerdown=e=>{
+ if(e.button!==0&&e.button!==2)return;e.preventDefault();const hit=e.button===0?sceneHit(e):null,r=canvas.getBoundingClientRect();
+ if(hit){viewCenter=viewCenter?[...viewCenter]:[...bounds().center];fixedScale=frameScale;pick(hit.p.id)}
+ if(e.button===0&&!hit&&(!fourViews||(e.clientX-r.left>=viewW/2&&e.clientY-r.top<viewH/2)))centerRotationAtViewport();
+ canvas.setPointerCapture(e.pointerId);drag={part:hit?.p,vertical:!!hit&&e.shiftKey,startFloorOffset:hit?.p.floorOffset||0,angles:hit&&fourViews&&hit.pane.mode!=='iso'?viewAngles[hit.pane.mode]:[yaw,pitch],startPos:hit?[...hit.p.pos]:null,scale:frameScale*zoom,rotateAllowed:!fourViews||(e.clientX-r.left>=viewW/2&&e.clientY-r.top<viewH/2),button:e.button,x:e.clientX,y:e.clientY,sx:e.clientX,sy:e.clientY,moved:false};
+};
+canvas.onpointermove=e=>{
+ if(!drag){canvas.style.cursor=sceneHit(e)?'grab':'default';return}
+ const dx=e.clientX-drag.x,dy=e.clientY-drag.y;
+ if(!drag.moved&&Math.hypot(e.clientX-drag.sx,e.clientY-drag.sy)>4){if(drag.part)checkpoint();drag.moved=true}
+ if(drag.moved){
+  if(drag.part){const [a,b]=drag.angles,u=(e.clientX-drag.sx)/drag.scale,sp=Math.sin(b),v=Math.abs(sp)>.05?(e.clientY-drag.sy)/drag.scale/sp:0;
+   if(drag.vertical){const projectedHeight=Math.abs(Math.cos(b)),factor=projectedHeight>.25?projectedHeight:1;
+    moveOnFloor(drag.part,[drag.startPos[0],Math.min(100000,drag.startPos[1]-(e.clientY-drag.sy)/(drag.scale*factor)),drag.startPos[2]],'vertical');
+   }else moveOnFloor(drag.part,[Math.max(-100000,Math.min(100000,drag.startPos[0]+Math.cos(a)*u-Math.sin(a)*v)),drag.part.pos[1],Math.max(-100000,Math.min(100000,drag.startPos[2]+Math.sin(a)*u+Math.cos(a)*v))],true);canvas.style.cursor=drag.vertical?'ns-resize':'grabbing';refresh();
+  }else{if(drag.button===2){panX+=dx;panY+=dy}else if(drag.rotateAllowed){yaw+=dx*.008;pitch=Math.max(-Math.PI/2,Math.min(Math.PI/2,pitch+dy*.008))}render()}
+ }
+ drag.x=e.clientX;drag.y=e.clientY;
+};
+canvas.onpointerup=()=>{const clear=drag&&drag.button===0&&!drag.part&&!drag.moved;drag=null;canvas.style.cursor='default';if(clear){assemblySelectionCleared=true;refresh()}};
+canvas.onpointercancel=()=>{if(drag?.part&&drag.moved){drag.part.pos=[...drag.startPos];drag.part.floorOffset=drag.startFloorOffset;history.pop();refresh()}drag=null;canvas.style.cursor='default'};
+canvas.onwheel=e=>{e.preventDefault();if(drag)return;zoom=Math.max(.001,Math.min(10000,zoom*Math.exp(-e.deltaY*.001)));render()};
+document.querySelectorAll('[data-view]').forEach(btn=>btn.onclick=()=>{fourViews=false;fixedScale=null;viewCenter=null;[yaw,pitch]=viewAngles[btn.dataset.view];panX=panY=0;render()});$('fit').onclick=()=>{fourViews=true;fixedScale=null;[yaw,pitch]=viewAngles.iso;zoom=1;viewCenter=null;panX=panY=0;render()};
+$('fitSelected').onclick=()=>{if(!state.parts.some(p=>p.used)&&!placedReferences().length)return;fixedScale=null;viewCenter=null;panX=panY=0;zoom=1;render()};
+const solidCache=new Map();
+const dot3=(a,b)=>a.reduce((s,v,i)=>s+v*b[i],0),sub3=(a,b)=>a.map((v,i)=>v-b[i]),cross3=(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]];
+function solidCells(p){
+ const rings=[outline(p),...(p.holes||[])],key=JSON.stringify(rings);if(solidCache.has(key))return solidCache.get(key);
+ const levels=[...new Set(rings.flat().map(v=>v[1]))].sort((a,b)=>a-b),cells=[];
+ for(let i=0;i<levels.length-1;i++){
+  const lo=levels[i],hi=levels[i+1];if(hi-lo<1e-8)continue;const mid=(lo+hi)/2,edges=[];
+  for(const ring of rings)for(let j=0;j<ring.length;j++){const a=ring[j],b=ring[(j+1)%ring.length];if((a[1]>mid)!==(b[1]>mid)){const x=y=>a[0]+(y-a[1])*(b[0]-a[0])/(b[1]-a[1]);edges.push({x,m:x(mid)})}}
+  edges.sort((a,b)=>a.m-b.m);for(let j=0;j+1<edges.length;j+=2)cells.push([[edges[j].x(lo),lo],[edges[j+1].x(lo),lo],[edges[j+1].x(hi),hi],[edges[j].x(hi),hi]]);
+ }
+ if(solidCache.size>200)solidCache.clear();solidCache.set(key,cells);return cells;
+}
+function worldSolids(p){if(p.isReference){const vertices=refCorners(p),axes=[[1,0,0],[0,1,0],[0,0,1]].map(v=>rotate(v,p.rot));return [{vertices,edges:axes,normals:axes,min:[0,1,2].map(i=>Math.min(...vertices.map(v=>v[i]))),max:[0,1,2].map(i=>Math.max(...vertices.map(v=>v[i])))}]}return solidCells(p).map(r=>{
+ const vertices=[-6,6].flatMap(y=>r.map(v=>world(p,[v[0]-p.w/2,y,v[1]-p.h/2]))),vertical=rotate([0,1,0],p.rot),edges=[vertical],normals=[vertical];
+ for(let i=0;i<r.length;i++){const e=rotate([r[(i+1)%r.length][0]-r[i][0],0,r[(i+1)%r.length][1]-r[i][1]],p.rot);edges.push(e);normals.push(cross3(e,vertical))}
+ return {vertices,edges,normals,min:[0,1,2].map(i=>Math.min(...vertices.map(v=>v[i]))),max:[0,1,2].map(i=>Math.max(...vertices.map(v=>v[i])))};
+})}
+function sweepCells(a,b,delta){
+ let enter=-Infinity,exit=Infinity;
+ for(const raw of [...a.normals,...b.normals,...a.edges.flatMap(e=>b.edges.map(f=>cross3(e,f)))]){
+  const len=Math.hypot(...raw);if(len<1e-8)continue;const axis=raw.map(v=>v/len),aa=a.vertices.map(v=>dot3(v,axis)),bb=b.vertices.map(v=>dot3(v,axis));
+  const low=Math.min(...bb)-Math.max(...aa)+1e-6,high=Math.max(...bb)-Math.min(...aa)-1e-6,speed=dot3(delta,axis);
+  if(Math.abs(speed)<1e-10){if(low>=0||high<=0)return null;continue}
+  const t1=low/speed,t2=high/speed;enter=Math.max(enter,Math.min(t1,t2));exit=Math.min(exit,Math.max(t1,t2));if(enter>=exit)return null;
+ }
+ return exit>0&&enter<1?Math.max(0,enter):null;
+}
+function movementFraction(p,target){
+ const delta=sub3(target,p.pos);if(Math.hypot(...delta)<1e-9)return 1;let fraction=1;
+ const obstacles=[...state.parts.filter(q=>q.used),...placedReferences()].filter(q=>q.id!==p.id).flatMap(worldSolids);
+ for(const a of worldSolids(p))for(const b of obstacles){
+  if([0,1,2].some(i=>Math.max(a.max[i],a.max[i]+delta[i])<=b.min[i]+1e-6||Math.min(a.min[i],a.min[i]+delta[i])>=b.max[i]-1e-6))continue;
+  const hit=sweepCells(a,b,delta);if(hit!==null)fraction=Math.min(fraction,hit);
+ }
+ return Math.max(0,fraction- (fraction<1?1e-6/Math.hypot(...delta):0));
+}
+const JOIN_SNAP_DISTANCE=8;
+function partExtent(p){const vs=corners(p);return {min:[0,1,2].map(i=>Math.min(...vs.map(v=>v[i]))),max:[0,1,2].map(i=>Math.max(...vs.map(v=>v[i])))}}
+function snapAxisAlignedEdges(p){if(p.isReference)return;
+ const a=partExtent(p),candidates=[],tolerance=JOIN_SNAP_DISTANCE;
+ for(const q of state.parts.filter(q=>q.used&&q.id!==p.id)){
+  const b=partExtent(q);
+  if([0,1,2].some(i=>a.min[i]>b.max[i]+tolerance||b.min[i]>a.max[i]+tolerance))continue;
+  const offsets=axis=>[...new Set([b.min[axis]-a.min[axis],b.max[axis]-a.min[axis],b.min[axis]-a.max[axis],b.max[axis]-a.max[axis]].filter(v=>Math.abs(v)<=tolerance))];
+  const xs=offsets(0),zs=offsets(2);
+  for(const x of xs)candidates.push({x,z:0,count:1});
+  for(const z of zs)candidates.push({x:0,z,count:1});
+  for(const x of xs)for(const z of zs)candidates.push({x,z,count:2});
+ }
+ candidates.sort((a,b)=>b.count-a.count||Math.hypot(a.x,a.z)-Math.hypot(b.x,b.z));
+ for(const c of candidates){
+  const target=[p.pos[0]+c.x,p.pos[1],p.pos[2]+c.z];
+  if(movementFraction(p,target)<1-1e-7)continue;
+  const old=p.pos;p.pos=target;if(!solidCollision(p))return;p.pos=old;
+ }
+}
+// Snap to the actual rotated solid faces, keeping the gesture's movement plane.
+function snapSolidFaces(p,vertical=false){
+ const own=worldSolids(p),candidates=[],limit=JOIN_SNAP_DISTANCE;
+ const others=[...state.parts.filter(q=>q.used),...placedReferences()].filter(q=>q.id!==p.id);
+ for(const q of others)for(const a of own)for(const b of worldSolids(q)){
+  if([0,1,2].some(i=>a.min[i]>b.max[i]+limit||b.min[i]>a.max[i]+limit))continue;
+  const seen=[];
+  for(const raw of [...a.normals,...b.normals]){
+   const len=Math.hypot(...raw);if(len<1e-8)continue;const n=raw.map(v=>v/len);
+   if(seen.some(v=>Math.abs(dot3(v,n))>1-1e-8))continue;seen.push(n);
+   const aa=a.vertices.map(v=>dot3(v,n)),bb=b.vertices.map(v=>dot3(v,n));
+   const gaps=[Math.min(...bb)-Math.max(...aa),Math.max(...bb)-Math.min(...aa)];
+   for(const gap of gaps){
+    if(Math.abs(gap)<1e-5||Math.abs(gap)>limit)continue;
+    const dir=vertical?[0,n[1],0]:[n[0],0,n[2]],denom=dot3(dir,n);if(denom<1e-8)continue;
+    const delta=dir.map(v=>v*gap/denom),distance=Math.hypot(...delta);if(distance>limit)continue;
+    // A sweep just past the face proves contact with real geometry, not its bounding box.
+    const probe=delta.map(v=>v*(1+.001/distance)),hit=sweepCells(a,b,probe);
+    if(hit===null||Math.abs(hit*Math.hypot(...probe)-distance)>.002)continue;
+    candidates.push({delta,distance});
+   }
+  }
+ }
+ candidates.sort((a,b)=>a.distance-b.distance);
+ for(const {delta} of candidates){
+  const target=p.pos.map((v,i)=>v+delta[i]);if(target[1]<floorHeight(p)-1e-6)continue;
+  if(movementFraction(p,target)<1-1e-7)continue;
+  const old=p.pos;p.pos=target;if(!solidCollision(p))return true;p.pos=old;
+ }
+ return false;
+}
+function snapPartEdges(p,vertical=false){
+ if(snapSolidFaces(p,vertical))return;
+ // Axis bounds are valid alignment guides only when every object is axis aligned.
+ if(!vertical&&[p,...state.parts.filter(q=>q.used),...placedReferences()].every(q=>q.rot.every(v=>Math.abs(v/90-Math.round(v/90))<1e-7)))snapAxisAlignedEdges(p);
+}
+function moveOnFloor(p,target,snap=false){
+ target=[...target];target[1]=Math.max(floorHeight(p),target[1]);
+ const t=movementFraction(p,target);p.pos=p.pos.map((v,i)=>v+(target[i]-v)*t);
+ if(snap===true&&t<1){
+  // A mouse gesture need not be perfectly parallel to a contacting side board.
+  // Sweep the remaining floor components separately; never bypass collision checks.
+  const stopped=[...p.pos];let best=stopped,bestDistance=Math.hypot(target[0]-best[0],target[2]-best[2]);
+  for(const order of [[0,2],[2,0]]){
+   p.pos=[...stopped];
+   for(const axis of order){const next=[...p.pos];next[axis]=target[axis];const fraction=movementFraction(p,next);p.pos=p.pos.map((v,i)=>v+(next[i]-v)*fraction)}
+   const distance=Math.hypot(target[0]-p.pos[0],target[2]-p.pos[2]);if(distance<bestDistance){best=[...p.pos];bestDistance=distance}
+  }
+  p.pos=best;
+ }
+ if(snap)snapPartEdges(p,snap==='vertical');p.floorOffset=Math.max(0,p.pos[1]-floorHeight(p));
+}
+function solidCollision(p){const own=worldSolids(p),others=[...state.parts.filter(q=>q.used),...placedReferences()].filter(q=>q.id!==p.id).flatMap(worldSolids);return own.some(a=>others.some(b=>![0,1,2].some(i=>a.max[i]<=b.min[i]+1e-6||a.min[i]>=b.max[i]-1e-6)&&sweepCells(a,b,[0,0,0])!==null))}
+function turnPart(p,axis,angle){if(p.isReference){const angles=rotationAngles(p),start=angles[axis],steps=Math.max(1,Math.ceil(Math.abs(angle-start)));let lastRot=[...p.rot],lastPos=[...p.pos],lastAngles=[...angles];for(let step=1;step<=steps;step++){angles[axis]=start+(angle-start)*step/steps;p.rot=convertEuler(angles,false);p.pos[1]=Math.max(lastPos[1],refFloor(p));if(solidCollision(p)){p.rot=lastRot;p.pos=lastPos;p.rotationAngles=lastAngles;return}lastRot=[...p.rot];lastPos=[...p.pos];lastAngles=angles.map(v=>(v%360+360)%360);p.rotationAngles=lastAngles}return}
+ const original=rotationAngles(p),start=original[axis],steps=Math.max(1,Math.ceil(Math.abs(angle-start)));let lastRot=[...p.rot],lastPos=[...p.pos],lastAngles=[...original];
+ for(let i=1;i<=steps;i++){
+  const r=[...original];r[axis]=start+(angle-start)*i/steps;p.rot=convertEuler(r,false);groundAllParts();
+  if(solidCollision(p)){p.rot=lastRot;p.pos=lastPos;p.rotationAngles=lastAngles;return}lastRot=[...p.rot];lastPos=[...p.pos];lastAngles=r.map(v=>(v%360+360)%360);p.rotationAngles=lastAngles;
+ }
+}
+document.addEventListener('keydown',e=>{
+ if(e.key.toLowerCase()==='g'){
+  if(activeStep!==2||assemblySelectionCleared||!selected()?.used||e.target.closest('input,select,textarea,[contenteditable="true"]')||$('dialog').open||drag||e.metaKey||e.ctrlKey||e.altKey)return;
+  e.preventDefault();if(!e.repeat)$('dropToSupport').click();return;
+ }
+ const axis=['x','y','z'].indexOf(e.key.toLowerCase());
+ if(activeStep!==2||axis<0||e.target.closest('input,select,textarea,[contenteditable="true"]')||$('dialog').open||drag||e.metaKey||e.ctrlKey||e.altKey)return;
+ const p=selected();if(assemblySelectionCleared||!p?.used)return;e.preventDefault();checkpoint();
+ const target=toZUp(p.pos);target[axis]+=(e.shiftKey?-5:5);moveOnFloor(p,fromZUp(target));refresh();
+});
+
+function validLiftAmount(value){return Number.isInteger(value)&&value>=1&&value<=300}
+function liftSelectedPart(amount){
+ const p=refSelected()||selected();if((!p.isReference&&(assemblySelectionCleared||!p.used))||!validLiftAmount(amount))return;
+ const target=[...p.pos];target[1]+=amount;if(target[1]>100000)return;
+ checkpoint();moveOnFloor(p,target);refresh();
+}
+$('liftAmount').oninput=()=>{const input=$('liftAmount'),v=Number(input.value);$('liftSpecified').disabled=input.value.trim()===''||!validLiftAmount(v)};
+$('liftSpecified').onclick=()=>{if(!$('liftSpecified').disabled)liftSelectedPart(Number($('liftAmount').value))};
+$('dropToSupport').onclick=()=>{
+ const p=refSelected()||selected();if(!p.isReference&&(assemblySelectionCleared||!p.used))return;
+ const target=[p.pos[0],floorHeight(p),p.pos[2]];
+ if(Math.abs(target[1]-p.pos[1])<1e-7)return;
+ checkpoint();moveOnFloor(p,target);refresh();
+};
+function placeSelectedPart(){let p=selected();if(p.used)return;checkpoint();p.used=true;let others=state.parts.filter(a=>a.used&&a!==p);if(!others.length){fixedScale=null;zoom=1}p.pos=[others.length?Math.max(...others.flatMap(corners).map(v=>v[0]))+p.w/2+20:0,6,0];p.rot=[0,0,0];p.floorOffset=0;if(solidCollision(p)){const other=[...others,...placedReferences()].flatMap(q=>q.isReference?refCorners(q):corners(q));p.pos[0]=Math.max(...other.map(v=>v[0]))+p.w/2+20}refresh();$('fitSelected').click()};
+['px','py','pz','rx','ry','rz'].forEach((id,i)=>$(id).onchange=()=>{let v=Number($(id).value);if(!Number.isFinite(v)||Math.abs(v)>100000){message('位置・角度は ±100000 以内の数値にしてください。');refresh();return}checkpoint();if(i<3){let target=toZUp(selected().pos);target[i]=v;moveOnFloor(selected(),fromZUp(target))}else turnPart(refSelected()||selected(),i-3,v);refresh()});document.querySelectorAll('[data-rot]').forEach(btn=>btn.onclick=()=>{checkpoint();let p=refSelected()||selected(),i=Number(btn.dataset.rot);turnPart(p,i,rotationAngles(p)[i]+90);refresh()});$('partName').onchange=()=>{checkpoint();selected().name=$('partName').value.trim().slice(0,100)||selected().id;refresh()};function restoreHistoryState(snapshot){state=JSON.parse(snapshot);shapeDrafts.clear();cutSettings.clear();cutPartId=null;awaitingPartSelection=true;methodConfirmed=false;directionConfirmed=false;shapeDrag=null;pointHover=null;materialDrag=null;$('cutMode').value='saw';showCutStage('materials');message();refresh()}
+$('undo').onclick=()=>{if(history.length){redoHistory.push(JSON.stringify(state));restoreHistoryState(history.pop())}};
+$('redo').onclick=()=>{if(redoHistory.length){history.push(JSON.stringify(state));restoreHistoryState(redoHistory.pop())}};
+function dialog(html){const close=$('closeDialog');$('dialog').append(close);$('dialogBody').innerHTML=html;close.textContent='キャンセル';close.hidden=[...$('dialogBody').querySelectorAll('button')].some(button=>button.textContent.trim()==='キャンセル');$('dialog').showModal()}$('closeDialog').onclick=()=>$('dialog').close();
+function download(blob,name){let a=document.createElement('a'),url=URL.createObjectURL(blob);a.href=url;a.download=name;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),10000)}function filename(){return state.title.replace(/[\\/:*?"<>|]/g,'_')}
+
+let saveIdentity={grade:'0',klass:'0',number:'0',name:''};
+function designSaveName(info,date=new Date()){
+ const pad=v=>String(v).padStart(2,'0'),day=String(date.getFullYear())+pad(date.getMonth()+1)+pad(date.getDate()),time=pad(date.getHours())+pad(date.getMinutes());
+ const name=info.name.trim().replace(/[\\/:*?"<>|]/g,'').replace(/\s+/g,'');
+ return `${info.grade}${info.klass}${pad(info.number)}_${day}_${time}${name?'_'+name:''}.json`;
+}
+function openDesignSave(){
+ dialog('<h2>設計を保存</h2><p>学年・クラス・番号を選び、氏名を入力してください。氏名は必須です。<br>保存前にファイル名を確認します。</p><div class="saveIdentityGrid"><label>学年<select id="saveGrade" required><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option></select></label><label>クラス<select id="saveClass" required><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option></select></label><label>番号<select id="saveNumber" required><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="31">31</option><option value="32">32</option><option value="33">33</option><option value="34">34</option><option value="35">35</option><option value="36">36</option><option value="37">37</option><option value="38">38</option><option value="39">39</option><option value="40">40</option></select></label><label>氏名<input id="saveName" required type="text" maxlength="80" placeholder="氏名を入力"></label></div><p id="saveFilePreview" class="saveFilePreview"></p><div class="row"><button id="cancelDesignSave">キャンセル</button><button id="reviewDesignSave" class="primary">保存</button></div>');
+ const fields=[['saveGrade','grade'],['saveClass','klass'],['saveNumber','number'],['saveName','name']];
+ function update(){for(const [id,key]of fields)saveIdentity[key]=$(id).value;const hasName=saveIdentity.name.replace(/[\\/:*?"<>|\s]/g,'').length>0;const valid=fields.slice(0,3).every(([id])=>$(id).value!==''&&$(id).checkValidity())&&hasName&&validSaveIdentity(saveIdentity);$('reviewDesignSave').disabled=!valid;$('saveFilePreview').textContent=valid?'ファイル名：'+designSaveName(saveIdentity):'学年・クラス・番号を選び、氏名を入力してください。'}
+ for(const [id,key]of fields){$(id).value=saveIdentity[key];$(id).oninput=update}update();$('saveGrade').focus();
+ $('cancelDesignSave').onclick=()=>$('dialog').close();
+ $('reviewDesignSave').onclick=()=>{update();if($('reviewDesignSave').disabled)return;const name=designSaveName(saveIdentity);dialog('<h2>ファイル名の確認</h2><p>このファイル名で保存しますか？</p><p class="saveFilePreview">'+esc(name)+'</p><div class="row"><button id="reviseDesignSave">ファイル名修正に戻る</button><button id="confirmDesignSave" class="primary">保存する</button></div>');$('reviseDesignSave').onclick=openDesignSave;$('confirmDesignSave').onclick=()=>{state.lastDesignFilename=name;download(new Blob([JSON.stringify(designForSave(),null,2)],{type:'application/json'}),name);markDesignSaved();persist();syncSTLSave();$('dialog').close()}};
+}
+$('save').onclick=openDesignSave;
+$('load').onclick=requestOpenDesign;$('file').onchange=async()=>{let f=$('file').files[0];if(!f)return;try{if(f.size>20000000)throw Error();let s=designForRuntime(JSON.parse(await f.text()));if(!valid(s))throw Error();checkpoint();state=migrate(s);state.lastDesignFilename=f.name;markDesignSaved();shapeDrafts.clear();cutPartId=null;cutSettings.clear();refresh();message('設計ファイルを読み込みました。')}catch(e){message('読み込めませんでした。このアプリで保存した正しい設計JSONを選んでください。')}finally{$('file').value=''}};
+function exportConcept(){if(!state.parts.some(p=>p.used)){message('構想図を出力する前に、部品を組み立てに配置してください。');return}setStep(2);resize();render();let c=document.createElement('canvas');c.width=canvas.width;c.height=canvas.height+140;let g=c.getContext('2d');g.fillStyle='#fff';g.fillRect(0,0,c.width,c.height);g.fillStyle='#253d37';g.font='bold 26px system-ui';g.fillText(state.title,24,40,c.width-48);g.font='14px system-ui';g.fillText('杉・板厚12 mm ｜ 板材設計 V2.37 ｜ 構想図',24,70);g.drawImage(canvas,0,90);g.font='12px system-ui';g.fillText('支給材：610 × 170 mm 1枚、200 × 170 mm 2枚 ／ 線は繊維方向を示します',24,c.height-18,c.width-48);c.toBlob(b=>{if(b)download(b,filename()+'_構想図.png')},'image/png')};
+
+
+$('designOutput').onclick=()=>{dialog('<h2>設計＆構想図</h2><p>設計データは、あとから「設計を開く」で編集を再開できます。構想図は、Step2で組み立てた形を画像にします。</p><div class="row"><button id="outputDesign">設計データを保存（JSON）</button><button id="outputConcept" class="primary">構想図を保存（PNG）</button></div>');$('outputDesign').onclick=()=>$('save').click();$('outputConcept').onclick=()=>{$('dialog').close();exportConcept()}};
+$('externalInfo').onclick=()=>{dialog(`<h2>外部通信・ライセンス</h2><h3>外部通信とデータ</h3><p>このアプリはHTMLファイル1個で動作します。ローカルファイルとして使う場合、外部通信はありません。外部ライブラリー・解析ツール・広告は使用していません。</p><p>設計データはブラウザー内に自動保存します。読み込んだ設計ファイルや作成した部品を外部に送信しません。設計データと構想図は、ご自身の端末に保存します。</p><p>Web公開版を開く場合は、配信元からHTMLを取得します。下のライセンスリンクは、クリックしたときだけ外部サイトを開きます。</p><h3>CDN・外部ライブラリの使用状況</h3><p><strong>CDNから読み込むライブラリ：なし</strong><br>外部ライブラリの組み込み：なし</p><p>3D表示はブラウザー標準のCanvas 2Dで描画しています。PowerPoint（PPTX）とSTLの出力は、このHTML内のJavaScriptで生成しています。これらの機能のためにCDNへ接続したり、ライブラリをダウンロードしたりすることはありません。</p><h3>板材設計のライセンス</h3><p>作者：川俣 純<br><a href="https://creativecommons.org/licenses/by/4.0/deed.ja" target="_blank" rel="noopener noreferrer">Creative Commons 表示 4.0 国際（CC BY 4.0）</a>。営利・非営利を問わず、利用・複製・改変・再配布できます。</p><ul><li>作者名「川俣 純」を表示する</li><li>CC BY 4.0とライセンスへのリンクを示す</li><li>改変した場合は変更したことを明示する</li><li>後続利用者の権利を妨げる追加的な制約を設けない</li></ul><p>無保証で提供します。第三者が持つ権利のすべてを許諾するものではありません。</p><h3>端末にダウンロード</h3><p>このアプリはHTMLファイル1個だけで動作します。端末にダウンロードすれば、ご自身の端末で自由に改変することができます。ぜひバイブコーディング等で改変してみてください。</p><button id="downloadApp">端末にダウンロード</button>`);const actions=document.createElement('div');actions.style.cssText='display:flex;gap:10px;align-items:center;margin-top:12px';$('downloadApp').before(actions);actions.append($('downloadApp'),$('closeDialog'));$('dialogBody').scrollTop=0;$('downloadApp').onclick=()=>download(new Blob([appSource],{type:'text/html;charset=utf-8'}),'板材設計_V2.37.html');};
+$('help').onclick=()=>{dialog("<h2>板材設計 — 使い方</h2>\n<p>Designing with Wood Boards<br>板材を切り分け、3Dで組み立て、材料取り図と構想図をA4 1枚にまとめる設計ツールです。HTMLファイルをブラウザーで開いて使えます。</p>\n<h3>材料</h3>\n<p>材料A：610 × 170 mm、材料B・C：各200 × 170 mm。現在の板厚は12 mmです。木目の向きを確かめながら設計します。</p>\n<h3>Step1　材料を切り分ける</h3>\n<ol><li>加工する板・部品を選びます。組み立てに配置済みの部品は、Step2で未配置にしてから加工します。</li><li>切断方法を選び、「この切断方法を選択する」を押します。</li><li>のこぎり切断では、切断方向を選択し、寸法と切りしろを指定して切断します。切りしろは5 mmまたは10 mmです。</li></ol>\n<ul><li><strong>のこぎり切断：</strong>直線で切り分けます。仕上がり線や端の丸をドラッグして寸法を調整できます。赤線が仕上がり位置、間の破線が切断位置の目安です。</li><li><strong>糸のこ盤切断：</strong>点を置いて輪郭を作成したり、角を選んで丸めたりします。残す部分を指定して切断を確定します。</li><li><strong>自在ぎり切断：</strong>中心と直径を指定して円形に加工します。円の中心・円周をドラッグして位置や直径を調整できます。</li><li>角丸の半径は数値・スライダー・円弧のドラッグで調整できます。</li></ul>\n<h3>Step2　部品を配置する</h3>\n<p>部品一覧のクリックで「配置済み／未配置」を切り替えます。3D上の部品をクリックすると選択され、赤く表示されます。空白をクリックすると選択が解除されます。</p>\n<table><thead><tr><th>操作</th><th>動作</th></tr></thead><tbody>\n<tr><td>部品を左ドラッグ</td><td>床と平行に移動。近くの端にスナップします。</td></tr>\n<tr><td>Shift＋部品を左ドラッグ</td><td>Z方向（上下）に移動します。</td></tr>\n<tr><td>X・Y・Zキー</td><td>選択した部品を各軸の＋方向へ5 mm移動します。Shiftと同時に押すと−方向です。</td></tr>\n<tr><td>X回転・Y回転・Z回転</td><td>各軸まわりに90°ずつ回転します。角度欄で数値指定もできます。</td></tr>\n<tr><td>指定量だけ持ち上げる</td><td>1〜300 mmの整数で持ち上げます。初期値は選択した板の厚みに連動します。</td></tr>\n<tr><td>接地／Gキー</td><td>床または下にある部品に接する位置まで降ろします。</td></tr>\n<tr><td>空白を左ドラッグ／右ドラッグ</td><td>視点の回転／表示位置の移動。</td></tr>\n<tr><td>ホイール・拡大縮小スライダー</td><td>表示を拡大・縮小します。</td></tr>\n<tr><td>右上のキューブ／FIT</td><td>面・辺・角で視点を切り替え／配置した全体を画面に収めます。</td></tr>\n</tbody></table>\n<p>座標はZ軸が上向きです。部品や仮置き物と重なる移動を制限します。</p>\n<p><strong>仮置き：</strong>右側からCD・文庫・漫画・A4ファイル・A4ノートを追加し、収納できるか確認できます。一覧で配置済み／未配置を切り替え、部品と同じ操作で移動・回転・接地できます。寸法は実物に合わせて変更できます。</p>\n<h3>Step3　設計を保存</h3>\n<p>学年・クラス・番号を0以外に選び、氏名を入力して、設計データをJSON形式で保存します。0のまま、または氏名が空白では保存できません。後から「設計を開く」で編集を再開できます。</p>\n<p>設計ファイルの保存後は「STLで保存」も使えます。JSONと同じ名前を引き継いだSTLファイルに板材の形状を出力します。仮置き物はJSONには保存されますが、STLには含まれません。</p>\n<h3>Step4　設計＆構想図の作成</h3>\n<p>「参考にしたもの」に、何のどのアイディアを参考にしたかを120文字以内で記入します。未入力で印刷・PowerPoint出力をしようとすると警告します。</p>\n<p>材料取り図を大きく配置し、構想図、参考にしたもの、学年・クラス・番号・氏名、作成日時をA4縦1枚にまとめます。左側にはとじ込み用の余白があります。</p>\n<ul><li>プレビューの構想図をドラッグすると向きを変更できます。Shiftキーは不要です。「構想図を標準の向きに戻す」で戻せます。</li><li>「A4 1枚で印刷」で印刷し、「PowerPointで出力」でPPTXファイルを保存します。選んだ構想図の向きが反映されます。</li><li>PowerPointでは図は画像、参考にしたものや氏名などは編集できる文字として出力します。</li></ul>\n<h3>新規作成・履歴・自動保存</h3>\n<ul><li><strong>新規作成：</strong>確認後、現在の設計とブラウザー内の自動保存データを新しい設計に置き換えます。履歴も消えるため、残したい設計は先にJSONで保存してください。</li><li><strong>設計を開く：</strong>保存したJSONを読み込みます。未保存の変更がある場合は確認します。</li><li><strong>＜ 戻す ＞：</strong>「＜」と「戻す」で操作を取り消し、「＞」でやり直します。</li><li><strong>自動保存：</strong>設計はブラウザー内に保存されます。別の端末への移動や授業の続きには、JSONファイルを保存してください。</li></ul>\n<h3>動作環境・外部通信</h3>\n<p>CDN・外部ライブラリは使用していません。3D描画、JSON・STL・PPTXの生成はHTML内で処理します。ローカルファイルとして使う場合、アプリから外部通信は行いません。Web公開版の取得やライセンスリンクを開く際には通信します。詳細は「外部通信・ライセンス」をご覧ください。</p>\n");$('dialogBody').scrollTop=0};
+let activeStep=1;
+function setStep(step){if(step===2&&activeStep!==2){fixedScale=null;zoom=1}activeStep=step;document.querySelector('main').dataset.activeStep=String(step);for(let i of [1,2]){let area=$('step'+i);area.hidden=i!==step;area.classList.toggle('stepActive',i===step);$('goStep'+i).setAttribute('aria-pressed',String(i===step));}requestAnimationFrame(()=>{if(step===1){drawMaterials();shapeRefresh()}else resize()})}
+function showCutStage(which){document.querySelector('.materialStage').hidden=which!=='materials';document.querySelector('.editorStage').hidden=which!=='editor';$('backToMaterials').hidden=which!=='editor';$('editSelectedPart').hidden=which!=='materials'||(!cuttingMode()||cuttingMode()==='saw');requestAnimationFrame(()=>{drawMaterials();if(cuttingMode()!=='saw')drawShapeEditor()})}
+function arrangeScreens(){
+ const left=$('step1'),cutbox=left.querySelector('.cutbox'),materials=$('materials');
+ const workspace=document.createElement('div');workspace.className='cutWorkspace';
+ const stage=document.createElement('section');stage.className='cutStage';stage.innerHTML='<div class="stageToolbar"><button id="backToMaterials" hidden>← 材料図に戻る</button><button id="editSelectedPart" hidden>選択した部品を加工する →</button></div><div class="materialStage"></div><div class="editorStage" hidden></div>';
+ stage.querySelector('.materialStage').append(materials);stage.querySelector('.editorStage').append($('shapeCanvas'),$('mousePosition'));stage.append($('cutLegend'));
+ const controls=document.createElement('aside');controls.className='cutControls';controls.innerHTML='<label>切る部品<select id="cutPartSelect"></select></label>';controls.append(cutbox);
+ $('load').before($('undo'),$('redo'));$('reset').remove();
+ const partsPane=document.createElement('aside');partsPane.className='assemblyParts';partsPane.innerHTML='<h3>部品一覧 <small id="partsCountPlaceholder"></small></h3>';partsPane.querySelector('h3').append($('count'));const partHelp=document.createElement('p');partHelp.className='hint';partHelp.textContent='クリックで配置、もう一度クリックで解除します。色付きは配置済みです。';partsPane.append(partHelp,$('partList'));$('step2').querySelector('.assemblyBody').prepend(partsPane);
+ const viewButtons=document.querySelector('#step2 .sceneTop');viewButtons.replaceChildren($('fit'),$('fitSelected'),document.querySelector('[data-view="top"]'),document.querySelector('[data-view="iso"]'),document.querySelector('[data-view="front"]'),document.querySelector('[data-view="side"]'));partsPane.prepend(viewButtons);installViewCube();
+ const zoomControls=document.createElement('div');zoomControls.className='zoomControls';zoomControls.setAttribute('role','group');zoomControls.setAttribute('aria-label','拡大・縮小');zoomControls.innerHTML='<button id="zoomOut" aria-label="縮小" title="縮小">−</button><input id="zoomSlider" type="range" min="-3" max="4" step="0.01" value="0" aria-label="表示倍率"><button id="zoomIn" aria-label="拡大" title="拡大">＋</button>';viewButtons.after(zoomControls);
+ $('zoomOut').onclick=()=>setZoom(zoom/1.2);$('zoomIn').onclick=()=>setZoom(zoom*1.2);$('zoomSlider').oninput=e=>setZoom(10**Number(e.target.value));
+ left.replaceChildren(workspace);workspace.append(stage,controls);
+ // Secondary numeric editing remains available without making the default panel tall.
+ const advanced=document.createElement('details');advanced.className='pointAdvanced';advanced.innerHTML='<summary>点の座標を数値で入力・編集</summary>';
+ const scroll=$('scrollOptions');let addRow=$('newPointX').closest('.row'),editRow=$('pointX').closest('.row');advanced.append(addRow,$('addPoint'),editRow);scroll.append(advanced);
+ $('goStep1').onclick=()=>setStep(1);$('goStep2').onclick=()=>setStep(2);
+ $('backToMaterials').onclick=()=>showCutStage('materials');$('editSelectedPart').onclick=()=>showCutStage('editor');
+ $('cutPartSelect').onchange=()=>pick($('cutPartSelect').value);
+ showCutStage('materials');
+}
+function updateCutFlow(){
+ if(!$('methodFlow'))return;const mode=cuttingMode();
+ $('confirmMethod').hidden=methodConfirmed;$('methodFlow').closest('.cutbox').hidden=awaitingPartSelection;$('partFlow').nextElementSibling.hidden=awaitingPartSelection;$('methodFlow').nextElementSibling.hidden=!mode;
+ $('partFlow').classList.toggle('flowReady',awaitingPartSelection);$('partFlow').classList.toggle('flowDone',!awaitingPartSelection);$('cutMode').disabled=awaitingPartSelection;$('methodFlow').classList.toggle('flowReady',!mode&&!awaitingPartSelection);$('methodFlow').classList.toggle('flowDone',!!mode);
+ $('methodFlow').querySelector('.flowPrompt').textContent=mode||awaitingPartSelection?'② 切断方法を選ぶ':'② 切断方法を選んでください';
+ $('directionFlow').classList.toggle('flowReady',mode==='saw'&&!directionConfirmed);
+ $('sawDetails').hidden=!directionConfirmed;$('sawDetails').classList.toggle('flowReady',directionConfirmed&&!awaitingPartSelection);$('confirmDirection').hidden=directionConfirmed;
+ $('shapeControls').classList.toggle('flowReady',!!mode&&mode!=='saw');
+}
+function arrangeCutFlow(){
+ const part=$('cutPartSelect').closest('label');part.id='partFlow';part.classList.add('flowBox');part.firstChild.textContent='① 部品を選ぶ';
+ const arrow=()=>{let a=document.createElement('div');a.className='flowArrow';a.textContent='↓';a.setAttribute('aria-hidden','true');return a};part.after(arrow());
+ const method=$('cutMode').closest('label');method.id='methodFlow';method.classList.add('flowBox');method.firstChild.textContent='';let prompt=document.createElement('strong');prompt.className='flowPrompt';prompt.textContent='② 切断方法を選ぶ';method.prepend(prompt);const methodButton=document.createElement('button');methodButton.id='confirmMethod';methodButton.textContent='この切断方法を選択する';method.append(methodButton);methodButton.onclick=()=>$('cutMode').onchange();method.after(arrow());
+ const direction=$('cutDir').closest('label');direction.id='directionFlow';direction.classList.add('flowBox');direction.firstChild.textContent='③ 切断方向を選ぶ';
+ const confirm=document.createElement('button');confirm.id='confirmDirection';confirm.textContent='この切断方向を選択する';direction.append(confirm);confirm.onclick=()=>{directionConfirmed=true;updateCutFlow();preview()};
+ const details=document.createElement('div');details.id='sawDetails';details.className='flowBox';
+ while(direction.nextSibling)details.append(direction.nextSibling);$('sawControls').append(details);details.prepend(arrow());
+ const heading=document.createElement('strong');heading.textContent='④ 仕上がり寸法を決める';details.insertBefore(heading,details.children[1]);
+ $('shapeControls').classList.add('flowBox');let shapeHeading=document.createElement('strong');shapeHeading.textContent='③ 加工条件を選び、図で指定する';$('shapeControls').prepend(shapeHeading);
+ updateCutFlow();
+}
+arrangeScreens();
+arrangeCutFlow();
+setStep(1);
+initShapeControls();
+new ResizeObserver(()=>{if(cuttingMode()!=='saw')drawShapeEditor()}).observe($('shapeCanvas'));
+new ResizeObserver(()=>drawMaterials()).observe($('materials'));
+refresh();resize();
+// Four-step report workflow. All exports are generated locally.
+const reportCSS=document.createElement('style');reportCSS.textContent=`
+.stepTabs button[id^=goStep]{max-width:320px}.stepTabs #undo{margin-left:auto}.stepTabs #load{margin-left:0}
+#step3,#step4{height:100%;overflow:auto;padding:24px}.savePage{max-width:680px;margin:20px auto;background:white;padding:28px;border:1px solid var(--line);border-radius:12px}.savePage h2,.reportEditor h2{font-size:23px}.savePage input{width:100%}.savePage .row{margin-top:24px}
+.reportWorkspace{display:grid;grid-template-columns:310px minmax(0,1fr);gap:26px;max-width:1250px;margin:auto;align-items:start}.reportEditor{background:white;border:1px solid var(--line);border-radius:12px;padding:22px;position:sticky;top:0}.reportEditor label{font-size:16px;font-weight:650}.reportEditor textarea{display:block;width:100%;height:220px;margin:12px 0;padding:12px;font:14px/1.6 system-ui;border:2px solid #80a58d;border-radius:8px;resize:vertical}.reportEditor button{width:100%;margin-top:10px}.reportEditor p{color:#65786d}.reportPaper{width:210mm;height:297mm;padding:10mm;background:white;color:#263c34;box-shadow:0 3px 20px #243e2920;overflow:hidden;font-family:system-ui,sans-serif}.reportPreview{overflow:auto;padding:0 4px 20px}.reportPaper h1{font-size:19pt;letter-spacing:.03em;margin:0 0 5mm}.reportPaper h2{font-size:12pt;margin:0 0 3mm}.reportMaterials{height:126mm;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:2mm;margin-bottom:6mm}.reportMaterials img{width:100%;height:100%;object-fit:contain;min-height:0}.reportMaterials img:first-child{grid-column:1/-1}.reportBottom{display:grid;grid-template-columns:108mm 1fr;gap:6mm;height:122mm}.reportAssembly img{width:100%;height:108mm;object-fit:contain}.reportDetails{display:flex;flex-direction:column;min-width:0}.reportReferences{white-space:pre-wrap;overflow-wrap:anywhere;font-size:10pt;line-height:1.5;flex:0 0 78mm;overflow:hidden}.reportIdentity{border-top:1px solid #bcc9bf;padding-top:4mm;margin-top:auto;font-size:10pt}.reportName{font-size:17pt;font-weight:650;overflow-wrap:anywhere;margin-top:3mm}.reportEditor small{display:block}.reportMissing{color:#8a938c}#reportPrint{display:none}
+@media(max-width:1100px){.reportWorkspace{grid-template-columns:270px minmax(0,1fr)}.stepTabs{flex-wrap:wrap}.stepTabs button[id^=goStep]{flex:1 1 20%}}
+@page{size:A4 portrait;margin:0}@media print{body>*{display:none!important}body>#reportPrint{display:block!important}html,body{width:210mm;height:auto;overflow:visible;background:white}#reportPrint .reportPaper{box-shadow:none;margin:0;break-after:avoid;print-color-adjust:exact;-webkit-print-color-adjust:exact}}
+
+.reportPaper{position:relative;padding:10mm 10mm 10mm 20mm}.reportPaper>h1{position:absolute;left:20mm;top:10mm}.reportPaper>h2{position:absolute;left:20mm;top:24mm}.reportMaterials{position:absolute;left:20mm;top:32mm;width:180mm;height:140mm;margin:0}.reportAssembly{position:absolute;left:20mm;top:176mm;width:180mm}.reportViewGrid{display:grid;grid-template-columns:1fr 1fr;gap:3mm;height:68mm}.reportView{min-height:0;display:flex;flex-direction:column;text-align:center;font-size:9pt}.reportView img{width:100%;height:calc(100% - 5mm);object-fit:contain;min-height:0}.reportFooter{position:absolute;left:20mm;top:260mm;width:180mm;display:grid;grid-template-columns:112mm 62mm;gap:6mm}.reportFooter h2{font-size:10pt;margin:0 0 2mm}.reportReferences{height:12mm;line-height:6mm;font-size:10pt;background:repeating-linear-gradient(to bottom,transparent 0,transparent calc(6mm - 1px),#cbd3cc calc(6mm - 1px),#cbd3cc 6mm)}.reportIdentity{border:0;padding:0;margin:0;font-size:10pt}.reportName{font-family:"Hiragino Maru Gothic ProN","Hiragino Maru Gothic Pro","Yu Gothic",sans-serif;font-weight:400;font-size:17pt;margin-top:4mm}.reportEditor textarea{height:120px}
+.reportMaterials{display:block}.reportMaterials img{width:100%;height:100%}.reportName{font-size:14pt;line-height:1.35;white-space:pre-wrap;margin-top:3mm}
+.reportAssembly{width:112mm}.reportViewGrid{display:block;height:102mm}.reportView{height:100%}.reportView>div{display:none}.reportView img{height:100%}.reportFooter>section:first-child{position:absolute;left:118mm;top:-75mm;width:62mm}.reportFooter .reportIdentity{grid-column:2}.reportReferences{height:48mm}
+.reportName{text-align:center}.reportFooter .reportIdentity{position:relative}.reportFooter .reportIdentity::before{content:"";position:absolute;left:-2mm;top:-2mm;width:66mm;height:30mm;border:0.25mm solid #65746a;pointer-events:none;box-sizing:border-box}
+.reportCreatedAt{position:absolute;right:10mm;top:12mm;font-size:8pt;color:#65746a;text-align:right;white-space:nowrap}
+`;document.head.append(reportCSS);
+const oldSetStep=setStep;setStep=function(step){if(step<=2){$('step3').hidden=true;$('step4').hidden=true;oldSetStep(step)}else{activeStep=step;document.querySelector('main').dataset.activeStep=String(step);for(let i=1;i<=4;i++)$('step'+i).hidden=i!==step;if(step===3)fillSavePage();if(step===4){buildReportImages();updateReport();$('reportReferencesInput').focus()}}for(let i=1;i<=4;i++)$('goStep'+i).setAttribute('aria-pressed',String(step===i))};
+$('designOutput').remove();$('save').hidden=true;
+for(const [i,label]of [[3,'設計を保存'],[4,'設計＆構想図の作成']]){const b=document.createElement('button');b.id='goStep'+i;b.textContent='Step'+i+'　'+label;b.setAttribute('aria-pressed','false');$('goStep'+(i-1)).after(b);b.onclick=()=>setStep(i);const s=document.createElement('section');s.id='step'+i;s.hidden=true;document.querySelector('main').append(s)}
+const options=max=>'<option value="0">0</option>'+Array.from({length:max},(_,i)=>`<option>${i+1}</option>`).join('');
+$('step3').innerHTML=`<div class="savePage"><h2>Step3　設計を保存</h2><p>学年・クラス・番号を選び、名前を入力しましょう。<br>この情報は、次のレポートにも入ります。</p><div class="saveIdentityGrid"><label>学年<select id="reportGrade">${options(9)}</select></label><label>クラス<select id="reportClass">${options(9)}</select></label><label>番号<select id="reportNumber">${options(40)}</select></label><label>氏名（必須）<input id="reportStudentName" maxlength="40" placeholder="名前を入力してください" required></label></div><p id="reportSaveFile" class="saveFilePreview"></p><div class="row"><button id="saveStepDesign" class="primary">設計を保存する</button><button id="nextReport">Step4へ進む →</button></div><p id="saveStepStatus" role="status"></p></div>`;
+$('step4').innerHTML=`<div class="reportWorkspace"><div class="reportEditor"><h2>参考にしたものを<br>書いて仕上げよう</h2><p>本・Webサイト・身近な製品など、設計のヒントにしたものと、参考にした点を、短く簡潔に書きましょう。</p><label for="reportReferencesInput">参考にしたもの</label><textarea id="reportReferencesInput" maxlength="120" placeholder="例：〇〇先輩の◯◯を〇〇するアイディアを参考にしました。&#10;&#10;自宅にあった本棚の◯◯を〇〇にするアイディアを参考にしました。"></textarea><small id="referenceCount"></small><p>図と名前は自動で入ります。右のA4プレビューを確認してください。</p><button id="editReportIdentity">学年・クラス・番号・名前を変更</button><button id="printReport" class="primary">A4 1枚で印刷</button><button id="pptxReport">PowerPointで出力</button><small>図は画像、参考にしたものと名前は編集できる文字で出力します。</small><p id="reportExportStatus" role="status"></p></div><div class="reportPreview"><article class="reportPaper" id="reportPaper"><h1>設計＆構想図</h1><div id="reportCreatedAt" class="reportCreatedAt"></div><h2>材料取り図</h2><div class="reportMaterials" id="reportMaterials"></div><section class="reportAssembly"><h2>構想図</h2><div class="reportViewGrid">${['等角図'].map(t=>`<div class="reportView"><div>${t}</div><img alt="${t}"></div>`).join('')}</div></section><div class="reportFooter"><section><h2>参考にしたもの</h2><div class="reportReferences" id="reportReferenceText"></div></section><section class="reportIdentity"><div id="reportStudentMeta"></div><div class="reportName" id="reportNameText"></div></section></div></article></div></div>`;
+const reportPrint=document.createElement('div');reportPrint.id='reportPrint';document.body.append(reportPrint);
+function validSaveIdentity(i){return [['grade',9],['klass',9],['number',40]].every(([key,max])=>Number.isInteger(Number(i[key]))&&Number(i[key])>=1&&Number(i[key])<=max)&&typeof i.name==='string'&&i.name.trim().length>0&&i.name.replace(/[\\/:*?"<>|\s]/g,'').length>0}
+function reportInfo(){const i=state.reportIdentity||saveIdentity;return {grade:String(i.grade||0),klass:String(i.klass||0),number:String(i.number||0),name:String(i.name||'')}}
+function fillSavePage(){const i=reportInfo();$('reportGrade').value=i.grade;$('reportClass').value=i.klass;$('reportNumber').value=i.number;$('reportStudentName').value=i.name;updateSavePage(false)}
+function updateSavePage(write=true){const i={grade:$('reportGrade').value,klass:$('reportClass').value,number:$('reportNumber').value,name:$('reportStudentName').value};if(write){state.reportIdentity=i;saveIdentity={...i};persist()}const valid=validSaveIdentity(i);$('saveStepDesign').disabled=!valid;$('reportSaveFile').textContent=valid?'ファイル名：'+designSaveName(i):'学年・クラス・番号を0以外に選び、氏名を入力してください。';$('saveStepStatus').textContent=''}
+for(const id of ['reportGrade','reportClass','reportNumber','reportStudentName'])$(id).oninput=()=>updateSavePage();
+$('saveStepDesign').onclick=()=>{updateSavePage();if($('saveStepDesign').disabled)return;state.lastDesignFilename=designSaveName(reportInfo());download(new Blob([JSON.stringify(designForSave(),null,2)],{type:'application/json'}),state.lastDesignFilename);markDesignSaved();persist();syncSTLSave();$('saveStepStatus').textContent='設計ファイルを出力しました。Step4で参考にしたものを書きましょう。'};
+$('nextReport').onclick=()=>setStep(4);$('editReportIdentity').onclick=()=>setStep(3);
+$('reportReferencesInput').oninput=()=>{state.reportReferences=$('reportReferencesInput').value;persist();updateReport(false)};
+function updateReport(fill=true){const i=reportInfo(),ref=String(state.reportReferences||'');if(fill)$('reportReferencesInput').value=ref;$('referenceCount').textContent=ref.length+' / 120文字';$('reportReferenceText').textContent=ref||'参考にしたものを左の欄に記入してください。';$('reportReferenceText').classList.toggle('reportMissing',!ref);$('reportStudentMeta').textContent=`${i.grade}年 ${i.klass}組 ${i.number}番`;formatReportName(i.name||'（名前未入力）');$('reportReferenceText').style.fontSize='10pt'}
+let reportImages=[];let reportMaterialLayers=[];
+let reportCreatedAtText='';
+function buildReportImages(){const created=new Date(),pad=v=>String(v).padStart(2,'0');reportCreatedAtText=`作成日時：${created.getFullYear()}/${pad(created.getMonth()+1)}/${pad(created.getDate())} ${pad(created.getHours())}:${pad(created.getMinutes())}`;$('reportCreatedAt').textContent=reportCreatedAtText;
+ const main=document.querySelector('main'),ms=document.querySelector('.materialStage'),old={style:main.style.cssText,step:main.dataset.activeStep,hidden:$('step1').hidden,ms:ms.hidden,awaiting:awaitingPartSelection};
+ try{reportMaterialCapture=true;main.style.cssText+=';width:1000px;height:720px;flex:none';main.dataset.activeStep='1';$('step1').hidden=false;ms.hidden=false;awaitingPartSelection=true;drawMaterials();reportMaterialLayers=captureReportMaterials();reportImages=reportMaterialLayers.map(layer=>layer.canvas.toDataURL('image/png'))}finally{reportMaterialCapture=false;main.style.cssText=old.style;main.dataset.activeStep=old.step;$('step1').hidden=old.hidden;ms.hidden=old.ms;awaitingPartSelection=old.awaiting}
+ reportImages[0]=combineReportMaterials(reportMaterialLayers);
+ renderReportAssembly();
+ $('reportMaterials').replaceChildren(...reportImages.slice(0,1).map((src,i)=>{const img=new Image();img.src=src;img.alt='材料'+STOCK[i].id+'の材料取り図';return img}));document.querySelectorAll('.reportView img').forEach((img,i)=>img.src=reportImages[i+3]);
+}
+function readyReport(){if(!String(state.reportReferences||'').trim()){dialog('<h2>参考にしたものを入力してください</h2><p>参考にしたものが未入力です。入力してから、印刷またはPowerPoint出力を行ってください。</p>');$('dialog').addEventListener('close',()=>{$('reportReferencesInput').focus()},{once:true});return false}if(String(state.reportReferences||'').length>120){$('reportExportStatus').textContent='参考にしたものは120文字以内にしてください。';return false}if(!validSaveIdentity(reportInfo())){$('reportExportStatus').textContent='Step3で学年・クラス・番号を選び、氏名を入力してください。';return false}if(!String(state.reportReferences||'').trim()){$('reportExportStatus').textContent='参考にしたものを記入してから出力しましょう。';$('reportReferencesInput').focus();return false}if($('reportReferenceText').scrollHeight>$('reportReferenceText').clientHeight+1){$('reportExportStatus').textContent='参考にしたものが欄に収まりません。改行や文章を少し減らしてください。';return false}$('reportExportStatus').textContent='';return true}
+$('printReport').onclick=()=>{if(!readyReport())return;reportPrint.replaceChildren($('reportPaper').cloneNode(true));window.print()};
+// Minimal standards-based OOXML package; no network or external library needed.
+const xmlText=s=>String(s).replace(/[\u0000-\u0008\u000b\u000c\u000e-\u001f]/g,'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+function reportZip(files){const enc=new TextEncoder(),chunks=[],directory=[];let offset=0;const u16=(v,n,x)=>v.setUint16(n,x,true),u32=(v,n,x)=>v.setUint32(n,x,true);for(const [name,value]of Object.entries(files)){const path=enc.encode(name),data=typeof value==='string'?enc.encode(value):value;let crc=0xffffffff;for(const b of data){crc^=b;for(let i=0;i<8;i++)crc=(crc>>>1)^((crc&1)?0xedb88320:0)}crc=(crc^0xffffffff)>>>0;const h=new Uint8Array(30+path.length),v=new DataView(h.buffer);u32(v,0,0x04034b50);u16(v,4,20);u32(v,14,crc);u32(v,18,data.length);u32(v,22,data.length);u16(v,26,path.length);h.set(path,30);chunks.push(h,data);const c=new Uint8Array(46+path.length),d=new DataView(c.buffer);u32(d,0,0x02014b50);u16(d,4,20);u16(d,6,20);u32(d,16,crc);u32(d,20,data.length);u32(d,24,data.length);u16(d,28,path.length);u32(d,42,offset);c.set(path,46);directory.push(c);offset+=h.length+data.length}const end=new Uint8Array(22),ev=new DataView(end.buffer);u32(ev,0,0x06054b50);u16(ev,8,directory.length);u16(ev,10,directory.length);u32(ev,12,directory.reduce((s,c)=>s+c.length,0));u32(ev,16,offset);return new Blob([...chunks,...directory,end],{type:'application/vnd.openxmlformats-officedocument.presentationml.presentation'})}
+async function exportReportPptx(){
+ if(!readyReport())return;$('pptxReport').disabled=true;$('reportExportStatus').textContent='PowerPointファイルを作成しています…';
+ try{
+ const ns='http://schemas.openxmlformats.org/',a=ns+'drawingml/2006/main',p=ns+'presentationml/2006/main',r=ns+'officeDocument/2006/relationships',head='<?xml version="1.0" encoding="UTF-8" standalone="yes"?>',rel=(items)=>head+`<Relationships xmlns="${ns}package/2006/relationships">`+items.map(([id,type,target])=>`<Relationship Id="${id}" Type="${r}/${type}" Target="${target}"/>`).join('')+'</Relationships>',mm=v=>Math.round(v*36000);
+ let id=1;const xfrm=(x,y,w,h)=>`<a:xfrm><a:off x="${mm(x)}" y="${mm(y)}"/><a:ext cx="${mm(w)}" cy="${mm(h)}"/></a:xfrm>`;
+ function textBox(text,x,y,w,h,size,bold=false,font='Yu Gothic',center=false){const n=++id;return `<p:sp><p:nvSpPr><p:cNvPr id="${n}" name="Text ${n}"/><p:cNvSpPr txBox="1"/><p:nvPr/></p:nvSpPr><p:spPr>${xfrm(x,y,w,h)}<a:prstGeom prst="rect"><a:avLst/></a:prstGeom><a:noFill/><a:ln><a:noFill/></a:ln></p:spPr><p:txBody><a:bodyPr wrap="square" lIns="0" rIns="0" tIns="0" bIns="0"><a:normAutofit/></a:bodyPr><a:lstStyle/>${String(text).split('\n').map(line=>`<a:p>${center?'<a:pPr algn="ctr"/>':''}<a:r><a:rPr lang="ja-JP" sz="${size*100}" b="${bold?1:0}"><a:solidFill><a:srgbClr val="263C34"/></a:solidFill><a:latin typeface="${font}"/><a:ea typeface="${font}"/></a:rPr><a:t>${xmlText(line)}</a:t></a:r><a:endParaRPr lang="ja-JP" sz="${size*100}"/></a:p>`).join('')}</p:txBody></p:sp>`}
+ async function pic(src,index,x,y,w,h){const image=new Image();image.src=src;await image.decode();const f=Math.min(w/image.width,h/image.height),pw=image.width*f,ph=image.height*f,n=++id;return `<p:pic><p:nvPicPr><p:cNvPr id="${n}" name="${index===4?'等角図':'材料取り図 '+index}"/><p:cNvPicPr><a:picLocks noChangeAspect="1"/></p:cNvPicPr><p:nvPr/></p:nvPicPr><p:blipFill><a:blip r:embed="image${index}"/><a:stretch><a:fillRect/></a:stretch></p:blipFill><p:spPr>${xfrm(x+(w-pw)/2,y+(h-ph)/2,pw,ph)}<a:prstGeom prst="rect"><a:avLst/></a:prstGeom></p:spPr></p:pic>`}
+ const i=reportInfo(),ref=String(state.reportReferences||'');let shapes=textBox('設計＆構想図',20,10,180,10,19,true)+textBox(reportCreatedAtText,133,12,67,6,8)+textBox('材料取り図',20,24,180,7,12,true);
+ shapes+=await pic(reportImages[0],1,20,32,180,140);shapes+=textBox('構想図',20,176,180,7,12,true);
+ shapes+=await pic(reportImages[3],4,20,185,112,101);
+ shapes+=textBox('参考にしたもの',138,185,62,6,10,true)+textBox(ref,138,193,62,48,10)+textBox(`${i.grade}年 ${i.klass}組 ${i.number}番`,138,260,62,7,10)+textBox($('reportNameText').textContent,138,270,62,16,parseFloat($('reportNameText').style.fontSize)||14,false,'Hiragino Maru Gothic ProN',true);
+ shapes+=`<p:sp><p:nvSpPr><p:cNvPr id="${++id}" name="学年・クラス・番号・氏名の枠"/><p:cNvSpPr/><p:nvPr/></p:nvSpPr><p:spPr>${xfrm(136,258,66,30)}<a:prstGeom prst="rect"><a:avLst/></a:prstGeom><a:noFill/><a:ln w="9000"><a:solidFill><a:srgbClr val="65746A"/></a:solidFill></a:ln></p:spPr></p:sp>`;
+ for(const y of [199,205,211,217,223,229,235,241]){shapes+=`<p:sp><p:nvSpPr><p:cNvPr id="${++id}" name="記入線"/><p:cNvSpPr/><p:nvPr/></p:nvSpPr><p:spPr>${xfrm(138,y,62,.15)}<a:prstGeom prst="rect"><a:avLst/></a:prstGeom><a:solidFill><a:srgbClr val="CBD3CC"/></a:solidFill><a:ln><a:noFill/></a:ln></p:spPr></p:sp>`}
+ const group='<p:nvGrpSpPr><p:cNvPr id="1" name=""/><p:cNvGrpSpPr/><p:nvPr/></p:nvGrpSpPr><p:grpSpPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="0" cy="0"/><a:chOff x="0" y="0"/><a:chExt cx="0" cy="0"/></a:xfrm></p:grpSpPr>',root=`xmlns:a="${a}" xmlns:r="${r}" xmlns:p="${p}"`;
+ const files={};files['[Content_Types].xml']=head+`<Types xmlns="${ns}package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Default Extension="png" ContentType="image/png"/>`+[['/ppt/presentation.xml','presentation.main'],['/ppt/slides/slide1.xml','slide'],['/ppt/slideMasters/slideMaster1.xml','slideMaster'],['/ppt/slideLayouts/slideLayout1.xml','slideLayout']].map(([name,type])=>`<Override PartName="${name}" ContentType="application/vnd.openxmlformats-officedocument.presentationml.${type}+xml"/>`).join('')+`<Override PartName="/ppt/theme/theme1.xml" ContentType="application/vnd.openxmlformats-officedocument.theme+xml"/></Types>`;
+ files['_rels/.rels']=rel([['rId1','officeDocument','ppt/presentation.xml']]);
+ files['ppt/presentation.xml']=head+`<p:presentation ${root}><p:sldMasterIdLst><p:sldMasterId id="2147483648" r:id="rId2"/></p:sldMasterIdLst><p:sldIdLst><p:sldId id="256" r:id="rId1"/></p:sldIdLst><p:sldSz cx="7560000" cy="10692000" type="A4"/><p:notesSz cx="6858000" cy="9144000"/></p:presentation>`;
+ files['ppt/_rels/presentation.xml.rels']=rel([['rId1','slide','slides/slide1.xml'],['rId2','slideMaster','slideMasters/slideMaster1.xml']]);
+ files['ppt/slides/slide1.xml']=head+`<p:sld ${root}><p:cSld><p:bg><p:bgPr><a:solidFill><a:srgbClr val="FFFFFF"/></a:solidFill><a:effectLst/></p:bgPr></p:bg><p:spTree>${group}${shapes}</p:spTree></p:cSld><p:clrMapOvr><a:masterClrMapping/></p:clrMapOvr></p:sld>`;
+ files['ppt/slides/_rels/slide1.xml.rels']=rel([['rId1','slideLayout','../slideLayouts/slideLayout1.xml'],...reportImages.map((_,i)=>i+1).map(j=>['image'+j,'image',`../media/image${j}.png`])]);
+ const map='<p:clrMap accent1="accent1" accent2="accent2" accent3="accent3" accent4="accent4" accent5="accent5" accent6="accent6" bg1="lt1" bg2="lt2" folHlink="folHlink" hlink="hlink" tx1="dk1" tx2="dk2"/>';
+ files['ppt/slideMasters/slideMaster1.xml']=head+`<p:sldMaster ${root}><p:cSld><p:spTree>${group}</p:spTree></p:cSld>${map}<p:sldLayoutIdLst><p:sldLayoutId id="2147483649" r:id="rId1"/></p:sldLayoutIdLst><p:txStyles><p:titleStyle/><p:bodyStyle/><p:otherStyle/></p:txStyles></p:sldMaster>`;
+ files['ppt/slideMasters/_rels/slideMaster1.xml.rels']=rel([['rId1','slideLayout','../slideLayouts/slideLayout1.xml'],['rId2','theme','../theme/theme1.xml']]);
+ files['ppt/slideLayouts/slideLayout1.xml']=head+`<p:sldLayout ${root} type="blank" preserve="1"><p:cSld name="Blank"><p:spTree>${group}</p:spTree></p:cSld><p:clrMapOvr><a:masterClrMapping/></p:clrMapOvr></p:sldLayout>`;
+ files['ppt/slideLayouts/_rels/slideLayout1.xml.rels']=rel([['rId1','slideMaster','../slideMasters/slideMaster1.xml']]);
+ const solid='<a:solidFill><a:schemeClr val="phClr"/></a:solidFill>';
+ files['ppt/theme/theme1.xml']=head+`<a:theme xmlns:a="${a}" name="Board Design"><a:themeElements><a:clrScheme name="Board">${Object.entries({dk1:'263C34',lt1:'FFFFFF',dk2:'52634E',lt2:'F5F5EF',accent1:'28634D',accent2:'E8BB7E',accent3:'65899A',accent4:'BA705B',accent5:'ADBDA4',accent6:'C6A373',hlink:'0563C1',folHlink:'954F72'}).map(([k,v])=>`<a:${k}><a:srgbClr val="${v}"/></a:${k}>`).join('')}</a:clrScheme><a:fontScheme name="Japanese"><a:majorFont><a:latin typeface="Yu Gothic"/><a:ea typeface="Yu Gothic"/><a:cs typeface="Arial"/></a:majorFont><a:minorFont><a:latin typeface="Yu Gothic"/><a:ea typeface="Yu Gothic"/><a:cs typeface="Arial"/></a:minorFont></a:fontScheme><a:fmtScheme name="Simple"><a:fillStyleLst>${solid.repeat(3)}</a:fillStyleLst><a:lnStyleLst>${`<a:ln w="9525">${solid}<a:prstDash val="solid"/></a:ln>`.repeat(3)}</a:lnStyleLst><a:effectStyleLst>${'<a:effectStyle><a:effectLst/></a:effectStyle>'.repeat(3)}</a:effectStyleLst><a:bgFillStyleLst>${solid.repeat(3)}</a:bgFillStyleLst></a:fmtScheme></a:themeElements></a:theme>`;
+ reportImages.forEach((src,j)=>files[`ppt/media/image${j+1}.png`]=Uint8Array.from(atob(src.split(',')[1]),c=>c.charCodeAt(0)));
+ download(reportZip(files),designSaveName(i).replace(/\.json$/,'_設計＆構想図.pptx'));$('reportExportStatus').textContent='PowerPointファイルを出力しました。';
+ }catch(e){$('reportExportStatus').textContent='出力できませんでした：'+e.message}finally{$('pptxReport').disabled=false}
+}
+$('pptxReport').onclick=exportReportPptx;
+
+// Export the placed assembly in millimetres, using the same Z-up coordinates as JSON.
+const stlButton=document.createElement('button');stlButton.id='saveSTL';stlButton.textContent='STLで保存';$('saveStepDesign').after(stlButton);
+function syncSTLSave(){stlButton.disabled=!state.lastDesignFilename;stlButton.title=stlButton.disabled?'先に設計を保存してください':state.lastDesignFilename.replace(/\.json$/i,'.stl')}
+const originalUpdateSavePage=updateSavePage;updateSavePage=function(write=true){originalUpdateSavePage(write);syncSTLSave()};syncSTLSave();
+function stlTriangles(part){
+ // Subdivide shared horizontal edges identically to avoid gaps at hole and outline vertices.
+ const cells=solidCells(part),levels=new Map(),key=v=>v.map(x=>Math.round(x*1e7)/1e7).join(','),yk=y=>Math.round(y*1e7);
+ for(const cell of cells)for(const v of cell){const k=yk(v[1]);if(!levels.has(k))levels.set(k,new Set());levels.get(k).add(v[0])}
+ const edges=new Map(),triangles=[],at=(v,h)=>toZUp(world(part,[v[0]-part.w/2,h,v[1]-part.h/2]));
+ for(const cell of cells){let ring=[];for(let j=0;j<cell.length;j++){const a=cell[j],b=cell[(j+1)%cell.length];if(Math.hypot(a[0]-b[0],a[1]-b[1])<1e-7)continue;ring.push(a);if(Math.abs(a[1]-b[1])<1e-7){const xs=[...levels.get(yk(a[1]))].filter(x=>x>Math.min(a[0],b[0])+1e-7&&x<Math.max(a[0],b[0])-1e-7).sort((x,y)=>(x-y)*Math.sign(b[0]-a[0]));ring.push(...xs.map(x=>[x,a[1]]))}}
+  if(ring.length<3)continue;const center=[0,1].map(i=>ring.reduce((sum,v)=>sum+v[i],0)/ring.length);
+  for(let j=0;j<ring.length;j++){const a=ring[j],b=ring[(j+1)%ring.length],ka=key(a),kb=key(b),k=[ka,kb].sort().join('|');if(edges.has(k))edges.delete(k);else edges.set(k,[a,b]);triangles.push([at(center,6),at(b,6),at(a,6)],[at(center,-6),at(a,-6),at(b,-6)])}
+ }
+ for(const [a,b]of edges.values())triangles.push([at(a,6),at(b,6),at(b,-6)],[at(a,6),at(b,-6),at(a,-6)]);
+ return triangles.filter(t=>Math.hypot(...cross3(t[1].map((v,i)=>v-t[0][i]),t[2].map((v,i)=>v-t[0][i])))>1e-9);
+}
+function assemblySTL(){const triangles=state.parts.filter(p=>p.used).flatMap(stlTriangles),buffer=new ArrayBuffer(84+triangles.length*50),view=new DataView(buffer);new Uint8Array(buffer).set(new TextEncoder().encode('Designing with Wood Boards | millimetres | Z-up'));view.setUint32(80,triangles.length,true);let offset=84;for(const t of triangles){const normal=cross3(t[1].map((v,i)=>v-t[0][i]),t[2].map((v,i)=>v-t[0][i])),length=Math.hypot(...normal);for(const v of [normal.map(x=>x/length),...t])for(const x of v){view.setFloat32(offset,x,true);offset+=4}offset+=2}return new Blob([buffer],{type:'model/stl'})}
+stlButton.onclick=()=>{if(!state.lastDesignFilename)return;if(!state.parts.some(p=>p.used)){$('saveStepStatus').textContent='STLで保存する部品をStep2で配置してください。';return}download(assemblySTL(),state.lastDesignFilename.replace(/\.json$/i,'.stl'));$('saveStepStatus').textContent='配置した部品をSTLで出力しました。'};
+
+// Reference objects are separate from the timber parts and timber STL export.
+
+function validReferences(items){return Array.isArray(items)&&items.length<=40&&new Set(items.map(p=>p?.id)).size===items.length&&items.every(p=>p&&p.isReference===true&&typeof p.id==='string'&&p.id.startsWith('ref-')&&typeof p.name==='string'&&p.name.length<=100&&Array.isArray(p.size)&&p.size.length===3&&p.size.every(x=>Number.isFinite(x)&&x>=.1&&x<=5000)&&[p.pos,p.rot].every(a=>Array.isArray(a)&&a.length===3&&a.every(x=>Number.isFinite(x)&&Math.abs(x)<=100000))&&(p.mesh===null||Array.isArray(p.mesh)&&p.mesh.length>0&&p.mesh.length%9===0&&p.mesh.length<=180000&&p.mesh.every(x=>Number.isFinite(x)&&Math.abs(x)<=.500001)))&&items.reduce((s,p)=>s+(p.mesh?.length||0),0)<=180000}
+function references(){return state.references||[]}
+function placedReferences(){return references().filter(p=>p.used!==false)}
+function refSelected(){return placedReferences().find(p=>p.id===referenceSelection)}
+function refWorld(p,v){return toInternalRef(p,v)}
+function toInternalRef(p,v){return world(p,fromZUp(v.map((x,i)=>x*p.size[i])))}
+function refCorners(p){return [-.5,.5].flatMap(x=>[-.5,.5].flatMap(y=>[-.5,.5].map(z=>refWorld(p,[x,y,z]))))}
+function refFloor(p){return Math.max(...refCorners({...p,pos:[0,0,0]}).map(v=>-v[1]))}
+function referenceFaces(p){if(p.mesh){const result=[];for(let i=0;i<p.mesh.length;i+=9)result.push([0,3,6].map(j=>refWorld(p,p.mesh.slice(i+j,i+j+3))));return result}const c=[[-.5,-.5,-.5],[.5,-.5,-.5],[.5,.5,-.5],[-.5,.5,-.5],[-.5,-.5,.5],[.5,-.5,.5],[.5,.5,.5],[-.5,.5,.5]].map(v=>refWorld(p,v));return [[0,3,2,1],[4,5,6,7],[0,1,5,4],[1,2,6,5],[2,3,7,6],[3,0,4,7]].map(ids=>ids.map(i=>c[i]))}
+const refStyle=document.createElement('style');refStyle.textContent='.referenceTools{border-top:1px solid #ccd7d1;margin-top:18px;padding-top:12px}.referenceTools h3{font-size:16px!important}.referenceTools button{width:100%;margin:3px 0}.referenceItem[aria-pressed=true]{background:#daeaf4;border-color:#658fa8}.referenceItem{font-size:12px;text-align:left}.referenceSettings .row{margin:10px 0}.referenceSettings h3{color:#376780}';document.head.append(refStyle);
+const toolsPanel=document.createElement('section');toolsPanel.className='referenceTools';toolsPanel.innerHTML='<h3>仮置きするもの</h3><p class="hint">収納するものの大きさを確認できます。</p><div class="referenceAddRow"><select id="referenceType"><option value="CD">CD（ケース）</option><option value="文庫">文庫</option><option value="漫画">漫画</option><option value="A4ファイル">A4ファイル</option><option value="A4ノート">A4ノート</option></select><button id="addReference" class="primary">＋ 仮置きをする</button></div><p class="hint">一覧をクリックすると配置・解除を切り替えます。色付きは配置済みです。</p><div id="referenceList"></div><p id="referenceStatus" class="hint" role="status"></p>';document.querySelector('#step2 .right').append(toolsPanel);
+const refPanel=document.createElement('section');refPanel.className='referenceSettings';refPanel.hidden=true;refPanel.innerHTML='<h3>仮置きの大きさ</h3><label>名前<input id="referenceName" class="full" maxlength="60"></label><h3>大きさ（mm）</h3><div class="row"><label>幅 X<input id="referenceWidth" type="number" min="0.1" max="5000" step="0.1"></label><label>奥行 Y<input id="referenceDepth" type="number" min="0.1" max="5000" step="0.1"></label><label>高さ Z<input id="referenceHeight" type="number" min="0.1" max="5000" step="0.1"></label></div><label><input id="referenceRatio" type="checkbox" checked> 縦横比を保つ</label><button id="referenceDelete" class="full" style="margin-top:12px">この仮置きを取り除く</button><p class="hint">ドラッグで移動、Shift＋ドラッグで上下移動。X・Y・Zキーでも動かせます。<br>板材や他の仮置き物に当たると止まります。設計JSONには保存されますが、板材のSTLには含めません。</p>';document.querySelector('#step2 .right').append(refPanel);
+function refreshReferences(){if(!refSelected())referenceSelection=null;const p=refSelected();refPanel.hidden=!p;if(p){$('partName').closest('.right').firstElementChild.hidden=false;$('transform').hidden=false;['rx','ry','rz'].forEach((id,i)=>$(id).value=n(rotationAngles(p)[i]));$('referenceName').value=p.name;['referenceWidth','referenceDepth','referenceHeight'].forEach((id,i)=>$(id).value=n(p.size[i]))}const list=$('referenceList');list.replaceChildren(...references().map(p=>{const b=document.createElement('button');b.className='referenceItem part'+(p.used!==false?' placed':'')+(p.id===referenceSelection?' selected':'');b.innerHTML='<span>'+esc(p.name)+'<br><small>'+p.size.map(n).join(' × ')+'</small></span><span class="badge">'+(p.used!==false?'配置済み':'未配置')+'</span>';b.setAttribute('aria-pressed',String(p.used!==false));b.onclick=()=>{checkpoint();p.used=p.used===false;referenceSelection=p.used?p.id:null;assemblySelectionCleared=true;if(p.used){if(solidCollision(p))referenceFreePosition(p);fixedScale=null;viewCenter=null;zoom=1;panX=panY=0}refresh()};return b}));if(placedReferences().length){$('fitSelected').disabled=false;if($('cubeFit'))$('cubeFit').disabled=false}}
+function addReference(name,size,mesh=null){if(references().length>=40||references().reduce((sum,p)=>sum+(p.mesh?.length||0),mesh?.length||0)>180000){$('referenceStatus').textContent='仮置きは40個、STLは合計20,000面までです。不要な仮置きを取り除いてください。';return}checkpoint();const b=bounds(),p={id:'ref-'+Date.now()+'-'+Math.random().toString(36).slice(2,6),name,isReference:true,used:true,size,mesh,pos:[b.center[0],0,b.center[2]],rot:convertEuler([0,0,90],false),h:size[1]};p.pos[1]=size[2]/2;if(solidCollision(p))referenceFreePosition(p);(state.references??=[]).push(p);referenceSelection=p.id;assemblySelectionCleared=true;fixedScale=null;viewCenter=null;zoom=1;panX=panY=0;refresh()}
+$('addReference').onclick=()=>{const name=$('referenceType').value;addReference(name,{CD:[142,10,125],文庫:[105,15,148],漫画:[112,15,176],A4ファイル:[240,30,310],A4ノート:[210,5,297]}[name]);$('referenceStatus').textContent='標準的な寸法の目安です。実物に合わせて大きさを変更できます。'};
+$('referenceName').onchange=()=>{const p=refSelected();if(!p)return;checkpoint();p.name=$('referenceName').value.trim()||'仮置き';refresh()};
+['referenceWidth','referenceDepth','referenceHeight'].forEach((id,i)=>$(id).onchange=()=>{const p=refSelected(),v=Number($(id).value);if(!p)return;if(!Number.isFinite(v)||v<.1||v>5000){refreshReferences();return}const size=$('referenceRatio').checked?p.size.map(x=>x*v/p.size[i]):p.size.map((x,j)=>j===i?v:x);if(size.some(x=>x<.1||x>5000)){refreshReferences();return}checkpoint();const lift=p.pos[1]-refFloor(p),oldSize=p.size,oldPos=[...p.pos];p.size=size;p.pos[1]=refFloor(p)+Math.max(0,lift);if(solidCollision(p)){p.size=oldSize;p.pos=oldPos;$('referenceStatus').textContent='他の部品に当たるため、その大きさには変更できません。'}refresh()});
+$('referenceDelete').onclick=()=>{checkpoint();state.references=references().filter(p=>p.id!==referenceSelection);referenceSelection=null;refresh()};
+const baseRefresh=refresh;refresh=function(){baseRefresh();refreshReferences()};const basePick=pick;pick=function(id){const p=placedReferences().find(p=>p.id===id);referenceSelection=p?.id||null;if(p){assemblySelectionCleared=true;refresh();return true}return basePick(id)};
+
+const basePointerUp=canvas.onpointerup;canvas.onpointerup=function(e){if(drag&&!drag.part&&!drag.moved&&drag.button===0)referenceSelection=null;basePointerUp(e)};
+document.addEventListener('keydown',e=>{const p=refSelected();if(!p||activeStep!==2||$('dialog').open||/INPUT|TEXTAREA|SELECT/.test(e.target.tagName)||e.ctrlKey||e.metaKey||e.altKey)return;const k=e.key.toLowerCase();if(!['x','y','z','g'].includes(k))return;e.preventDefault();e.stopImmediatePropagation();checkpoint();if(k==='g')moveOnFloor(p,[p.pos[0],refFloor(p),p.pos[2]]);else{const i={x:0,y:2,z:1}[k],sign=k==='y'?-1:1,target=[...p.pos];target[i]+=sign*(e.shiftKey?-5:5);moveOnFloor(p,target)}refresh()},true);
+refreshReferences();
+
+
+function referenceFreePosition(p){const other=[...state.parts.filter(q=>q.used),...placedReferences()].filter(q=>q.id!==p.id).flatMap(q=>q.isReference?refCorners(q):corners(q));const local=refCorners({...p,pos:[0,0,0]});p.pos=[(other.length?Math.max(...other.map(v=>v[0])):0)-Math.min(...local.map(v=>v[0]))+20,refFloor(p),0]}
+const referenceEscape=document.createElement('button');referenceEscape.textContent='干渉している仮置きを空き位置へ移す';referenceEscape.className='full';referenceEscape.hidden=true;refPanel.append(referenceEscape);referenceEscape.onclick=()=>{const p=refSelected();if(!p)return;checkpoint();referenceFreePosition(p);refresh()};const collisionRefreshReferences=refreshReferences;refreshReferences=function(){collisionRefreshReferences();referenceEscape.hidden=!refSelected()||!solidCollision(refSelected())};
+
+// Labels must fit inside pixels owned by their visible object, including around holes.
+function drawVisibleObjectLabels(surface,fontSize=12){
+ const {owners,partIds,W,H,resolution}=surface,objects=[...state.parts.filter(p=>p.used),...placedReferences()],candidates=new Map(),step=Math.max(4,Math.round(9*resolution));
+ for(let y=step;y<H-step;y+=step)for(let x=step;x<W-step;x+=step){const id=owners[y*W+x];if(!id)continue;if(!candidates.has(id))candidates.set(id,[]);candidates.get(id).push([x,y])}
+ ctx.save();ctx.font=fontSize+'px system-ui';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillStyle='#304e3d';const boxes=[],labels=[];
+ objects.sort((a,b)=>Number(b.id===referenceSelection||!assemblySelectionCleared&&b.id===state.selected)-Number(a.id===referenceSelection||!assemblySelectionCleared&&a.id===state.selected));
+ for(const p of objects){const id=partIds.get(p.id),points=candidates.get(id);if(!points?.length)continue;const text=(!p.isReference&&partWarnings(p).length?'⚠ ':'')+p.name,hw=Math.ceil((ctx.measureText(text).width/2+3)*resolution),hh=Math.ceil((fontSize*.6+2)*resolution),center=points.reduce((v,q)=>[v[0]+q[0]/points.length,v[1]+q[1]/points.length],[0,0]);
+  points.sort((a,b)=>(a[0]-center[0])**2+(a[1]-center[1])**2-(b[0]-center[0])**2-(b[1]-center[1])**2);
+  for(const [x,y]of points){const box=[x-hw,y-hh,x+hw,y+hh];if(box[0]<0||box[1]<0||box[2]>=W||box[3]>=H||boxes.some(b=>box[0]<b[2]&&box[2]>b[0]&&box[1]<b[3]&&box[3]>b[1]))continue;let fits=true;
+   for(let yy=box[1];fits&&yy<=box[3];yy++)for(let xx=box[0];xx<=box[2];xx++){if(owners[yy*W+xx]!==id){fits=false;break}}
+   if(!fits)continue;ctx.fillText(text,x/resolution,y/resolution);boxes.push(box);labels.push({id:p.id,text,x:x/resolution,y:y/resolution});break;
+  }
+ }
+ ctx.restore();canvas.visibleLabels=labels;
+}
+
+function combineReportMaterials(layers){
+ const trimmed=layers.map(({canvas:c,origin,scale})=>{const g=c.getContext('2d'),d=g.getImageData(0,0,c.width,c.height).data;let left=c.width,top=c.height,right=0,bottom=0;for(let y=0;y<c.height;y++)for(let x=0;x<c.width;x++){const i=(y*c.width+x)*4;if(Math.min(d[i],d[i+1],d[i+2])<235){left=Math.min(left,x);right=Math.max(right,x);top=Math.min(top,y);bottom=Math.max(bottom,y)}}left=Math.max(0,left-4);top=Math.max(0,top-4);right=Math.min(c.width-1,right+4);bottom=Math.min(c.height-1,bottom+4);return {c,left,top,w:right-left+1,h:bottom-top+1,ox:origin[0]-left,oy:origin[1]-top,scale}});
+ const [a,b,c]=trimmed,pad=8,gap=24;let originX=Math.max(a.ox,c.ox)+pad,ax=originX-a.ox,bx=originX+(STOCK[0].w-STOCK[1].w)*a.scale-b.ox,cx=originX-c.ox,rowY=a.h+gap+pad,baseline=rowY+Math.max(b.oy,c.oy),by=baseline-b.oy,cy=baseline-c.oy;
+ if(cx+c.w+gap>bx)cx=bx-gap-c.w;const shift=Math.max(0,pad-Math.min(ax,bx,cx));ax+=shift;bx+=shift;cx+=shift;
+ const out=document.createElement('canvas');out.width=Math.ceil(Math.max(ax+a.w,bx+b.w,cx+c.w)+pad);out.height=Math.ceil(Math.max(by+b.h,cy+c.h)+pad);const g=out.getContext('2d');g.fillStyle='white';g.fillRect(0,0,out.width,out.height);for(const [p,x,y]of [[a,ax,pad],[b,bx,by],[c,cx,cy]])g.drawImage(p.c,p.left,p.top,p.w,p.h,x,y,p.w,p.h);return out.toDataURL('image/png');
+}
+function formatReportName(name){const g=document.createElement('canvas').getContext('2d'),max=62*96/25.4;let size=14,lines=[];for(;size>=8;size-=.5){g.font=`${size*96/72}px "Hiragino Maru Gothic ProN",sans-serif`;lines=[''];for(const ch of name){const i=lines.length-1;if(g.measureText(lines[i]+ch).width>max&&lines[i])lines.push(ch);else lines[i]+=ch}if(lines.length<=2)break}const el=$('reportNameText');el.style.fontSize=size+'pt';el.textContent=lines.join('\n');}
+
+
+function syncTransformAvailability(){const target=refSelected()||(!assemblySelectionCleared&&selected()?.used?selected():null);$('transform').hidden=false;$('partName').closest('.right').firstElementChild.hidden=false;for(const el of $('transform').querySelectorAll('input,button'))el.disabled=!target;if(!target){for(const id of ['rx','ry','rz'])$(id).value='';}else $('liftSpecified').disabled=!validLiftAmount(Number($('liftAmount').value));}
+const alwaysVisibleRefreshReferences=refreshReferences;refreshReferences=function(){alwaysVisibleRefreshReferences();syncTransformAvailability()};syncTransformAvailability();
+// Record the complete drawing before rasterizing. Canvas viewport size must never clip export content.
+function captureReportMaterials(){
+ const entries=STOCK.map(s=>{const canvas=document.querySelector(`canvas[data-stock="${s.id}"]`);return {canvas,original:canvas.getContext,commands:[],bounds:[Infinity,Infinity,-Infinity,-Infinity]}});
+ function extend(entry,g,x,y){const t=g.getTransform(),px=t.a*x+t.c*y+t.e,py=t.b*x+t.d*y+t.f;if(!Number.isFinite(px)||!Number.isFinite(py))return;entry.bounds[0]=Math.min(entry.bounds[0],px);entry.bounds[1]=Math.min(entry.bounds[1],py);entry.bounds[2]=Math.max(entry.bounds[2],px);entry.bounds[3]=Math.max(entry.bounds[3],py)}
+ function rect(entry,g,x,y,w,h){for(const [dx,dy]of [[0,0],[w,0],[0,h],[w,h]])extend(entry,g,x+dx,y+dy)}
+ for(const entry of entries){const native=entry.original.call(entry.canvas,'2d');entry.canvas.getContext=function(type,...args){if(type!=='2d')return entry.original.call(this,type,...args);return new Proxy(native,{get(g,key){const value=g[key];if(typeof value!=='function')return value;return (...args)=>{if(['measureText','getTransform','getImageData','isPointInPath','isPointInStroke'].includes(key))return value.apply(g,args);
+ if(['moveTo','lineTo'].includes(key))extend(entry,g,args[0],args[1]);
+ if(['rect','fillRect','strokeRect'].includes(key))rect(entry,g,...args);
+ if(key==='arc')rect(entry,g,args[0]-args[2],args[1]-args[2],args[2]*2,args[2]*2);
+ if(['bezierCurveTo','quadraticCurveTo'].includes(key))for(let i=0;i<args.length;i+=2)extend(entry,g,args[i],args[i+1]);
+ if(key==='fillText'||key==='strokeText'){const m=g.measureText(args[0]),size=parseFloat(g.font)||12;rect(entry,g,args[1]-(m.actualBoundingBoxLeft||0),args[2]-(m.actualBoundingBoxAscent||size),Math.max(m.width,(m.actualBoundingBoxLeft||0)+(m.actualBoundingBoxRight||m.width)),(m.actualBoundingBoxAscent||size)+(m.actualBoundingBoxDescent||size*.3))}
+ entry.commands.push([key,args]);return value.apply(g,args)}},set(g,key,value){entry.commands.push(['set',[key,value]]);g[key]=value;return true}})}}
+ try{drawMaterials()}finally{for(const e of entries)e.canvas.getContext=e.original}
+ return entries.map(entry=>{const source=entry.canvas,dpr=devicePixelRatio||1,labels=[...source.parentElement.querySelectorAll('.dimensionValue,.radiusAnnotation')].map(el=>{const radius=el.classList.contains('radiusAnnotation'),vertical=el.classList.contains('vertical'),x=(parseFloat(el.style.left)+(radius?7:0))*dpr,y=(parseFloat(el.style.top)+(radius?el.offsetHeight/2:0))*dpr;const g=source.getContext('2d');g.save();g.setTransform(1,0,0,1,0,0);g.font=12*dpr+'px system-ui';const w=g.measureText(el.textContent).width,h=18*dpr;rect(entry,g,x-(radius?0:vertical?h/2:w/2),y-(vertical?w/2:h/2),vertical?h:w,vertical?w:h);g.restore();return {text:el.textContent,x,y,vertical,radius}});
+ const padding=8*dpr,left=Math.floor(entry.bounds[0]-padding),top=Math.floor(entry.bounds[1]-padding),width=Math.ceil(entry.bounds[2]-left+padding),height=Math.ceil(entry.bounds[3]-top+padding),out=document.createElement('canvas');out.width=Math.max(1,width);out.height=Math.max(1,height);const g=out.getContext('2d');g.fillStyle='white';g.fillRect(0,0,out.width,out.height);g.translate(-left,-top);
+ for(const [key,args]of entry.commands){if(key==='set')g[args[0]]=args[1];else g[key](...args)}
+ g.setTransform(1,0,0,1,-left,-top);for(const label of labels){g.save();g.translate(label.x,label.y);if(label.vertical)g.rotate(-Math.PI/2);g.font=12*dpr+'px system-ui';g.fillStyle='#52634e';g.textAlign=label.radius?'left':'center';g.textBaseline='middle';g.fillText(label.text,0,0);g.restore()}
+ return {canvas:out,origin:source.materialOrigin.map((v,i)=>v*dpr-(i?top:left)),scale:source.materialScale*dpr};
+ });
+}
+
+
+const historyControls=document.createElement('div');historyControls.className='historyControls';historyControls.setAttribute('role','group');historyControls.setAttribute('aria-label','操作履歴');const historyBack=$('undo'),historyForward=$('redo');historyBack.textContent='＜';historyBack.title='元に戻す';historyBack.setAttribute('aria-label','元に戻す');historyForward.textContent='＞';historyForward.title='戻した操作をやり直す';historyForward.setAttribute('aria-label','戻した操作をやり直す');const historyLabel=document.createElement('button');historyLabel.id='historyBackLabel';historyLabel.textContent='戻す';historyLabel.title='元に戻す';historyLabel.onclick=()=>historyBack.click();historyControls.append(historyBack,historyLabel,historyForward);$('externalInfo').after(historyControls);
+const historyStateRefresh=refresh;refresh=function(){historyStateRefresh();historyLabel.disabled=historyBack.disabled};historyLabel.disabled=historyBack.disabled;
+const referenceInput=$('reportReferencesInput'),referenceLimitError=document.createElement('p');referenceLimitError.id='referenceLimitError';referenceLimitError.setAttribute('role','alert');referenceLimitError.style.cssText='color:#a33128;font-size:13px;margin:6px 0';referenceInput.after(referenceLimitError);referenceInput.setAttribute('aria-describedby','referenceCount referenceLimitError');let referenceComposing=false;
+function referenceLimitMessage(){referenceLimitError.textContent='120文字までです。これ以上入力できません。'}
+function referenceClip(text,limit){let result=text.slice(0,Math.max(0,limit));if(/[\uD800-\uDBFF]$/.test(result))result=result.slice(0,-1);return result}
+function commitReferenceInput(){if(referenceInput.value.length>120){const cursor=referenceInput.selectionStart;referenceInput.value=referenceClip(referenceInput.value,120);referenceInput.setSelectionRange(Math.min(cursor,referenceInput.value.length),Math.min(cursor,referenceInput.value.length));referenceLimitMessage()}else if(referenceInput.value.length<120)referenceLimitError.textContent='';state.reportReferences=referenceInput.value;persist();updateReport(false)}
+function insertReferenceText(text){const start=referenceInput.selectionStart,end=referenceInput.selectionEnd,room=Math.max(0,120-(referenceInput.value.length-(end-start)));referenceInput.setRangeText(referenceClip(text,room),start,end,'end');commitReferenceInput();if(text.length>room)referenceLimitMessage()}
+referenceInput.addEventListener('beforeinput',e=>{if(e.isComposing||referenceComposing||!e.inputType.startsWith('insert'))return;const text=e.data??(e.inputType==='insertLineBreak'?'\n':null);if(text===null)return;if(referenceInput.value.length-(referenceInput.selectionEnd-referenceInput.selectionStart)+text.length>120){e.preventDefault();insertReferenceText(text)}});
+referenceInput.addEventListener('paste',e=>{if(!e.clipboardData)return;e.preventDefault();insertReferenceText(e.clipboardData.getData('text/plain'))});
+referenceInput.addEventListener('compositionstart',()=>{referenceComposing=true});referenceInput.addEventListener('compositionend',()=>{referenceComposing=false;commitReferenceInput()});referenceInput.oninput=()=>{if(!referenceComposing)commitReferenceInput()};
+
+function sizeReferenceEditor(){const input=$('reportReferencesInput');if(!input.getBoundingClientRect().width)return;input.style.height='auto';input.style.height=Math.max(250,input.scrollHeight+4)+'px'}
+$('reportReferencesInput').style.cssText+=';min-height:250px;overflow-y:hidden;resize:none;';$('reportReferencesInput').addEventListener('input',sizeReferenceEditor);$('reportReferencesInput').addEventListener('compositionend',sizeReferenceEditor);new ResizeObserver(sizeReferenceEditor).observe($('reportReferencesInput').parentElement);const referenceSizeUpdate=updateReport;updateReport=function(fill=true){referenceSizeUpdate(fill);sizeReferenceEditor()};sizeReferenceEditor();
+$('externalInfo').before($('load'));
+function reportViewAngles(){const a=state.reportViewAngles;return Array.isArray(a)&&a.length===2&&a.every(Number.isFinite)?a:viewAngles.iso}
+function renderReportAssembly(){
+ const previous={referenceSelection,yaw,pitch,panX,panY,zoom,viewCenter,frameScale,fourViews,assemblySelectionCleared,showLabels,w:canvas.width,h:canvas.height,hitFaces};
+ try{referenceSelection=null;[yaw,pitch]=reportViewAngles();panX=panY=0;zoom=1;fourViews=false;viewCenter=bounds().center;assemblySelectionCleared=true;const w=800,h=720,d=devicePixelRatio||1;canvas.width=w*d;canvas.height=h*d;frameScale=fittedScale(state.parts.filter(p=>p.used),w,h,viewCenter)*1.2;showLabels=true;renderScene({x:0,y:0,w,h,labelFont:22});reportImages[3]=canvas.toDataURL('image/png');const img=document.querySelector('.reportView img');if(img)img.src=reportImages[3]}finally{({referenceSelection,yaw,pitch,panX,panY,zoom,viewCenter,frameScale,fourViews,assemblySelectionCleared,showLabels,hitFaces}=previous);canvas.width=previous.w;canvas.height=previous.h}
+}
+const reportRotationHint=document.createElement('p');reportRotationHint.className='hint';reportRotationHint.textContent='構想図は、ドラッグすると向きを変えられます。選んだ向きで印刷・PowerPoint出力します。';$('editReportIdentity').before(reportRotationHint);const resetReportAngle=document.createElement('button');resetReportAngle.textContent='構想図を標準の向きに戻す';resetReportAngle.onclick=()=>{checkpoint();delete state.reportViewAngles;refresh()};reportRotationHint.after(resetReportAngle);
+const reportRotationImage=document.querySelector('.reportView img');reportRotationImage.draggable=false;reportRotationImage.style.touchAction='none';reportRotationImage.title='ドラッグで構想図の向きを変更';let reportRotationDrag=null;
+reportRotationImage.onpointerdown=e=>{if(e.button!==0)return;e.preventDefault();const angle=[...reportViewAngles()];reportRotationDrag={x:e.clientX,y:e.clientY,angle,moved:false};reportRotationImage.setPointerCapture(e.pointerId);reportRotationImage.style.cursor='grabbing'};
+reportRotationImage.onpointermove=e=>{if(!reportRotationDrag){reportRotationImage.style.cursor='grab';return}const d=reportRotationDrag,dx=e.clientX-d.x,dy=e.clientY-d.y;if(!d.moved&&Math.hypot(dx,dy)<2)return;if(!d.moved){checkpoint();d.moved=true}state.reportViewAngles=[(d.angle[0]+dx*.009)%(Math.PI*2),Math.max(-Math.PI/2,Math.min(Math.PI/2,d.angle[1]+dy*.009))];renderReportAssembly()};
+reportRotationImage.onpointerup=()=>{if(reportRotationDrag?.moved)refresh();reportRotationDrag=null;reportRotationImage.style.cursor='grab'};
+reportRotationImage.onpointercancel=()=>{if(reportRotationDrag?.moved){state.reportViewAngles=reportRotationDrag.angle;history.pop();persist();renderReportAssembly()}reportRotationDrag=null;reportRotationImage.style.cursor='grab'};
+const reportRotationRefresh=refresh;refresh=function(){reportRotationRefresh();if(activeStep===4)renderReportAssembly()};
+
+
+reportRotationImage.style.cursor='grab';
+const newDesignButton=document.createElement('button');newDesignButton.id='newDesign';newDesignButton.textContent='新規作成';$('load').before(newDesignButton);
+newDesignButton.onclick=()=>{
+ const unsaved=hasUnsavedDesign();
+ dialog('<h2>新規作成しますか？</h2>'+(unsaved?'<p><strong>保存していない変更があります。</strong>残しておきたい場合は、先に設計ファイルを保存してください。</p>':'')+'<p>新規作成すると、現在の設計とブラウザーに自動保存されているデータは消え、新しい設計に置き換わります。戻す操作でも復元できません。保存済みの設計ファイルは消えません。</p><div class="row"><button id="cancelNewDesign">キャンセル</button><button id="saveBeforeNewDesign">先に設計を保存</button><button id="confirmNewDesign">'+(unsaved?'保存せずに新規作成':'新規作成する')+'</button></div>');
+ $('cancelNewDesign').onclick=()=>$('dialog').close();
+ $('saveBeforeNewDesign').onclick=()=>{$('dialog').close();setStep(3)};
+ $('confirmNewDesign').onclick=()=>{
+  $('dialog').close();state=fresh();history.length=0;redoHistory.length=0;shapeDrafts.clear();cutSettings.clear();cutPartId=null;awaitingPartSelection=true;methodConfirmed=false;directionConfirmed=false;shapeDrag=null;pointHover=null;materialDrag=null;drag=null;referenceSelection=null;assemblySelectionCleared=true;reportRotationDrag=null;
+  saveIdentity={grade:'0',klass:'0',number:'0',name:''};liftDefaultPart=null;liftDefaultThickness=null;[yaw,pitch]=viewAngles.iso;zoom=1;panX=panY=0;fixedScale=null;viewCenter=null;fourViews=false;reportImages=[];
+  $('cutMode').value='saw';$('file').value='';referenceLimitError.textContent='';$('reportReferencesInput').value='';$('reportExportStatus').textContent='';
+  try{localStorage.removeItem(KEY);localStorage.removeItem(KEY+'-saved-design')}catch(e){}
+  savedDesignSnapshot=designSnapshot();setStep(1);showCutStage('materials');message();refresh();syncSTLSave();
+ };
+ $('cancelNewDesign').focus();
+};
+
+
+const resetGuide=document.createElement('section');resetGuide.id='partResetGuide';resetGuide.innerHTML='<strong>部品の加工をやり直すには</strong><p>材料取り図の部品名（A-1など）を右クリック →「この部品を初期化する」を選びます。切り分けた寸法を保ち、穴・角丸などの加工と組み立て配置を初期化します。</p><p>材料全体を最初からやり直す場合は、材料名（材料Aなど）を右クリックします。操作は上部の「戻す」で取り消せます。</p>';
+const cutControls=document.querySelector('.cutControls'),cutControlsScroll=document.createElement('div');cutControlsScroll.className='cutControlsScroll';cutControlsScroll.append(...cutControls.childNodes);cutControls.append(cutControlsScroll,resetGuide);
+const resetGuideStyle=document.createElement('style');resetGuideStyle.textContent='.cutControls{overflow:hidden}.cutControlsScroll{flex:1;min-height:0;overflow:auto;display:flex;flex-direction:column;gap:8px}.cutControlsScroll>*{flex-shrink:0}#partResetGuide{flex:none;border-top:1px solid #cbd5c5;padding:10px 0 0;font-size:12px;line-height:1.6;color:#53665a;background:#fff}#partResetGuide strong{font-size:13px;color:#28634d}#partResetGuide p{margin:5px 0 0}';document.head.append(resetGuideStyle);
+
+</script></body></html>
