@@ -1,6 +1,6 @@
 # 板材設計
 
-Designing with Wood Boards — V2.37
+Designing with Wood Boards — V2.38
 
 Designing with Wood Boards
 板材を切り分け、3Dで組み立て、材料取り図と構想図をA4 1枚にまとめる設計ツールです。HTMLファイルをブラウザーで開いて使えます。
@@ -108,3 +108,9 @@ Step1の材料取り図で部品名を右クリックし、「この部品を初
 作者：川俣 純
 
 [Creative Commons 表示 4.0 国際（CC BY 4.0）](https://creativecommons.org/licenses/by/4.0/deed.ja)
+
+## 氏名等の扱い
+
+学年・クラス・番号・氏名はファイル名から取得します。JSON本文とブラウザーの自動保存には、これらの欄や保存ファイル名を含めません。ファイル名は `学年クラス番号2桁_YYYYMMDD_HHMM_氏名.json` の形式です。
+
+旧形式のJSONに含まれる氏名等も使用しません。ファイル名がこの形式でない場合はStep3で再入力してください。ブラウザーを再読み込みした場合も、設計ファイルを開き直すか再入力が必要です。ファイル名と印刷・PowerPointレポートには氏名等が含まれます。参考にしたもの等の自由記入欄は設計データとして保存します。
