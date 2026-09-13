@@ -1,6 +1,6 @@
 # 板材設計
 
-Designing with Wood Boards — V2.73
+Designing with Wood Boards — V2.74
 
 Designing with Wood Boards
 板材を切り分け、3Dで組み立て、材料取り図と構想図をA4 1枚にまとめる設計ツールです。HTMLファイルをブラウザーで開いて使えます。
