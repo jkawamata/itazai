@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>板材設計 V3.83</title>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>板材設計 V4.07</title>
 <style>
 :root{--ink:#253d37;--green:#28634d;--muted:#74817a;--line:#dce1d9;--bg:#f5f5ef;--wood:#e8bb7e}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.55 system-ui,-apple-system,sans-serif}button,input,select{font:inherit}button{cursor:pointer;background:white;color:var(--ink);border:1px solid var(--line);border-radius:7px;padding:8px 12px}button:hover{background:#edf2e9}button:disabled{opacity:.4;cursor:default}.primary{background:var(--green);color:white;border-color:var(--green)}.primary:hover{background:#194d38}header{padding:17px 24px;display:flex;align-items:center;gap:22px;background:#fff;border-bottom:1px solid var(--line)}h1{font-size:21px;letter-spacing:.08em;margin:0}small,.hint{color:var(--muted);font-size:12px}.brand{white-space:nowrap}.brand small{margin-left:8px}.project{width:220px;border:0;border-bottom:1px solid var(--line);border-radius:0}.actions{margin-left:auto;display:flex;gap:7px;flex-wrap:wrap}.ribbon{padding:10px 24px;display:flex;gap:24px;font-size:12px;background:#ecf0e6}.ribbon strong{color:var(--green)}main{display:grid;grid-template-columns:310px minmax(360px,1fr) 270px;min-height:calc(100vh - 123px)}aside{padding:20px;background:#fff}aside.left{border-right:1px solid var(--line)}aside.right{border-left:1px solid var(--line)}h2{font-size:15px;margin:0 0 12px;display:flex;gap:9px;align-items:center}h2 span{font-size:11px;background:#edf2e9;color:var(--green);padding:3px 7px;border-radius:5px}h3{font-size:13px;margin:20px 0 8px}input,select{min-width:0;padding:7px 8px;border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--ink)}input[type=number]{width:100%}label{display:block;font-size:12px;color:#5c6a60}label input,label select{margin-top:4px}select{width:100%}.row{display:flex;gap:8px;align-items:end}.row>*{flex:1}.material{padding:9px 10px;border:1px solid var(--line);border-radius:8px;margin:8px 0}.material canvas{width:100%;height:86px;display:block;cursor:pointer}.material .caption{display:flex;justify-content:space-between;font-size:12px}.cutbox{padding:12px;background:#f5f6f0;border-radius:8px}.cutbox button{width:100%;margin-top:10px}.scene{position:relative;display:flex;flex-direction:column;min-width:0}.sceneTop{padding:17px 18px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}.sceneTop h2{margin:0;margin-right:auto}.sceneTop button{font-size:12px;padding:6px 10px}.view{position:relative;flex:1;min-height:480px;overflow:hidden}#scene{display:block;width:100%;height:100%;position:absolute;touch-action:none;cursor:grab}.viewHelp{position:absolute;bottom:15px;left:20px;right:20px;text-align:center;pointer-events:none;font-size:12px;color:#67776b}.legend{position:absolute;top:0;left:20px;font-size:11px;color:#8a968d}.bottom{padding:13px 20px;border-top:1px solid var(--line);background:#fafbf7;display:flex;align-items:center;justify-content:space-between;gap:12px}.tag{font-size:12px;color:var(--green)}#partList{max-height:220px;overflow:auto;margin-top:10px}.part{width:100%;display:flex;justify-content:space-between;align-items:center;text-align:left;margin:3px 0;font-size:12px}.part.selected{background:#edf4e8;border-color:#598469}.badge{font-size:10px;color:#6f7f6d}.note{padding:10px 12px;background:#f7f0df;border-radius:7px;font-size:12px;color:#7a653b;margin:16px 0}.full{width:100%}.angles{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}.angles button{padding:6px 2px;font-size:12px}#message{min-height:24px;padding:0 24px;color:#9c4a23;background:#fff;font-size:12px}dialog{border:1px solid var(--line);border-radius:12px;max-width:560px;width:90%;padding:24px;color:var(--ink)}dialog::backdrop{background:#20392d66}dialog table{border-collapse:collapse;width:100%;margin:16px 0}td,th{text-align:left;padding:7px;border-bottom:1px solid var(--line);font-size:12px}.footerHelp{font-size:11px;color:var(--muted);margin-top:16px}@media(max-width:1050px){main{grid-template-columns:260px minmax(330px,1fr)}aside.right{grid-column:1/-1;border-top:1px solid var(--line);display:grid;grid-template-columns:1fr 1fr;gap:20px}header{flex-wrap:wrap}.actions{margin-left:0}}@media(max-width:640px){main{display:flex;flex-direction:column}header{padding:12px}.project{width:160px}.ribbon{padding:10px 12px;gap:10px;flex-wrap:wrap}aside{padding:16px}.view{min-height:420px}.scene{order:-1}.right{display:block!important}.actions button{font-size:12px;padding:6px 9px}.material canvas{height:75px}}@media print{header,.ribbon,.left,.right,.sceneTop,.viewHelp,.bottom,#message{display:none!important}main{display:block}.view{height:180mm}body{background:white}}
 
-/* V3.83: two steps and a larger interactive cutting plan */
+/* V4.07: two steps and a larger interactive cutting plan */
 main{grid-template-columns:420px minmax(0,1fr)}
 h2{font-size:21px;gap:10px}h2 span{font-size:14px;white-space:nowrap;padding:4px 8px}
 .assembly{display:flex;flex-direction:column;min-width:0}.assemblyBody{display:grid;grid-template-columns:minmax(300px,1fr) 260px;flex:1;min-height:0}.sceneTop{border-bottom:1px solid var(--line);background:#fff}.propertiesTitle{margin:0 0 14px;font-size:15px}
@@ -21,16 +21,16 @@ h1{font-size:34px;letter-spacing:.08em}.brand h1 small{font-size:13px}
 @media(max-width:760px){h1{font-size:30px}.stepHeading{flex-wrap:wrap}.stepState{margin-left:0}}
 @media print{.stepArea{outline:none}}
 
-.materialDrawing{position:relative}.dimensionOverlay{position:absolute;inset:0;pointer-events:none}.dimensionValue{position:absolute;pointer-events:auto;transform:translate(-50%,-50%);border:0;border-bottom:1px dotted #8e9584;border-radius:3px;padding:1px 4px;font-size:11px;line-height:18px;color:#757d6c;background:#fff9eccf;white-space:nowrap}.dimensionValue.vertical{transform:translate(-50%,-50%) rotate(-90deg)}.dimensionValue:hover,.dimensionValue:focus-visible{color:#245d46;background:#fff;outline:1px solid #688a70}.dimensionFallback:empty{display:none}.dimensionFallback{display:flex;flex-direction:column;gap:3px;font-size:11px;color:#78816f}.dimensionFallback button{font-size:11px;color:#757d6c;padding:2px 4px;text-decoration:underline;text-decoration-style:dotted}.dimensionEditError{color:#b33131;min-height:24px;font-size:13px}
+.materialDrawing{position:relative}.dimensionOverlay{position:absolute;inset:0;pointer-events:none}.dimensionValue{position:absolute;pointer-events:none;transform:translate(-50%,-50%);border:0;border-bottom:1px dotted #8e9584;border-radius:3px;padding:1px 4px;font-size:11px;line-height:18px;color:#757d6c;background:#fff9eccf;white-space:nowrap}.dimensionValue.vertical{transform:translate(-50%,-50%) rotate(-90deg)}.dimensionFallback:empty{display:none}.dimensionFallback{display:flex;flex-direction:column;gap:3px;font-size:11px;color:#78816f}.dimensionFallback button{font-size:11px;color:#757d6c;padding:2px 4px;text-decoration:underline;text-decoration-style:dotted}
 
-.materialDrawing{overflow:auto;max-width:100%;scrollbar-width:thin}.dimensionSurface{position:relative}.dimensionValue{background:transparent;border:0;color:#7b8474;padding:0 2px;line-height:16px}.dimensionValue:hover,.dimensionValue:focus-visible{background:#fff}.material canvas,.material:first-child canvas{max-width:none}
+.materialDrawing{overflow:auto;max-width:100%;scrollbar-width:thin}.dimensionSurface{position:relative}.dimensionValue{background:transparent;border:0;color:#7b8474;padding:0 2px;line-height:16px}.material canvas,.material:first-child canvas{max-width:none}
 [hidden]{display:none!important}#shapeStatus{color:#9b492a}.cutbox h3{margin-top:12px}
 @media(min-width:761px){main[data-active-step="1"]{grid-template-columns:minmax(0,64fr) minmax(0,36fr)}main[data-active-step="2"]{grid-template-columns:minmax(0,28fr) minmax(0,72fr)}main{height:calc(100vh - 140px);min-height:560px;align-items:stretch}.left,.assembly{min-width:0;overflow:auto}.assembly{display:block}.assemblyBody{min-height:calc(100vh - 220px)}main[data-active-step="1"] .assemblyBody{display:flex;flex-direction:column}main[data-active-step="1"] .assemblyBody aside.right{display:block}main[data-active-step="2"] .assemblyBody{display:grid;grid-template-columns:minmax(0,1fr) 260px}main[data-active-step="2"] .assemblyBody aside.right{display:block;grid-column:auto}.sceneTop{position:sticky;top:0;z-index:2}.view{min-height:420px}.left>.stepHeading{position:sticky;top:-20px;padding:12px 0;background:#f0f6ec;z-index:3}main[data-active-step="1"] #shapeCanvas{height:320px!important}h2{flex-wrap:wrap}}
 @media(min-width:761px) and (max-width:1100px){main[data-active-step="2"] .assemblyBody{display:flex;flex-direction:column}}
 .processedDetails details{margin-top:12px;border-top:1px solid #cdd7c6;padding-top:8px}.processedDetails summary{cursor:pointer;color:#52684e;font-size:13px}.detailDrawing{overflow:auto}.detailDrawing svg{display:block;min-width:520px;width:100%;height:auto}.vertexTable{max-height:160px;overflow:auto}.vertexTable table{width:100%;border-collapse:collapse}.vertexTable td,.vertexTable th{font-size:11px;padding:3px 6px}.dimensionValue{font-size:12px}
 @media print{main{height:auto}.left,.assembly{overflow:visible}.sceneTop{position:static}}
 
-/* V3.83: two full-screen workspaces */
+/* V4.07: two full-screen workspaces */
 html,body{height:100%;overflow:hidden}body{display:flex;flex-direction:column}header{flex:none;padding:10px 18px}h1{font-size:28px}.ribbon{padding:5px 18px;flex:none}#message{height:20px;min-height:20px;overflow:hidden;flex:none}.stepTabs{display:flex;gap:8px;padding:7px 18px;border-bottom:1px solid #cdd8c7;background:#fff;flex:none}.stepTabs button{flex:1;max-width:440px;padding:8px 14px;font-weight:650}.stepTabs [aria-pressed="true"]{background:#28634d;color:white}.stepTabs [aria-pressed="false"]{background:#f2f5ef}main,main[data-active-step="1"],main[data-active-step="2"]{display:block;flex:1;min-height:0;height:auto;overflow:hidden}#step1,#step2{width:100%;height:100%;min-height:0;overflow:hidden;outline:none;padding:0}.cutWorkspace{display:grid;grid-template-columns:minmax(0,1fr) 330px;height:100%;min-height:0}.cutStage{display:flex;flex-direction:column;min-width:0;min-height:0;padding:10px 16px}.stageToolbar{display:flex;gap:6px;flex:none}.stageToolbar button{padding:5px 12px}.stageToolbar [aria-pressed="true"]{background:#dfebd7;border-color:#749368}.materialStage,.editorStage{flex:1;min-height:0;overflow:auto}.materialStage #materials{height:100%;margin:8px 0 0;gap:8px;grid-template-rows:1fr 1fr;align-items:stretch}.material{padding:7px 10px;overflow:auto;min-height:0}.material .caption{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.material .selection{min-height:18px}.materialDrawing{overflow:auto}.cutLegend{flex:none;margin:6px 0 0}.editorStage{display:flex;flex-direction:column;padding-top:8px}.editorStage #shapeCanvas,main[data-active-step="1"] #shapeCanvas{flex:1;min-height:150px;height:100%!important;max-height:calc(100% - 26px);width:100%}.editorStage #mousePosition{height:24px;flex:none}.cutControls{padding:10px 12px;border-left:1px solid #d5dfce;overflow:auto;min-height:0;display:flex;flex-direction:column;gap:8px}.cutbox{padding:0;border:0;background:transparent}.cutbox h3{font-size:13px;margin:6px 0}.cutbox label{font-size:12px}.cutbox button{margin-top:5px;padding:6px}.cutbox input,.cutbox select{padding:5px 7px}.cutbox p.hint{font-size:11px;line-height:1.35;margin:5px 0}.cutbox #shapeHelp{display:none}#scrollOptions>.hint{display:none}#shapeStatus{margin:5px 0}#pointCount{font-size:11px}.pointAdvanced{margin-top:6px;font-size:12px}.pointAdvanced summary{cursor:pointer}.undoRow{display:flex;gap:6px;margin-top:auto;padding-top:8px}.undoRow button{flex:1;font-size:12px;padding:5px}.cutControls #applyShape,.cutControls #cut{font-weight:650}.cutControls .cutbox>label{font-weight:650}#step2{display:flex;flex-direction:column}#step2 .sceneTop{position:static;flex:none;padding:8px 14px}#step2 .sceneTop h2{font-size:17px}#step2 .assemblyBody,main[data-active-step="2"] #step2 .assemblyBody{display:grid;grid-template-columns:190px minmax(0,1fr) 260px;flex:1;min-height:0;height:0}#step2 .assemblyParts{padding:10px;overflow:auto;border-right:1px solid #dae2d4}#step2 .assemblyParts h3{margin:0}#partList{max-height:none}#step2 .right{padding:12px;overflow:auto;display:block;grid-column:auto}#step2 .right>div:nth-child(2){display:none}#step2 .scene{min-height:0}#step2 .view{min-height:0}#step2 .bottom{padding:7px 12px}#step2 .right .note{margin:8px 0}#step2 h3{margin:10px 0 6px}dialog{max-height:90vh;overflow:auto;max-width:850px}
 @media(max-width:1050px){header{gap:10px;flex-wrap:nowrap}.actions{margin-left:auto}.ribbon{gap:10px;font-size:11px}.cutWorkspace{grid-template-columns:minmax(0,1fr) 300px}#step2 .assemblyBody,main[data-active-step="2"] #step2 .assemblyBody{grid-template-columns:155px minmax(0,1fr) 235px}}
 @media(max-width:700px){header{flex-wrap:wrap;padding:6px 10px}.actions{gap:3px}h1{font-size:21px}.ribbon{display:none}.stepTabs{padding:5px 8px}.stepTabs button{font-size:12px;padding:7px 4px}.cutWorkspace{grid-template-columns:minmax(0,1fr) 210px}.cutStage{padding:6px}.stageToolbar{flex-wrap:wrap}.stageToolbar button{font-size:11px;padding:4px}.materialStage #materials{display:flex;flex-direction:column;height:auto}.material{flex:none}.material .caption strong{font-size:13px}.cutControls{padding:7px}.cutControls .row{gap:4px}#step2 .assemblyBody,main[data-active-step="2"] #step2 .assemblyBody{grid-template-columns:minmax(0,1fr) 190px}#step2 .assemblyParts{grid-column:1/-1;max-height:85px}#step2 .assemblyParts #partList{display:flex;gap:4px;overflow:auto}#step2 .assemblyParts .part{min-width:95px}#step2 .sceneTop h2{font-size:13px}#step2 .sceneTop{gap:4px}#step2 .sceneTop button{padding:4px;font-size:11px}#step2 .right{padding:6px}.viewHelp{font-size:10px;bottom:5px}.legend{font-size:9px}.cutLegend{font-size:10px}.cutControls label{font-size:11px}}
@@ -119,9 +119,9 @@ header .historyControls #historyBackLabel{padding:0 3px;font-weight:750;color:#5
 header .historyControls #undo,header .historyControls #redo{border:1px solid #bd7412;border-radius:5px;background:#fff8e5;padding:3px 7px;line-height:22px}
 header .historyControls #undo:hover:not(:disabled),header .historyControls #redo:hover:not(:disabled){background:#ffe49a}
 </style><style>#message{display:none!important}</style><style>.materialStage{scrollbar-gutter:stable}</style><style>.material .caption strong[role="button"]{cursor:pointer;border-radius:4px}.material .caption strong[role="button"]:hover{background:#e5eee2}.material .caption strong[role="button"]:focus-visible{outline:2px solid #28634d}</style></head><body>
-<header><div class="brand"><svg class="woodBrandIcon" viewBox="0 0 56 56" aria-hidden="true"><defs><linearGradient id="woodPlankFace" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f4d8a6"/><stop offset="1" stop-color="#d9ae70"/></linearGradient></defs><g stroke="#356b55" stroke-width="1.4" stroke-linejoin="round"><path d="m4 35 33-17 15 8-33 18Z" fill="#d6ad76"/><path d="m4 35 15 9v4L4 39Z" fill="#b7854e"/><path d="m19 44 33-18v4L19 48Z" fill="#c99a61"/><path d="M7 25 40 8l12 7-33 18Z" fill="url(#woodPlankFace)"/><path d="m7 25 12 8v4L7 29Z" fill="#bb8c53"/><path d="m19 33 33-18v4L19 37Z" fill="#d0a069"/></g><g fill="none" stroke="#ad824a" stroke-width="1" stroke-linecap="round" opacity=".8"><path d="m14 25 28-14m-23 17 28-14M11 36l4 2m9 1 20-11"/><path d="m25 21 5-2c2-1 4-3 6-3"/></g></svg><div class="brandText"><h1><button id="help" title="使い方を開く" aria-label="板材設計の使い方">板材設計 <small>V3.83</small></button></h1><div class="appSubtitle" lang="en">Designing with Wood Boards</div></div></div><div class="ribbon"><strong>1人分</strong><span>杉　板厚12</span><span>610 × 170：1枚</span><span>200 × 170：2枚</span><span>↔ 木目</span></div><div class="actions"><button id="externalInfo">ⓘ 外部通信・ライセンス</button><input type="file" id="file" accept=".json" hidden></div></header>
+<header><div class="brand"><svg class="woodBrandIcon" viewBox="0 0 56 56" aria-hidden="true"><defs><linearGradient id="woodPlankFace" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f4d8a6"/><stop offset="1" stop-color="#d9ae70"/></linearGradient></defs><g stroke="#356b55" stroke-width="1.4" stroke-linejoin="round"><path d="m4 35 33-17 15 8-33 18Z" fill="#d6ad76"/><path d="m4 35 15 9v4L4 39Z" fill="#b7854e"/><path d="m19 44 33-18v4L19 48Z" fill="#c99a61"/><path d="M7 25 40 8l12 7-33 18Z" fill="url(#woodPlankFace)"/><path d="m7 25 12 8v4L7 29Z" fill="#bb8c53"/><path d="m19 33 33-18v4L19 37Z" fill="#d0a069"/></g><g fill="none" stroke="#ad824a" stroke-width="1" stroke-linecap="round" opacity=".8"><path d="m14 25 28-14m-23 17 28-14M11 36l4 2m9 1 20-11"/><path d="m25 21 5-2c2-1 4-3 6-3"/></g></svg><div class="brandText"><h1><button id="help" title="使い方を開く" aria-label="板材設計の使い方">板材設計 <small>V4.07</small></button></h1><div class="appSubtitle" lang="en">Designing with Wood Boards</div></div></div><div class="ribbon"><strong>1人分</strong><span>杉　板厚12</span><span>610 × 170：1枚</span><span>200 × 170：2枚</span><span>↔ 木目</span></div><div class="actions"><button id="externalInfo">ⓘ 外部通信・ライセンス</button><input type="file" id="file" accept=".json" hidden></div></header>
 <div id="message" role="status" aria-live="polite"></div>
-<nav class="stepTabs" aria-label="作業手順"><button id="goStep1" aria-pressed="true">Step1　材料を切り分ける</button><button id="goStep2" aria-pressed="false">Step2　部品を配置する</button><button id="load">設計を開く</button><button id="save">設計を保存</button><button id="designOutput">設計＆構想図の印刷</button></nav><main><aside class="left stepArea" id="step1"><h2 role="button" tabindex="0" aria-pressed="true" class="stepHeading"><span>Step1</span>材料を切り分ける</h2><div class="hint">板をクリックして選択。赤い仕上がり寸法線は5 mm刻みでドラッグできます。薄い寸法値をクリックすると、その寸法で切断できます。</div><div id="materials"></div><div id="cutLegend" class="cutLegend"><b></b>赤線：仕上がり寸法　／　赤い帯：切断・仕上げの余裕</div><div class="cutbox"><label>切断方法<select id="cutMode"><option value="saw">のこぎり切断</option><option value="scroll">糸のこ盤切断</option><option value="sander">ベルトサンダー加工</option><option value="circle">自在ぎり切断</option></select></label><div id="sawControls" style="margin-top:12px"><label>切断方向<select id="cutDir"><option value="w">横びき（木材の繊維を切断）</option><option value="h">縦びき（木材の繊維に沿って切断）</option></select></label><div class="row" style="margin-top:8px"><label>寸法の基準<select id="cutFrom"><option value="near">左端から</option><option value="far">右端から</option></select></label><label><span id="cutLabel">左端から (mm)</span><input id="cutAt" type="number" value="200" min="1" step="1"></label><label>切りしろ (mm)<select id="kerf"><option value="5">5 mm</option><option value="10">10 mm</option></select></label></div><div id="cutPreview" class="hint" style="margin-top:7px"></div><button id="cut" class="primary">のこぎりで切断</button></div><div id="shapeControls" hidden><h3 id="shapeTitle"></h3><p id="shapeHelp" class="hint"></p><canvas id="shapeCanvas" style="width:100%;height:250px;touch-action:none;border:1px solid #ced8c8;border-radius:6px"></canvas><div id="scrollOptions"><label id="scrollTaskRow">加工方法<select id="scrollTask"><option value="contour">輪郭で切り分ける</option></select></label><label id="lineTypeRow">切断線<select id="lineType"><option value="closed">一部を切り抜く</option><option value="open">一部を切り取る</option></select></label><p id="processGuide" class="hint"></p><div id="cornerButtons" class="row" hidden><button id="allCorners">全ての角を選択</button><button id="noCorners">選択を解除</button></div><div class="row"><label>スナップ<select id="plotSnap"><option value="5">5 mm刻み</option><option value="1">1 mm刻み</option></select></label><label>角丸半径 R<input id="cornerRadius" type="number" min="0" step="1" value="10"></label></div><input id="radiusSlider" class="machiningSlider" type="range" min="0" max="305" step="1" value="10" aria-label="角丸半径Rをマウスで調整"><p class="hint">R=0は角丸なし。指定した半径で角を丸めます。</p><div id="mousePosition" class="hint" role="status">マウス位置 X：— ／ Y：—（左上が0）</div><div class="row"><label>追加する点 X<input id="newPointX" type="number" min="0" step="5" value="0"></label><label>追加する点 Y<input id="newPointY" type="number" min="0" step="5" value="0"></label></div><button id="addPoint">この座標に点を追加</button><label>残す部分<select id="keepShape"><option value="outside">外側を残す</option><option value="inside">内側を残す</option><option value="both">両方を残す</option></select></label><div class="row"><label>選択点 X<input id="pointX" type="number" step="5"></label><label>選択点 Y<input id="pointY" type="number" step="5"></label></div><div class="row"><button id="deletePoint">選択点を削除</button><button id="clearPoints">点をすべて消す</button></div><small id="pointCount"></small></div><div id="circleOptions"><p class="hint">切りしろは半径方向に5 mm。内側は中心に直径10 mmの穴がある未使用領域として残ります。クリックすると部品として使えます。</p><div class="row"><label>中心 X<input id="circleX" type="number" step="5"></label><label>中心 Y<input id="circleY" type="number" step="5"></label><label>直径<input id="circleD" type="number" min="5" step="5"></label></div><input id="diameterSlider" class="machiningSlider" type="range" min="5" max="170" step="5" value="60" aria-label="円の直径をマウスで調整"></div><p class="hint">座標は部品の左上が原点。切り抜きは仕上がり線で表します。「両方を残す」なら、それぞれを別の部品として使えます。</p><p id="shapeStatus" class="hint" role="status"></p><button id="applyShape" class="primary">切断を確定</button></div></div><h3>部品一覧 <small id="count"></small></h3><div id="partList"></div><div class="row" style="margin-top:12px"><button id="undo">元に戻す</button><button id="redo">戻すのをやめる</button><button id="reset">最初から</button></div><div class="footerHelp">のこぎり切断は直線・直角。部品の追加・複製はできません。</div></aside>
+<nav class="stepTabs" aria-label="作業手順"><button id="goStep1" aria-pressed="true">Step1　材料を切り分ける</button><button id="goStep2" aria-pressed="false">Step2　部品を配置する</button><button id="load">設計を開く</button><button id="designOutput">設計＆構想図の印刷</button></nav><main><aside class="left stepArea" id="step1"><h2 role="button" tabindex="0" aria-pressed="true" class="stepHeading"><span>Step1</span>材料を切り分ける</h2><div class="hint">板をクリックして選択。赤い仕上がり寸法線は5 mm刻みでドラッグできます。</div><div id="materials"></div><div id="cutLegend" class="cutLegend"><b></b>赤線：仕上がり寸法　／　赤い帯：切断・仕上げの余裕</div><div class="cutbox"><label>切断方法<select id="cutMode"><option value="saw">のこぎり切断</option><option value="scroll">糸のこ盤切断</option><option value="sander">ベルトサンダー加工</option><option value="circle">自在ぎり切断</option></select></label><div id="sawControls" style="margin-top:12px"><label>切断方向<select id="cutDir"><option value="w">横びき（木材の繊維を切断）</option><option value="h">縦びき（木材の繊維に沿って切断）</option></select></label><div class="row" style="margin-top:8px"><label>寸法の基準<select id="cutFrom"><option value="near">左端から</option><option value="far">右端から</option></select></label><label><span id="cutLabel">左端から (mm)</span><input id="cutAt" type="number" value="200" min="1" step="1"></label><label>切りしろ (mm)<select id="kerf"><option value="5">5 mm</option><option value="10" selected>10 mm</option></select></label></div><div id="cutPreview" class="hint" style="margin-top:7px"></div><button id="cut" class="primary">のこぎりで切断</button></div><div id="shapeControls" hidden><h3 id="shapeTitle"></h3><p id="shapeHelp" class="hint"></p><canvas id="shapeCanvas" style="width:100%;height:250px;touch-action:none;border:1px solid #ced8c8;border-radius:6px"></canvas><div id="scrollOptions"><label id="scrollTaskRow">加工方法<select id="scrollTask"><option value="contour">輪郭で切り分ける</option></select></label><label id="lineTypeRow">切断線<select id="lineType"><option value="closed">一部を切り抜く</option><option value="open">一部を切り取る</option></select></label><p id="processGuide" class="hint"></p><div id="cornerButtons" class="row" hidden><button id="allCorners">全ての角を選択</button><button id="noCorners">選択を解除</button></div><div class="row"><label>スナップ<select id="plotSnap"><option value="5">5 mm刻み</option><option value="1">1 mm刻み</option></select></label><label>角丸半径 R<input id="cornerRadius" type="number" min="0" step="1" value="10"></label></div><input id="radiusSlider" class="machiningSlider" type="range" min="0" max="305" step="1" value="10" aria-label="角丸半径Rをマウスで調整"><p class="hint">R=0は角丸なし。指定した半径で角を丸めます。</p><div id="mousePosition" class="hint" role="status">マウス位置 X：— ／ Y：—（左上が0）</div><div class="row"><label>追加する点 X<input id="newPointX" type="number" min="0" step="5" value="0"></label><label>追加する点 Y<input id="newPointY" type="number" min="0" step="5" value="0"></label></div><button id="addPoint">この座標に点を追加</button><label>残す部分<select id="keepShape"><option value="outside">外側を残す</option><option value="inside">内側を残す</option><option value="both">両方を残す</option></select></label><div class="row"><label>選択点 X<input id="pointX" type="number" step="5"></label><label>選択点 Y<input id="pointY" type="number" step="5"></label></div><div class="row"><button id="deletePoint">選択点を削除</button><button id="clearPoints">点をすべて消す</button></div><small id="pointCount"></small></div><div id="circleOptions"><p class="hint">切りしろは半径方向に5 mm。内側は中心に直径10 mmの穴がある未使用領域として残ります。クリックすると部品として使えます。</p><div class="row"><label>中心 X<input id="circleX" type="number" step="5"></label><label>中心 Y<input id="circleY" type="number" step="5"></label><label>直径<input id="circleD" type="number" min="5" step="5"></label></div><input id="diameterSlider" class="machiningSlider" type="range" min="5" max="170" step="5" value="60" aria-label="円の直径をマウスで調整"></div><p class="hint">座標は部品の左上が原点。切り抜きは仕上がり線で表します。「両方を残す」なら、それぞれを別の部品として使えます。</p><p id="shapeStatus" class="hint" role="status"></p><button id="applyShape" class="primary">切断を確定</button></div></div><h3>部品一覧 <small id="count"></small></h3><div id="partList"></div><div class="row" style="margin-top:12px"><button id="undo">元に戻す</button><button id="redo">戻すのをやめる</button><button id="reset">最初から</button></div><div class="footerHelp">のこぎり切断は直線・直角。部品の追加・複製はできません。</div></aside>
 <section class="assembly stepArea" id="step2"><div class="sceneTop"><button data-view="front">正面図</button><button data-view="top">平面図</button><button data-view="side">右側面図</button><button data-view="iso">等角図</button><button id="fit">全体表示</button><button id="fitSelected" title="配置した部品全体を画面に収める">FIT</button></div><div class="assemblyBody"><section class="scene"><div class="view"><canvas id="scene" aria-label="板材の3D組み立て図"></canvas><div class="legend">実線：板の輪郭　／　細線：繊維方向　／　床の目盛り：100 mm</div></div><div class="bottom"><span class="tag" id="assemblyCount"></span></div></section>
 <aside class="right"><div><input id="partName" type="hidden"><div id="partDim" hidden></div><div id="transform"><div hidden><h3>位置 <small>mm・部品の中心</small></h3><div class="row"><label>X 左右<input id="px" type="number" step="1"></label><label>Z 高さ（自動）<input id="pz" type="number" step="1" readonly title="部品の最下点が床に接する高さに自動調整します"></label><label>Y 奥行<input id="py" type="number" step="1"></label></div></div><h3 id="partMovementHeading">部品を動かす</h3><p class="hint" style="margin:0 0 10px;line-height:1.7">部品をドラッグすると、水平に移動します。Shiftを押しながらドラッグで垂直方向へ移動します。<br>X・Y・Zキーで各軸の＋方向へ、Shift＋各キーで−方向へ5 mm移動します。<br>持ち上げるには「指定量だけ持ち上げる」ボタンが便利です。</p><div class="row"><label>X軸<input id="rx" type="number" step="90"></label><label>Y軸<input id="ry" type="number" step="90"></label><label>Z軸<input id="rz" type="number" step="90"></label></div><div class="angles" style="margin-top:8px"><button data-rot="0" title="X軸まわりに90°回転">X回転</button><button data-rot="1" title="Y軸まわりに90°回転">Y回転</button><button data-rot="2" title="Z軸まわりに90°回転">Z回転</button></div><div class="liftControls" style="margin-top:12px"><label for="liftAmount" class="liftAmountTitle">持ち上げる量（mm）</label><div class="liftAmountRow"><input id="liftAmount" type="number" min="1" max="300" step="1" title="1〜300の整数を入力"><button id="liftSpecified">指定量だけ持ち上げる</button></div></div><button id="dropToSupport" title="接地（Gキー）" aria-keyshortcuts="G" class="full" style="margin-top:8px">接地</button><p class="hint">初めは床に接地します。Zキーで上へ、Shift＋Zキーで下へ移動します。</p></div></div><div><h3>木目を見て考えよう</h3><p class="hint">細い線が繊維の向きです。切断しても、板を回しても、もとの繊維方向を保ちます。</p><p class="hint">棚板・側板・仕切りなど、部品の役割を考えながら配置しましょう。</p><div class="note">このソフトは構想用です。接合方法や強度の判定は行いません。</div><p class="hint">設計はこのブラウザーに自動保存されます。授業の続きには「設計を保存」で保存したJSONファイルを使えます。</p></div></aside></div></section></main>
 <dialog id="dialog"><div id="dialogBody"></div><button id="closeDialog" class="primary">閉じる</button></dialog>
@@ -150,21 +150,53 @@ function rotationAngles(p){
  }
  return convertEuler(p.rot,true).map(v=>(v%360+360)%360);
 }
-function designDataOnly(value){const data={};for(const key of ['version','title','next','selected','kerf','parts','machiningOperations','references','reportReferences','reportViewAngles','reportViewZoom','coordinateSystem'])if(Object.hasOwn(value,key))data[key]=structuredClone(value[key]);return data}
-function designForSave(){const s=designDataOnly(state);s.format='itazai-design';s.schemaVersion=1;s.generator={id:'itazai',name:'板材設計',version:'3.83'};s.savedAt=new Date().toISOString();s.reportReferences=String(state.reportReferences||'');s.reportViewAngles=[...reportViewAngles()];s.reportViewZoom=reportViewZoom();s.coordinateSystem='right-handed-z-up';s.parts.forEach(p=>{p.pos=toZUp(p.pos);p.rot=rotationAngles(p)});(s.references||[]).forEach(p=>{p.pos=toZUp(p.pos);p.rot=convertEuler(p.rot,true)});return s}
+function designDataOnly(value){const data={};for(const key of ['version','title','next','selected','kerf','parts','machiningOperations','references','reportReferences','reportViewAngles','reportViewZoom','coordinateSystem','extensions'])if(Object.hasOwn(value,key))data[key]=structuredClone(value[key]);return data}
+function designForSave(){const s=designDataOnly(state);s.format='itazai-design';s.schemaVersion=1;s.generator={id:'itazai',name:'板材設計',version:'4.07'};s.savedAt=new Date().toISOString();s.compatibility={coreSchemaVersion:1,geometry:'parts-snapshot',optionalFeatures:['machiningOperations','references','reportViewAngles','reportViewZoom','extensions'],featureVersions:{machiningOperations:1,references:1}};s.reportReferences=String(state.reportReferences||'');s.reportViewAngles=[...reportViewAngles()];s.reportViewZoom=reportViewZoom();s.coordinateSystem='right-handed-z-up';s.parts.forEach(p=>{p.pos=toZUp(p.pos);p.rot=rotationAngles(p)});(s.references||[]).forEach(p=>{p.pos=toZUp(p.pos);p.rot=convertEuler(p.rot,true)});return s}
+// Persistence contract: see JSON_COMPATIBILITY.md. Optional features cannot invalidate core geometry.
+function normalizeDesignExtras(s,featureVersions={}){
+ const notes=[];
+ const archive=(key,value)=>{s.extensions??={};s.extensions.itazaiRecovery??=[];s.extensions.itazaiRecovery.push({key,value:structuredClone(value)});notes.push(key);};
+ if(s.extensions!==undefined&&(!s.extensions||typeof s.extensions!=='object'||Array.isArray(s.extensions))){const value=s.extensions;s.extensions={};archive('extensions',value);}
+ if(s.extensions?.itazaiRecovery!==undefined&&!Array.isArray(s.extensions.itazaiRecovery)){const value=s.extensions.itazaiRecovery;delete s.extensions.itazaiRecovery;archive('itazaiRecovery',value);}
+ for(const key of ['machiningOperations','references'])if(featureVersions?.[key]!==undefined&&featureVersions[key]!==1&&s[key]!==undefined){archive(key,s[key]);s[key]=[];}
+ if(s.reportReferences!==undefined&&typeof s.reportReferences!=='string'){archive('reportReferences',s.reportReferences);s.reportReferences='';}
+ if(s.reportViewAngles!==undefined&&(!Array.isArray(s.reportViewAngles)||s.reportViewAngles.length!==2||!s.reportViewAngles.every(Number.isFinite))){archive('reportViewAngles',s.reportViewAngles);delete s.reportViewAngles;}
+ if(s.reportViewZoom!==undefined&&(!Number.isFinite(s.reportViewZoom)||s.reportViewZoom<.5||s.reportViewZoom>1.5)){archive('reportViewZoom',s.reportViewZoom);delete s.reportViewZoom;}
+ if(s.references!==undefined&&!validReferences(s.references)){archive('references',s.references);s.references=[];}
+ const finitePair=v=>Array.isArray(v)&&v.length===2&&v.every(Number.isFinite);
+ const snapshot=p=>p&&typeof p.id==='string'&&typeof p.operationNode==='string'&&typeof p.stock==='string'&&[p.x,p.y,p.w,p.h].every(Number.isFinite)&&p.w>0&&p.h>0&&[p.pos,p.rot].every(v=>Array.isArray(v)&&v.length===3&&v.every(Number.isFinite))&&STOCK.some(t=>t.id===p.stock&&p.x>=0&&p.y>=0&&p.x+p.w<=t.w+.001&&p.y+p.h<=t.h+.001)&&(()=>{try{return profileValid(p);}catch{return false;}})();
+ const record=r=>{
+  if(!r||typeof r.id!=='string'||typeof r.input!=='string'||!snapshot(r.before)||!Array.isArray(r.after)||!r.after.length||!r.after.every(snapshot)||!r.params)return false;
+  const p=r.params;if(r.tool==='saw')return p.diagonal===true?Array.isArray(p.points)&&p.points.length===2&&p.points.every(finitePair)&&Number.isFinite(p.diagonalKerf)&&p.diagonalKerf>=0:['w','h'].includes(p.axis)&&Number.isFinite(p.at)&&Number.isFinite(p.kerf)&&p.kerf>=0;
+  if(!['scroll','sander','circle'].includes(r.tool)||!p.draft)return false;
+  const d=p.draft;return Array.isArray(d.points)&&d.points.every(finitePair)&&Number.isFinite(d.radius)&&Number.isFinite(d.x)&&Number.isFinite(d.y)&&(r.tool!=='circle'||Number.isFinite(d.diameter))&&(r.tool!=='sander'||Array.isArray(d.corners)&&d.corners.every(Number.isInteger));
+ };
+ if(s.machiningOperations!==undefined){
+  const ops=s.machiningOperations;let ok=Array.isArray(ops)&&ops.length<=5000&&ops.every(record);
+  if(ok){const ids=new Set(),inputs=new Set(),outputs=new Set(),links=new Map();for(const r of ops){if(ids.has(r.id)||inputs.has(r.input)||r.before.operationNode!==r.input)ok=false;ids.add(r.id);inputs.add(r.input);links.set(r.input,r.after.map(p=>p.operationNode));for(const p of r.after){if(outputs.has(p.operationNode))ok=false;outputs.add(p.operationNode);}}
+   const active=new Set(),done=new Set();function visit(node){if(active.has(node))return false;if(done.has(node))return true;active.add(node);for(const child of links.get(node)||[])if(!visit(child))return false;active.delete(node);done.add(node);return true;}if(ok)try{for(const node of links.keys())if(!visit(node)){ok=false;break;}}catch{ok=false;}
+  }
+  if(!ok){archive('machiningOperations',ops);s.machiningOperations=[];}
+ }
+ for(const p of s.parts||[]){if(!p||typeof p!=='object')continue;for(const key of ['machining','radiusNote']){if(p[key]===undefined)continue;const ok=key==='radiusNote'?Number.isFinite(p[key])&&p[key]>=0:Array.isArray(p[key])&&p[key].every(e=>e&&finitePair(e.a)&&finitePair(e.b)&&['stock','unknown','saw','scroll','circle','sander'].includes(e.tool)&&typeof e.op==='string'&&typeof e.curve==='string');if(!ok){archive('parts.'+p.id+'.'+key,p[key]);delete p[key];}}}
+ if(Array.isArray(s.parts)&&s.parts.length&&!s.parts.some(p=>p?.id===s.selected))s.selected=s.parts[0].id;
+ s.compatibilityWarnings=notes;return s;
+}
 function designForRuntime(s){
- if(s?.format!==undefined&&(s.format!=='itazai-design'||s.schemaVersion!==1))throw Error('Unknown design format');
- if(s?.reportReferences!==undefined&&(typeof s.reportReferences!=='string'||s.reportReferences.length>120))throw Error('Invalid report references');
- if(s?.reportViewAngles!==undefined&&(!Array.isArray(s.reportViewAngles)||s.reportViewAngles.length!==2||!s.reportViewAngles.every(Number.isFinite)))throw Error('Invalid report angles');
- if(s?.reportViewZoom!==undefined&&(!Number.isFinite(s.reportViewZoom)||s.reportViewZoom<0.5||s.reportViewZoom>1.5))throw Error('Invalid report zoom');
- s=designDataOnly(s);
+ if(!s||typeof s!=='object'||Array.isArray(s))throw Error('設計JSONの基本データがありません。');
+ if(s.format!==undefined&&(s.format!=='itazai-design'||s.schemaVersion!==1))throw Error('このJSONの基本仕様には対応していません。元ファイルを保持し、対応する新しい版で開いてください。');
+ const raw=s;s=designDataOnly(raw);
+ const known=new Set(['format','schemaVersion','generator','savedAt','compatibility','version','title','next','selected','kerf','parts','machiningOperations','references','reportReferences','reportViewAngles','reportViewZoom','coordinateSystem','extensions']);
+ const unknown=Object.fromEntries(Object.entries(raw).filter(([k])=>!known.has(k)));
+ s=normalizeDesignExtras(s,raw.compatibility?.featureVersions);
+ if(Object.keys(unknown).length){s.extensions??={};s.extensions.itazaiRecovery??=[];s.extensions.itazaiRecovery.push({key:'unknownTopLevel',value:unknown});}
  if(s?.coordinateSystem==='right-handed-z-up'){
   if(!Array.isArray(s.parts))throw Error('Invalid parts');
   s.parts.forEach(p=>{if(!Array.isArray(p.pos)||!Array.isArray(p.rot)||p.pos.length!==3||p.rot.length!==3||![...p.pos,...p.rot].every(Number.isFinite))throw Error('Invalid transform');p.pos=fromZUp(p.pos);p.rot=convertEuler(p.rot,false)});if(s.references!==undefined&&!Array.isArray(s.references))throw Error('Invalid references');(s.references||[]).forEach(p=>{if(!Array.isArray(p.pos)||!Array.isArray(p.rot)||p.pos.length!==3||p.rot.length!==3||![...p.pos,...p.rot].every(Number.isFinite))throw Error('Invalid reference transform');p.pos=fromZUp(p.pos);p.rot=convertEuler(p.rot,false)});delete s.coordinateSystem;
  }else if(s?.coordinateSystem)throw Error('Unknown coordinate system');
  return s;
 }
-const fresh=()=>({version:1,title:'板材設計',next:4,selected:'p1',kerf:5,parts:STOCK.map((s,i)=>({id:'p'+(i+1),name:s.id+'-1',stock:s.id,x:0,y:0,w:s.w,h:s.h,used:false,pos:[0,6,0],rot:[0,0,0]}))});
+const fresh=()=>({version:1,title:'板材設計',next:4,selected:'p1',kerf:10,parts:STOCK.map((s,i)=>({id:'p'+(i+1),name:s.id+'-1',stock:s.id,x:0,y:0,w:s.w,h:s.h,used:false,pos:[0,6,0],rot:[0,0,0]}))});
 let assemblySelectionCleared=false;
 let state=fresh(),history=[],redoHistory=[],yaw=-.65,pitch=.5,zoom=1,showLabels=true,hitFaces=[],cutHits=[],drag=null;
 let viewCenter=null,panX=0,panY=0,fourViews=false,frameScale=1,fixedScale=null;
@@ -430,7 +462,7 @@ $('applyShape').onclick=commitScroll;installArcDragging();
 }
 
 function valid(s){if(s?.references!==undefined&&!validReferences(s.references))return false;if(!s||s.version!==1||typeof s.title!=='string'||s.title.length>200||!Number.isSafeInteger(s.next)||s.next<4||!Array.isArray(s.parts)||!s.parts.length||s.parts.length>500||!Number.isFinite(s.kerf)||s.kerf<0||s.kerf>10)return false;let ids=new Set;for(const p of s.parts){let stock=STOCK.find(v=>v.id===p.stock);if(!stock||typeof p.id!=='string'||!/^p\d+$/.test(p.id)||ids.has(p.id)||Number(p.id.slice(1))>=s.next||typeof p.name!=='string'||p.name.length>100||typeof p.used!=='boolean'||(p.cancelled!==undefined&&typeof p.cancelled!=='boolean')||(p.cancelled&&p.used)||![p.x,p.y,p.w,p.h].every(Number.isFinite)||p.x<0||p.y<0||p.w<=0||p.h<=0||p.x+p.w>stock.w+.001||p.y+p.h>stock.h+.001||![p.pos,p.rot].every(a=>Array.isArray(a)&&a.length===3&&a.every(n=>Number.isFinite(n)&&Math.abs(n)<=100000)))return false;ids.add(p.id)}if(!s.parts.every(profileValid))return false;for(let i=0;i<s.parts.length;i++)for(let j=i+1;j<s.parts.length;j++){let a=s.parts[i],b=s.parts[j];if(materialOverlap(a,b))return false}return ids.has(s.selected)&&s.parts.every(profileValid)}
-function migrate(s){if(![5,10].includes(s.kerf))s.kerf=5;if(s.title==='わたしの木工作品')s.title='板材設計';for(let stock of STOCK){let parts=s.parts.filter(p=>p.stock===stock.id);if(parts.some(p=>/^[ABC]-\d+[ab]+$/.test(p.name)))parts.forEach((p,i)=>p.name=stock.id+'-'+(i+1));}return s}
+function migrate(s){if(![5,10].includes(s.kerf))s.kerf=10;if(s.title==='わたしの木工作品')s.title='板材設計';for(let stock of STOCK){let parts=s.parts.filter(p=>p.stock===stock.id);if(parts.some(p=>/^[ABC]-\d+[ab]+$/.test(p.name)))parts.forEach((p,i)=>p.name=stock.id+'-'+(i+1));}return s}
 try{const s=designForRuntime(JSON.parse(localStorage.getItem(KEY)));if(valid(s))state=migrate(s)}catch(e){}
 // Selection and camera navigation do not change the saved design.
 function designSnapshot(value=state){const {selected,...design}=designDataOnly(value);return JSON.stringify(design)}
@@ -486,20 +518,34 @@ function machiningDimensionVertices(r){
 }
 function machiningAnnotations(parts){
  const dims=[],leaders=[],seen=new Set();
- function dimension(p,axis,value,anchor){if(value<=.001||Math.abs(value-p[axis])<.001)return;let start=p[axis==='w'?'x':'y'],key=axis+':'+start+':'+n(value);if(seen.has(key))return;seen.add(key);dims.push({id:'m'+dims.length,axis,value:n(value),x:axis==='w'?p.x:0,y:axis==='h'?p.y:0,w:axis==='w'?value:0,h:axis==='h'?value:0,p,anchor})}
+ function dimension(p,axis,value,anchor,edgeSide=null){
+  if(value<=.001||Math.abs(value-p[axis])<.001)return;
+  const index=axis==='w'?0:1,far=edgeSide&&value>p[axis]/2,reference=far?p[axis]:0;
+  if(far)value=p[axis]-value;
+  const start=p[axis==='w'?'x':'y']+Math.min(reference,anchor[index]),key=p.stock+':'+axis+':'+start+':'+n(value)+':'+(edgeSide||'default');
+  if(seen.has(key))return;seen.add(key);
+  dims.push({id:'m'+dims.length,axis,value:n(value),x:axis==='w'?start:0,y:axis==='h'?start:0,w:axis==='w'?value:0,h:axis==='h'?value:0,p,anchor,reference,edgeSide});
+ }
  for(let p of parts){
   const rings=[...(p.outline?[p.outline]:[]),...(p.holes||[])];
   rings.forEach((r,i)=>{let circle=circleOf(r);
    if(circle){dimension(p,'w',circle.x,[circle.x,circle.y]);dimension(p,'h',circle.y,[circle.x,circle.y]);leaders.push({p,label:'⌀'+circle.d,point:[circle.x+circle.d/2*.707,circle.y+circle.d/2*.707],circle});return}
    const rounded=Number.isFinite(p.radiusNote)&&r.length>4;
    const vertices=rounded?[[Math.min(...r.map(v=>v[0])),Math.min(...r.map(v=>v[1]))],[Math.max(...r.map(v=>v[0])),Math.max(...r.map(v=>v[1]))]]:machiningDimensionVertices(r);
-   for(let v of vertices){dimension(p,'w',v[0],v);dimension(p,'h',v[1],v)}
+   for(let v of vertices){
+    // Straight corner cuts are measured from the nearby corner, outside that edge.
+    const onEdge=q=>Math.abs(q[0])<.001||Math.abs(q[0]-p.w)<.001||Math.abs(q[1])<.001||Math.abs(q[1]-p.h)<.001;
+    const vi=r.indexOf(v),cornerCut=r===p.outline&&!rounded&&vi>=0&&onEdge(v)&&[r[(vi+r.length-1)%r.length],r[(vi+1)%r.length]].some(q=>onEdge(q)&&Math.abs(q[0]-v[0])>.001&&Math.abs(q[1]-v[1])>.001);
+    const horizontalSide=cornerCut?(Math.abs(v[1])<.001?'top':Math.abs(v[1]-p.h)<.001?'bottom':null):null;
+    const verticalSide=cornerCut?(Math.abs(v[0])<.001?'left':Math.abs(v[0]-p.w)<.001?'right':null):null;
+    dimension(p,'w',v[0],v,horizontalSide);dimension(p,'h',v[1],v,verticalSide);
+   }
    if(rounded){let arcs=roundedArcGroups(r,p.radiusNote);if(arcs.length){let arc=[...arcs].sort((a,b)=>{let aa=a[Math.floor(a.length/2)],bb=b[Math.floor(b.length/2)];return (bb[0]-bb[1])-(aa[0]-aa[1])||bb[0]-aa[0]})[0];leaders.push({p,kind:'radius',arcs,label:(arcs.length>1?arcs.length+'×':'')+'R'+n(p.radiusNote),point:arc[Math.floor(arc.length/2)]})}else leaders.push({p,kind:'radius',arcs:[],label:'R'+n(p.radiusNote),point:r.reduce((a,b)=>b[0]-b[1]>a[0]-a[1]?b:a)})}
   });
  }
  return {dims,leaders};
 }
-function verticalDimensionSide(item,width){const center=item.p?item.p.x+item.anchor[0]:item.x+item.w/2;return center<width/2?'left':'right'}
+function verticalDimensionSide(item,width){if(item.edgeSide==='left'||item.edgeSide==='right')return item.edgeSide;const center=item.p?item.p.x+item.anchor[0]:item.x+item.w/2;return center<width/2?'left':'right'}
 function verticalDimensionX(layout,id){const offset=25+layout.verticalLanes.result.get(id)*24;return layout.verticalSides.get(id)==='left'?layout.left-offset:layout.right+offset}
 function drawMachiningDimensions(c,g){
  const layout=c.dimensionLayout,plan=c.machiningPlan,scale=c.materialScale,ox=c.materialOrigin[0],oy=c.materialOrigin[1];
@@ -509,8 +555,8 @@ function drawMachiningDimensions(c,g){
  function line(a,b){g.beginPath();g.moveTo(...a);g.lineTo(...b);g.stroke()}
  function arrow(a,b){let len=Math.hypot(b[0]-a[0],b[1]-a[1]);if(!len)return;let dx=(b[0]-a[0])/len,dy=(b[1]-a[1])/len;g.beginPath();g.moveTo(...a);g.lineTo(a[0]+dx*5-dy*1.5,a[1]+dy*5+dx*1.5);g.lineTo(a[0]+dx*5+dy*1.5,a[1]+dy*5-dx*1.5);g.closePath();g.fill()}
  function text(value,x,y,rotate=false){g.save();g.translate(x,y);if(rotate)g.rotate(-Math.PI/2);g.textAlign='center';let w=g.measureText(value).width;g.fillStyle='#f4f7ef';g.fillRect(-w/2-2,-12,w+4,15);g.fillStyle='#6f7e62';g.fillText(value,0,0);g.restore();c.machiningLabels.push({text:value,x,y})}
- for(let d of plan.dims){let a=tx(d.p,[0,0]),b=tx(d.p,d.anchor),horizontal=d.axis==='w';
-  if(horizontal){let base=layout.bottom+25+(layout.horizontalLanes.result.get(d.id))*24;line([a[0],oy+(d.p.y+d.p.h)*scale+3],[a[0],base+4]);line([b[0],b[1]+3],[b[0],base+4]);line([a[0],base],[b[0],base]);arrow([a[0],base],[b[0],base]);arrow([b[0],base],[a[0],base]);text(String(d.value),(a[0]+b[0])/2,base-5)}
+ for(let d of plan.dims){let horizontal=d.axis==='w',a=tx(d.p,horizontal?[d.reference||0,0]:[0,d.reference||0]),b=tx(d.p,d.anchor);
+  if(horizontal){let top=d.edgeSide==='top',sign=top?-1:1,lanes=top?layout.topLanes:layout.horizontalLanes,base=(top?layout.top:layout.bottom)+sign*(25+lanes.result.get(d.id)*24);line([a[0],oy+(d.p.y+(top?0:d.p.h))*scale+sign*3],[a[0],base+sign*4]);line([b[0],b[1]+sign*3],[b[0],base+sign*4]);line([a[0],base],[b[0],base]);arrow([a[0],base],[b[0],base]);arrow([b[0],base],[a[0],base]);text(String(d.value),(a[0]+b[0])/2,base-5)}
   else{let left=layout.verticalSides.get(d.id)==='left',sign=left?-1:1,base=verticalDimensionX(layout,d.id);line([ox+(d.p.x+(left?0:d.p.w))*scale+sign*3,a[1]],[base+sign*4,a[1]]);line([b[0]+sign*3,b[1]],[base+sign*4,b[1]]);line([base,a[1]],[base,b[1]]);arrow([base,a[1]],[base,b[1]]);arrow([base,b[1]],[base,a[1]]);text(String(d.value),base-5,(a[1]+b[1])/2,true)}
  }
  plan.leaders.forEach((d,i)=>{
@@ -580,6 +626,14 @@ function materialNamePosition(p,width,height,scale){
  if(fits(2/scale,2/scale))return [5/scale,4/scale];
  let best=null,score=-Infinity;for(let iy=0;iy<=30;iy++)for(let ix=0;ix<=30;ix++){const x=(p.w-w)*ix/30,y=(p.h-h)*iy/30;if(!fits(x,y))continue;const center=[x+w/2,y+h/2],clearance=Math.min(nearBoundary(outer,center).distance,...holes.map(r=>nearBoundary(r,center).distance));if(clearance>score){score=clearance;best=[x+3/scale,y+2/scale]}}return best;
 }
+// Hit area includes the full allowance band and a constant screen-space margin.
+function materialSawHit(line,x,y){
+ if(!line)return false;
+ const margin=18,band=line.band||0;
+ return line.axis==='w'
+  ?x>=line.x-margin&&x<=line.x+band+margin&&y>=line.y-margin&&y<=line.y+line.h+margin
+  :y>=line.y-margin&&y<=line.y+band+margin&&x>=line.x-margin&&x<=line.x+line.w+margin;
+}
 function drawMaterials(){
  if($('step1').hidden||document.querySelector('.materialStage')?.hidden)return;
  if(!$('materials').children.length){
@@ -589,18 +643,19 @@ function drawMaterials(){
     if(e.button!==0)return;
     let r=c.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top;
     let hit=[...cutHits].reverse().find(a=>{if(a.stock!==c.dataset.stock)return false;let p=state.parts.find(p=>p.id===a.id);return localMaterial(p,[(x-a.x)/a.scale,(y-a.y)/a.scale])});
-    let line=c.cutLine,near=line&&(line.axis==='w'?Math.abs(x-line.x)<=13&&y>=line.y-15&&y<=line.y+line.h+15:Math.abs(y-line.y)<=13&&x>=line.x-15&&x<=line.x+line.w+15);
-    if(near){materialDrag={id:state.selected,stock:c.dataset.stock};c.setPointerCapture(e.pointerId);e.preventDefault();return}
+    let line=c.cutLine,near=materialSawHit(line,x,y);
+    if(near){materialDrag={id:state.selected,stock:c.dataset.stock,offset:(line.axis==='w'?x-line.x:y-line.y)};c.setPointerCapture(e.pointerId);e.preventDefault();return}
+    if(hit&&hit.id===state.selected&&!awaitingPartSelection&&directionConfirmed&&cuttingMode()==='saw'&&['w','h'].includes($('cutDir').value)){e.preventDefault();return}
     if(hit)pick(hit.id);else{let first=state.parts.find(a=>a.stock===c.dataset.stock);if(first)pick(first.id);}
    };
    c.onpointermove=e=>{
     let r=c.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top;
-    if(!materialDrag){let l=c.cutLine;c.style.cursor=l&&(l.axis==='w'?Math.abs(x-l.x)<13:Math.abs(y-l.y)<13)?(l.axis==='w'?'ew-resize':'ns-resize'):'pointer';return}
+    if(!materialDrag){let l=c.cutLine;c.style.cursor=materialSawHit(l,x,y)?(l.axis==='w'?'ew-resize':'ns-resize'):'pointer';return}
     if(materialDrag.stock!==c.dataset.stock)return;
     let p=selected(),a=cutHits.find(a=>a.id===materialDrag.id),axis=$('cutDir').value;if(!a||p.id!==materialDrag.id)return;
     let max= Math.ceil((p[axis]-Number($('kerf').value))/5)*5-5;
     if(max<5)return;
-    let mm=axis==='w'?(x-a.x)/a.scale:(y-a.y)/a.scale;
+    let mm=((axis==='w'?x-a.x:y-a.y)-(materialDrag.offset||0))/a.scale;
     if($('cutFrom').value==='far')mm=p[axis]-Number($('kerf').value)-mm;$('cutAt').value=Math.max(5,Math.min(max,Math.round(mm/5)*5));preview();
    };
    c.onpointerup=c.onpointercancel=()=>{materialDrag=null};
@@ -615,7 +670,8 @@ function drawMaterials(){
   const stockParts=state.parts.filter(a=>a.stock===s.id&&!a.cancelled),scale=commonScale,boardWidth=s.w*scale;
   const available=c.closest('.materialDrawing').clientWidth;
   const plan=machiningAnnotations(stockParts);plan.dims=plan.dims.filter(d=>!stockParts.some(p=>p[d.axis]===d.value&&p[d.axis==='w'?'x':'y']===d[d.axis==='w'?'x':'y']));
-  const horizontalLanes=dimensionLanes([...stockParts,...plan.dims.filter(d=>d.axis==='w')],'w',scale),verticalLanes=dimensionLanes([...stockParts,...plan.dims.filter(d=>d.axis==='h')],'h',scale);
+  const horizontalLanes=dimensionLanes([...stockParts,...plan.dims.filter(d=>d.axis==='w'&&d.edgeSide!=='top')],'w',scale),verticalLanes=dimensionLanes([...stockParts,...plan.dims.filter(d=>d.axis==='h')],'h',scale);
+  const topLanes=dimensionLanes(plan.dims.filter(d=>d.axis==='w'&&d.edgeSide==='top'),'w',scale);
   const verticalItems=[...stockParts,...plan.dims.filter(d=>d.axis==='h')],verticalSides=new Map(verticalItems.map(d=>[d.id,verticalDimensionSide(d,s.w)]));
   const leftCount=Math.max(0,...verticalItems.filter(d=>verticalSides.get(d.id)==='left').map(d=>verticalLanes.result.get(d.id)+1)),ox=leftCount?24+leftCount*24:12;
   const mw=dimensionLanes(plan.dims.filter(d=>d.axis==='w'),'w',scale),mh=dimensionLanes(plan.dims.filter(d=>d.axis==='h'),'h',scale),ll=dimensionLanes(plan.leaders.map((d,i)=>({...d,leaderId:'l'+i})).filter(d=>d.kind!=='radius').map(d=>({id:d.leaderId,x:d.p.x+d.point[0],w:Math.max(55/scale,1),y:0,h:0})),'w',scale);
@@ -629,7 +685,7 @@ function drawMaterials(){
    let row=radiusRows.findIndex(r=>r.every(box=>x>box.end+12||x+labelWidth+12<box.start));if(row<0){row=radiusRows.length;radiusRows.push([])}
    radiusRows[row].push({start:x,end:x+labelWidth});radiusPlacements.set(d,{x,y:4+row*28,width:labelWidth});
   }
-  const upperRadiusLeaders=plan.leaders.filter(d=>d.kind==='radius'&&d.point[1]<d.p.h/2);const baseOy=Math.max(48,upperRadiusLeaders.length*30+30);
+  const upperRadiusLeaders=plan.leaders.filter(d=>d.kind==='radius'&&d.point[1]<d.p.h/2);const baseOy=Math.max(48,upperRadiusLeaders.length*30+30)+(topLanes.count?topLanes.count*24+12:0);
   const warningLayout=[],warningRows=[];
   for(const part of stockParts){const messages=partWarnings(part);if(!messages.length)continue;const width=Math.min(290,w-8),x=Math.max(4,Math.min(w-width-4,ox+(part.x+part.w/2)*scale-width/2)),height=28+messages.length*36;
    let row=warningRows.findIndex(r=>r.boxes.every(b=>x+width+8<b.x||b.x+b.width+8<x));if(row<0){row=warningRows.length;warningRows.push({boxes:[],height:0})}warningRows[row].height=Math.max(warningRows[row].height,height);const entry={part,messages,x,width,row};warningRows[row].boxes.push(entry);warningLayout.push(entry);
@@ -642,7 +698,7 @@ function drawMaterials(){
   c.radiusPlacements=radiusPlacements;c.materialOrigin=[ox,oy];
   c.parentElement.style.width=w+'px';c.style.width=w+'px';c.style.height=h+'px';
   let dpr=devicePixelRatio||1;c.width=Math.round(w*dpr);c.height=Math.round(h*dpr);let g=c.getContext('2d');g.scale(dpr,dpr);
-  c.partNameHits=[];c.dimensionLayout={left:ox,verticalSides,right:ox+boardWidth,bottom:oy+s.h*scale,horizontalLanes,verticalLanes};
+  c.partNameHits=[];c.dimensionLayout={left:ox,verticalSides,right:ox+boardWidth,top:oy,topLanes,bottom:oy+s.h*scale,horizontalLanes,verticalLanes};
   g.fillStyle='#d5d8ce';g.fillRect(ox,oy,s.w*scale,s.h*scale);c.cutLine=null;c.positionDimensions=null;c.sawGuide=null;
   state.parts.filter(a=>a.stock===s.id).sort((a,b)=>Number(a.id===state.selected)-Number(b.id===state.selected)).forEach(a=>{
    let x=ox+a.x*scale,y=oy+a.y*scale,pw=a.w*scale,ph=a.h*scale,isSelected=!a.cancelled&&!awaitingPartSelection&&a.id===state.selected;
@@ -657,7 +713,7 @@ function drawMaterials(){
    let a=cutHits.find(a=>a.id===p.id),axis=$('cutDir').value,at=sawCutAt(),kerf=Number($('kerf').value);
    if(Number.isFinite(at)&&at>0&&at+kerf<p[axis]){
     let x=a.x+(axis==='w'?at*scale:0),y=a.y+(axis==='h'?at*scale:0);
-    c.cutLine={axis,x,y,w:axis==='w'?0:a.w,h:axis==='w'?a.h:0};
+    c.cutLine={axis,x,y,band:kerf*scale,w:axis==='w'?0:a.w,h:axis==='w'?a.h:0};
     g.fillStyle='#d6303045';g.fillRect(x,y,axis==='w'?Math.max(0,Math.min(kerf,p.w-at))*scale:a.w,axis==='h'?Math.max(0,Math.min(kerf,p.h-at))*scale:a.h);
     g.beginPath();g.rect(x,y,axis==='w'?kerf*scale:a.w,axis==='h'?kerf*scale:a.h);hatchRemovedArea(g);
     const farX=x+(axis==='w'?kerf*scale:0),farY=y+(axis==='h'?kerf*scale:0);
@@ -694,25 +750,12 @@ function drawDimensions(c,g){
    const horizontal=axis==='w',x=horizontal?a.x+a.w/2:verticalDimensionX(layout,p.id),y=horizontal?layout.bottom+25+layout.horizontalLanes.result.get(p.id)*24:a.y+a.h/2;
    if(horizontal){for(let end of [a.x,a.x+a.w])line(end,a.y+a.h+3,end,y+5);line(a.x,y,a.x+a.w,y);arrow(a.x,y,1,0);arrow(a.x+a.w,y,-1,0)}
    else{let left=layout.verticalSides.get(p.id)==='left',sign=left?-1:1;for(let end of [a.y,a.y+a.h])line((left?a.x:a.x+a.w)+sign*3,end,x+sign*5,end);line(x,a.y,x,a.y+a.h);arrow(x,a.y,0,1);arrow(x,a.y+a.h,0,-1)}
-   const btn=document.createElement('button');btn.type='button';btn.dataset.dimensionPart=p.id;btn.dataset.dimensionAxis=axis;btn.textContent=n(p[axis]);btn.setAttribute('aria-label',p.name+'の'+(horizontal?'横':'縦')+'寸法 '+n(p[axis])+' を変更');btn.title=p.name+'の'+(horizontal?'横':'縦')+'寸法を変更';btn.onclick=()=>{let q=selected(),same=q.stock===p.stock&&q[axis]===p[axis]&&q[axis==='w'?'x':'y']===p[axis==='w'?'x':'y'];editDimension(same?q.id:p.id,axis)};
+   const btn=document.createElement('span');btn.textContent=n(p[axis]);btn.setAttribute('aria-label',p.name+'の'+(horizontal?'横':'縦')+'寸法 '+n(p[axis])+' mm');
    btn.className='dimensionValue'+(horizontal?'':' vertical');btn.style.left=(horizontal?x:x-9)+'px';btn.style.top=(horizontal?y-10:y)+'px';overlay.append(btn);
   }
  });g.restore();
 }
 function circleOf(r){if(r.length<32)return null;let x=r.reduce((s,v)=>s+v[0],0)/r.length,y=r.reduce((s,v)=>s+v[1],0)/r.length,rs=r.map(v=>Math.hypot(v[0]-x,v[1]-y)),radius=rs.reduce((s,v)=>s+v,0)/rs.length;return rs.every(v=>Math.abs(v-radius)<.03)?{x:n(x),y:n(y),d:n(radius*2)}:null}
-function editDimension(id,axis){
- $('cutMode').value='saw';showCutStage('materials');shapeRefresh();
- if(pick(id)===false)return;$('cutMode').value='saw';methodConfirmed=true;directionConfirmed=true;shapeRefresh();setStep(1);const p=selected();
- if(p.used){dialog('<h2>'+esc(p.name)+'の寸法</h2><p>組み立てに配置している部品です。寸法を変えるには、先に「組み立てから外す」を押してください。</p>');return}
- const prior={axis:$('cutDir').value,at:$('cutAt').value},size=p[axis];let committed=false;
- dialog(`<h2>${esc(p.name)}の${axis==='w'?'横':'縦'}寸法を変更</h2><p>現在 ${n(size)} mm ／ 切りしろ ${state.kerf} mm</p><label>仕上がり寸法 (mm)<input id="dimensionInput" type="number" min="0.1" step="1" value="${n(size)}"></label><p class="hint">材料の${$('cutFrom').value==='far'?(axis==='w'?'右端':'下端'):(axis==='w'?'左端':'上端')}からの寸法です。小さくすると、切りしろを除いた残りが別の部品になります。</p><div id="dimensionError" class="dimensionEditError" role="status"></div><button id="applyDimension" class="primary">この寸法で切断</button>`);
- const input=$('dimensionInput'),apply=$('applyDimension');
- function update(){let v=Number(input.value),ok=input.value!==''&&Number.isFinite(v)&&v>0&&n(size-v-state.kerf)>0;apply.disabled=!ok;$('dimensionError').textContent=ok?`${n(v)} mm ＋ 切りしろ ${state.kerf} mm ＋ 残り ${n(size-v-state.kerf)} mm`:`0 mmより大きく、${n(size-state.kerf)} mm未満を入力してください。`;$('cutDir').value=axis;$('cutAt').value=input.value;preview();if(ok&&$('cut').disabled){apply.disabled=true;$('dimensionError').textContent=$('cutPreview').textContent;}}
- input.oninput=update;input.onkeydown=e=>{if(e.key==='Enter'&&!apply.disabled){e.preventDefault();apply.click()}};
- apply.onclick=()=>{update();if(apply.disabled)return;committed=true;$('dialog').close();$('cut').click()};
- $('dialog').addEventListener('close',()=>{if(!committed){$('cutDir').value=prior.axis;$('cutAt').value=prior.at;preview()}},{once:true});
- update();input.focus();input.select();
-}
 // Clip the material boundary, including holes, and reconnect each solid interval on the saw line.
 function sawHalfProfiles(p,axis,limit,keepLow){
  const dim=axis==='w'?0:1,other=1-dim,eps=1e-7,rings=[cleanRing(outline(p)),...(p.holes||[]).map(h=>cleanRing(h).reverse())],edges=[],cuts=[];
@@ -1096,14 +1139,14 @@ function openDesignSave(){
  $('cancelDesignSave').onclick=()=>$('dialog').close();
  $('reviewDesignSave').onclick=()=>{update();if($('reviewDesignSave').disabled)return;const name=designSaveName(saveIdentity);dialog('<h2>ファイル名の確認</h2><p>このファイル名で保存しますか？</p><p class="saveFilePreview">'+esc(name)+'</p><div class="row"><button id="reviseDesignSave">ファイル名修正に戻る</button><button id="confirmDesignSave" class="primary">保存する</button></div>');$('reviseDesignSave').onclick=openDesignSave;$('confirmDesignSave').onclick=()=>{state.lastDesignFilename=name;download(new Blob([JSON.stringify(designForSave(),null,2)],{type:'application/json'}),name);markDesignSaved();persist();$('dialog').close()}};
 }
-$('save').onclick=openDesignSave;
-$('load').onclick=()=>requestOpenDesign();$('file').onchange=()=>readDesignFile($('file').files[0]);async function readDesignFile(f){if(!f)return;try{if(f.size>20000000)throw Error();let s=designForRuntime(JSON.parse(await f.text()));if(!valid(s))throw Error();checkpoint();state=migrate(s);state.lastDesignFilename=f.name;saveIdentity=identityFromFilename(f.name);state.reportIdentity={...saveIdentity};markDesignSaved();shapeDrafts.clear();cutPartId=null;cutSettings.clear();refresh();message(validSaveIdentity(saveIdentity)?'':'設計を読み込みました。ファイル名から氏名等を取得できないため、Step3で入力してください。')}catch(e){message('読み込めませんでした。このアプリで保存した正しい設計JSONを選んでください。')}finally{$('file').value=''}};
-function exportConcept(){if(!state.parts.some(p=>p.used)){message('構想図を出力する前に、部品を組み立てに配置してください。');return}setStep(2);resize();render();let c=document.createElement('canvas');c.width=canvas.width;c.height=canvas.height+140;let g=c.getContext('2d');g.fillStyle='#fff';g.fillRect(0,0,c.width,c.height);g.fillStyle='#253d37';g.font='bold 26px system-ui';g.fillText(state.title,24,40,c.width-48);g.font='14px system-ui';g.fillText('杉・板厚12 mm ｜ 板材設計 V3.83 ｜ 構想図',24,70);g.drawImage(canvas,0,90);g.font='12px system-ui';g.fillText('支給材：610 × 170 mm 1枚、200 × 170 mm 2枚 ／ 線は繊維方向を示します',24,c.height-18,c.width-48);c.toBlob(b=>{if(b)download(b,filename()+'_構想図.png')},'image/png')};
+
+$('load').onclick=()=>requestOpenDesign();$('file').onchange=()=>readDesignFile($('file').files[0]);async function readDesignFile(f){if(!f)return;try{if(f.size>20000000)throw Error();let s=designForRuntime(JSON.parse(await f.text()));if(!valid(s))throw Error();checkpoint();state=migrate(s);state.lastDesignFilename=f.name;saveIdentity=identityFromFilename(f.name);state.reportIdentity={...saveIdentity};markDesignSaved();shapeDrafts.clear();cutPartId=null;cutSettings.clear();refresh();message(state.compatibilityWarnings?.length?'部品の形状と配置を読み込みました。利用できない付加情報は無効化し、再保存するJSON内に保管します。元のファイルも残してください。':validSaveIdentity(saveIdentity)?'':'設計を読み込みました。ファイル名から氏名等を取得できないため、Step3で入力してください。');if(state.compatibilityWarnings?.length)dialog('<h2>設計を読み込みました</h2><p>部品の形状と配置は読み込めました。一部の付加情報は利用できないため、その情報を使う表示・編集機能を無効化しました。</p><p>対象：'+esc(state.compatibilityWarnings.join('、'))+'</p><p>元情報は再保存するJSONにも保管します。元ファイルも残しておいてください。</p>')}catch(e){message('読み込めませんでした。現在の設計は変更していません。元のJSONを残してください。'+(e?.message||''))}finally{$('file').value=''}};
+function exportConcept(){if(!state.parts.some(p=>p.used)){message('構想図を出力する前に、部品を組み立てに配置してください。');return}setStep(2);resize();render();let c=document.createElement('canvas');c.width=canvas.width;c.height=canvas.height+140;let g=c.getContext('2d');g.fillStyle='#fff';g.fillRect(0,0,c.width,c.height);g.fillStyle='#253d37';g.font='bold 26px system-ui';g.fillText(state.title,24,40,c.width-48);g.font='14px system-ui';g.fillText('杉・板厚12 mm ｜ 板材設計 V4.07 ｜ 構想図',24,70);g.drawImage(canvas,0,90);g.font='12px system-ui';g.fillText('支給材：610 × 170 mm 1枚、200 × 170 mm 2枚 ／ 線は繊維方向を示します',24,c.height-18,c.width-48);c.toBlob(b=>{if(b)download(b,filename()+'_構想図.png')},'image/png')};
 
 
-$('designOutput').onclick=()=>{dialog('<h2>設計＆構想図</h2><p>設計データは、あとから「設計を開く」で編集を再開できます。構想図は、Step2で組み立てた形を画像にします。</p><div class="row"><button id="outputDesign">設計データを保存（JSON）</button><button id="outputConcept" class="primary">構想図を保存（PNG）</button></div>');$('outputDesign').onclick=()=>$('save').click();$('outputConcept').onclick=()=>{$('dialog').close();exportConcept()}};
-$('externalInfo').onclick=()=>{dialog(`<h2>外部通信・ライセンス</h2><h3>外部通信とデータ</h3><p>このアプリはHTMLファイル1個で動作します。ローカルファイルとして使う場合、外部通信はありません。外部ライブラリー・解析ツール・広告は使用していません。</p><p>設計データはブラウザー内に自動保存します。読み込んだ設計ファイルや作成した部品を外部に送信しません。設計データと構想図は、ご自身の端末に保存します。学年・クラス・番号・氏名と保存ファイル名はJSON本文・ブラウザーの自動保存には含めません。設計ファイルを開くと、これらの情報をファイル名から取得します。ファイル名と出力レポートには氏名等が含まれます。</p><p>Web公開版を開く場合は、配信元からHTMLを取得します。下のライセンスリンクは、クリックしたときだけ外部サイトを開きます。</p><h3>CDN・外部ライブラリの使用状況</h3><p><strong>CDNから読み込むライブラリ：なし</strong><br>外部ライブラリの組み込み：なし</p><p>3D表示はブラウザー標準のCanvas 2Dで描画しています。PowerPoint（PPTX）の出力は、このHTML内のJavaScriptで生成しています。これらの機能のためにCDNへ接続したり、ライブラリをダウンロードしたりすることはありません。</p><h3>板材設計のライセンス</h3><p>作者：川俣 純<br><a href="https://creativecommons.org/licenses/by/4.0/deed.ja" target="_blank" rel="noopener noreferrer">Creative Commons 表示 4.0 国際（CC BY 4.0）</a>。営利・非営利を問わず、利用・複製・改変・再配布できます。</p><ul><li>作者名「川俣 純」を表示する</li><li>CC BY 4.0とライセンスへのリンクを示す</li><li>改変した場合は変更したことを明示する</li><li>後続利用者の権利を妨げる追加的な制約を設けない</li></ul><p>無保証で提供します。第三者が持つ権利のすべてを許諾するものではありません。</p><h3>端末にダウンロード</h3><p>このアプリはHTMLファイル1個だけで動作します。端末にダウンロードすれば、ご自身の端末で自由に改変することができます。ぜひバイブコーディング等で改変してみてください。</p><button id="downloadApp">端末にダウンロード</button>`);const actions=document.createElement('div');actions.style.cssText='display:flex;gap:10px;align-items:center;margin-top:12px';$('downloadApp').before(actions);actions.append($('downloadApp'),$('closeDialog'));$('dialogBody').scrollTop=0;$('downloadApp').onclick=()=>download(new Blob([appSource],{type:'text/html;charset=utf-8'}),'板材設計_V3.83.html');};
-$('help').onclick=()=>{dialog("<h2>板材設計 — 使い方</h2>\n<p>Designing with Wood Boards<br>板材を切り分け、3Dで組み立て、材料取り図と構想図をA4 1枚にまとめる設計ツールです。HTMLファイルをブラウザーで開いて使えます。</p>\n<h3>材料</h3>\n<p>材料A：610 × 170 mm、材料B・C：各200 × 170 mm。現在の板厚は12 mmです。木目の向きを確かめながら設計します。</p>\n<h3>Step1　材料を切り分ける</h3>\n<ol><li>加工する板・部品を選びます。組み立てに配置済みの部品は、Step2で未配置にしてから加工します。</li><li>切断方法を選び、「この切断方法を選択する」を押します。</li><li>のこぎり切断では、切断方向を選択し、寸法と切りしろを指定して切断します。切りしろは5 mmまたは10 mmです。</li></ol>\n<ul><li><strong>のこぎり切断：</strong>横・縦に加え、斜め切断を選べます。斜め切断は外周上の2点をクリックして指定し、5 mmまたは10 mmの切りしろを取って両側を残します。2点を選び直すこともできます。点の寸法・座標を確認しながら指定でき、「材料図に戻る」で全体も確認できます。仕上がり線や端の丸をドラッグして寸法を調整できます。赤線が仕上がり位置、間の破線が切断位置の目安です。</li><li><strong>糸のこ盤切断：</strong>点を置いて輪郭を作成します。残す部分を指定して切断を確定します。</li><li><strong>自在ぎり切断：</strong>中心と直径を指定して円形に加工します。円の中心・円周をドラッグして位置や直径を調整できます。</li><li><strong>ベルトサンダー加工：</strong>角を選んで丸めます。半径Rは数値・スライダー・円弧のドラッグで調整できます。</li></ul>\n<h3>Step2　部品を配置する</h3>\n<p>部品一覧のクリックで「配置済み／未配置」を切り替えます。3D上の部品をクリックすると選択され、赤く表示されます。空白をクリックすると選択が解除されます。</p>\n<table><thead><tr><th>操作</th><th>動作</th></tr></thead><tbody>\n<tr><td>部品を左ドラッグ</td><td>床と平行に移動。近くの端にスナップします。</td></tr>\n<tr><td>Shift＋部品を左ドラッグ</td><td>Z方向（上下）に移動します。</td></tr>\n<tr><td>X・Y・Zキー</td><td>選択した部品を各軸の＋方向へ5 mm移動します。Shiftと同時に押すと−方向です。</td></tr>\n<tr><td>X回転・Y回転・Z回転</td><td>各軸まわりに90°ずつ回転します。角度欄で数値指定もできます。</td></tr>\n<tr><td>指定量だけ持ち上げる</td><td>1〜300 mmの整数で持ち上げます。初期値は選択した板の厚みに連動します。</td></tr>\n<tr><td>接地／Gキー</td><td>床または下にある部品に接する位置まで降ろします。</td></tr>\n<tr><td>空白を左ドラッグ／右ドラッグ</td><td>視点の回転／表示位置の移動。</td></tr>\n<tr><td>ホイール・拡大縮小スライダー</td><td>表示を拡大・縮小します。</td></tr>\n<tr><td>右上のキューブ／FIT</td><td>面・辺・角で視点を切り替え／配置した全体を画面に収めます。</td></tr>\n</tbody></table>\n<p>座標はZ軸が上向きです。部品や仮置き物と重なる移動を制限します。</p>\n<p><strong>仮置き：</strong>右側からCD・文庫・漫画・A4ファイル・A4ノート・サイズ指定の直方体を追加し、収納できるか確認できます。一覧で配置済み／未配置を切り替え、部品と同じ操作で移動・回転・接地できます。寸法は実物に合わせて変更できます。</p>\n<h3>Step3　設計の保存・構想図</h3>\n<p>学年・クラス・番号を0以外に選び、氏名を入力して、設計データをJSON形式で保存します。0のまま、または氏名が空白では保存できません。後から「設計を開く」で編集を再開できます。学年・クラス・番号・氏名はファイル名から取得し、JSON本文には保存しません。ファイル名の形式を変えた場合やブラウザーを再読み込みした場合は、設計ファイルを開き直すかStep3で入力してください。</p>\n<p>Shiftキーを押している間は保存ボタンが「PowerPointで出力」、Ctrlキーを押している間は「STLで出力」に切り替わります。配置した板材を、保存済みJSONと同じ名前のSTLに出力します。仮置き物はSTLに含まれません。レポートを作成する場合は、上部のStep3タブを選びます。</p>\n<h3>構想図とレポートの作成</h3>\n<p>「設計メモ（参考にしたもの等）」に、何のどのアイディアを参考にしたかを120文字以内で記入します。未入力で印刷・PowerPoint出力をしようとすると警告します。</p>\n<p>材料取り図を大きく配置し、構想図、設計メモ（参考にしたもの等）、学年・クラス・番号・氏名、作成日時をA4縦1枚にまとめます。左側にはとじ込み用の余白があります。</p>\n<ul><li>プレビューの構想図をドラッグすると向きを変更できます。Shiftキーは不要です。「構想図を標準の向き・大きさに戻す」で戻せます。</li><li>「A4 1枚で印刷」で印刷し、「PowerPointで出力」でPPTXファイルを保存します。選んだ構想図の向きが反映されます。</li><li>PowerPointでは図は画像、設計メモ（参考にしたもの等）や氏名などは編集できる文字として出力します。</li></ul>\n<h3>加工ガイド</h3>\n<p>Step3の右隣の「加工ガイド」は、どの作業画面からも開けます。閉じると元の作業に戻ります。加工方法のボタンで該当箇所を色分けし、切断箇所数と仕上げ面数を確認できます。のこぎり切断の引き抜ける平面はかんながけ、凸のアールはベルトサンダー、凹のアールやくぼみの内側はやすりに分類します。糸のこ輪郭の直線はかんながけに含めません。記録のない加工方法は未判定から指定できます。</p>\n<h3>新規作成・履歴・自動保存</h3>\n<ul><li><strong>新規作成：</strong>確認後、現在の設計とブラウザー内の自動保存データを新しい設計に置き換えます。履歴も消えるため、残したい設計は先にJSONで保存してください。</li><li><strong>設計を開く：</strong>保存したJSONを読み込みます。未保存の変更がある場合は確認します。</li><li><strong>＜ 戻す ＞：</strong>「＜」と「戻す」で操作を取り消し、「＞」でやり直します。</li><li><strong>自動保存：</strong>設計はブラウザー内に保存されます。別の端末への移動や授業の続きには、JSONファイルを保存してください。</li></ul>\n<h3>動作環境・外部通信</h3>\n<p>CDN・外部ライブラリは使用していません。3D描画、JSON・PPTXの生成はHTML内で処理します。ローカルファイルとして使う場合、アプリから外部通信は行いません。Web公開版の取得やライセンスリンクを開く際には通信します。詳細は「外部通信・ライセンス」をご覧ください。</p>\n");$('dialogBody').scrollTop=0};
+$('designOutput').onclick=()=>{dialog('<h2>設計＆構想図</h2><p>設計データは、あとから「設計を開く」で編集を再開できます。構想図は、Step2で組み立てた形を画像にします。</p><div class="row"><button id="outputDesign">設計データを保存（JSON）</button><button id="outputConcept" class="primary">構想図を保存（PNG）</button></div>');$('outputDesign').onclick=openDesignSave;$('outputConcept').onclick=()=>{$('dialog').close();exportConcept()}};
+$('externalInfo').onclick=()=>{dialog(`<h2>外部通信・ライセンス</h2><h3>外部通信とデータ</h3><p>このアプリはHTMLファイル1個で動作します。ローカルファイルとして使う場合、外部通信はありません。外部ライブラリー・解析ツール・広告は使用していません。</p><p>設計データはブラウザー内に自動保存します。読み込んだ設計ファイルや作成した部品を外部に送信しません。設計データと構想図は、ご自身の端末に保存します。学年・クラス・番号・氏名と保存ファイル名はJSON本文・ブラウザーの自動保存には含めません。設計ファイルを開くと、これらの情報をファイル名から取得します。ファイル名と出力レポートには氏名等が含まれます。</p><p>Web公開版を開く場合は、配信元からHTMLを取得します。下のライセンスリンクは、クリックしたときだけ外部サイトを開きます。</p><h3>CDN・外部ライブラリの使用状況</h3><p><strong>CDNから読み込むライブラリ：なし</strong><br>外部ライブラリの組み込み：なし</p><p>3D表示はブラウザー標準のCanvas 2Dで描画しています。PowerPoint（PPTX）の出力は、このHTML内のJavaScriptで生成しています。これらの機能のためにCDNへ接続したり、ライブラリをダウンロードしたりすることはありません。</p><h3>板材設計のライセンス</h3><p>作者：川俣 純<br><a href="https://creativecommons.org/licenses/by/4.0/deed.ja" target="_blank" rel="noopener noreferrer">Creative Commons 表示 4.0 国際（CC BY 4.0）</a>。営利・非営利を問わず、利用・複製・改変・再配布できます。</p><ul><li>作者名「川俣 純」を表示する</li><li>CC BY 4.0とライセンスへのリンクを示す</li><li>改変した場合は変更したことを明示する</li><li>後続利用者の権利を妨げる追加的な制約を設けない</li></ul><p>無保証で提供します。第三者が持つ権利のすべてを許諾するものではありません。</p><h3>端末にダウンロード</h3><p>このアプリはHTMLファイル1個だけで動作します。端末にダウンロードすれば、ご自身の端末で自由に改変することができます。ぜひバイブコーディング等で改変してみてください。</p><button id="downloadApp">端末にダウンロード</button>`);const actions=document.createElement('div');actions.style.cssText='display:flex;gap:10px;align-items:center;margin-top:12px';$('downloadApp').before(actions);actions.append($('downloadApp'),$('closeDialog'));$('dialogBody').scrollTop=0;$('downloadApp').onclick=()=>download(new Blob([appSource],{type:'text/html;charset=utf-8'}),'板材設計_V4.07.html');};
+$('help').onclick=()=>{dialog("<h2>板材設計 — 使い方</h2>\n<p>Designing with Wood Boards<br>板材を切り分け、3Dで組み立て、材料取り図と構想図をA4 1枚にまとめる設計ツールです。HTMLファイルをブラウザーで開いて使えます。</p>\n<h3>材料</h3>\n<p>材料A：610 × 170 mm、材料B・C：各200 × 170 mm。現在の板厚は12 mmです。木目の向きを確かめながら設計します。</p>\n<h3>Step1　材料を切り分ける</h3>\n<ol><li>加工する板・部品を選びます。組み立てに配置済みの部品は、Step2で未配置にしてから加工します。</li><li>切断方法を選び、「この切断方法を選択する」を押します。</li><li>のこぎり切断では、切断方向を選択し、寸法と切りしろを指定して切断します。切りしろは5 mmまたは10 mmです。</li></ol>\n<ul><li><strong>のこぎり切断：</strong>横・縦に加え、斜め切断を選べます。斜め切断は外周上の2点をクリックして指定し、5 mmまたは10 mmの切りしろを取って両側を残します。2点を選び直すこともできます。点の寸法・座標を確認しながら指定でき、「材料図に戻る」で全体も確認できます。仕上がり線や端の丸をドラッグして寸法を調整できます。赤線が仕上がり位置、間の破線が切断位置の目安です。</li><li><strong>糸のこ盤切断：</strong>点を置いて輪郭を作成します。残す部分を指定して切断を確定します。</li><li><strong>自在ぎり切断：</strong>中心と直径を指定して円形に加工します。円の中心・円周をドラッグして位置や直径を調整できます。</li><li><strong>ベルトサンダー加工：</strong>角を選んで丸めます。半径Rは数値・スライダー・円弧のドラッグで調整できます。</li></ul>\n<h3>Step2　部品を配置する</h3>\n<p>部品一覧のクリックで「配置済み／未配置」を切り替えます。3D上の部品をクリックすると選択され、赤く表示されます。空白をクリックすると選択が解除されます。</p>\n<table><thead><tr><th>操作</th><th>動作</th></tr></thead><tbody>\n<tr><td>部品を左ドラッグ</td><td>床と平行に移動。近くの端にスナップします。</td></tr>\n<tr><td>Shift＋部品を左ドラッグ</td><td>Z方向（上下）に移動します。</td></tr>\n<tr><td>X・Y・Zキー</td><td>選択した部品を各軸の＋方向へ5 mm移動します。Shiftと同時に押すと−方向です。</td></tr>\n<tr><td>X回転・Y回転・Z回転</td><td>各軸まわりに90°ずつ回転します。角度欄で数値指定もできます。</td></tr>\n<tr><td>指定量だけ持ち上げる</td><td>1〜300 mmの整数で持ち上げます。初期値は選択した板の厚みに連動します。</td></tr>\n<tr><td>接地／Gキー</td><td>床または下にある部品に接する位置まで降ろします。</td></tr>\n<tr><td>空白を左ドラッグ／右ドラッグ</td><td>視点の回転／表示位置の移動。</td></tr>\n<tr><td>ホイール・拡大縮小スライダー</td><td>表示を拡大・縮小します。</td></tr>\n<tr><td>右上のキューブ／FIT</td><td>面・辺・角で視点を切り替え／配置した全体を画面に収めます。</td></tr>\n</tbody></table>\n<p>座標はZ軸が上向きです。部品や仮置き物と重なる移動を制限します。</p>\n<p><strong>仮置き：</strong>右側からCD・文庫・漫画・A4ファイル・A4ノート・サイズ指定の直方体を追加し、収納できるか確認できます。一覧で配置済み／未配置を切り替え、部品と同じ操作で移動・回転・接地できます。寸法は実物に合わせて変更できます。</p>\n<h3>Step3　設計の保存・構想図</h3>\n<p>学年・クラス・番号を0以外に選び、氏名を入力して、設計データをJSON形式で保存します。0のまま、または氏名が空白では保存できません。後から「設計を開く」で編集を再開できます。学年・クラス・番号・氏名はファイル名から取得し、JSON本文には保存しません。ファイル名の形式を変えた場合やブラウザーを再読み込みした場合は、設計ファイルを開き直すかStep3で入力してください。</p>\n<p>Shiftキーを押している間は保存ボタンが「PowerPointで出力」、Ctrlキーを押している間は「STLで出力」に切り替わります。配置した板材を、保存済みJSONと同じ名前のSTLに出力します。仮置き物はSTLに含まれません。レポートを作成する場合は、上部のStep3タブを選びます。</p>\n<h3>構想図とレポートの作成</h3>\n<p>「設計メモ（参考にしたもの等）」に、何のどのアイディアを参考にしたかを120文字以内で記入します。未入力で印刷・PowerPoint出力をしようとすると警告します。</p>\n<p>材料取り図を大きく配置し、構想図、設計メモ（参考にしたもの等）、学年・クラス・番号・氏名、作成日時をA4縦1枚にまとめます。左側にはとじ込み用の余白があります。</p>\n<ul><li>プレビューの構想図をドラッグすると向きを変更できます。Shiftキーは不要です。「構想図を標準の向き・大きさに戻す」で戻せます。</li><li>「PowerPointで出力」でPPTXファイルを保存します。選んだ構想図の向きが反映されます。</li><li>PowerPointでは図は画像、設計メモ（参考にしたもの等）や氏名などは編集できる文字として出力します。</li></ul>\n<h3>加工ガイド</h3>\n<p>Step3の右隣の「加工ガイド」は、どの作業画面からも開けます。閉じると元の作業に戻ります。加工方法のボタンで該当箇所を色分けし、切断箇所数と仕上げ面数を確認できます。のこぎり切断の引き抜ける平面はかんながけ、凸のアールはベルトサンダー、凹のアールやくぼみの内側はやすりに分類します。糸のこ輪郭の直線はかんながけに含めません。記録のない加工方法は未判定から指定できます。</p>\n<h3>新規作成・履歴・自動保存</h3>\n<ul><li><strong>新規作成：</strong>確認後、現在の設計とブラウザー内の自動保存データを新しい設計に置き換えます。履歴も消えるため、残したい設計は先にJSONで保存してください。</li><li><strong>設計を開く：</strong>保存したJSONを読み込みます。未保存の変更がある場合は確認します。</li><li><strong>＜ 戻す ＞：</strong>「＜」と「戻す」で操作を取り消し、「＞」でやり直します。</li><li><strong>自動保存：</strong>設計はブラウザー内に保存されます。別の端末への移動や授業の続きには、JSONファイルを保存してください。</li></ul>\n<h3>動作環境・外部通信</h3>\n<p>CDN・外部ライブラリは使用していません。3D描画、JSON・PPTXの生成はHTML内で処理します。ローカルファイルとして使う場合、アプリから外部通信は行いません。Web公開版の取得やライセンスリンクを開く際には通信します。詳細は「外部通信・ライセンス」をご覧ください。</p>\n");$('dialogBody').scrollTop=0};
 let activeStep=1;
 function setStep(step){if(step===2&&activeStep!==2){fixedScale=null;zoom=1}activeStep=step;document.querySelector('main').dataset.activeStep=String(step);for(let i of [1,2]){let area=$('step'+i);area.hidden=i!==step;area.classList.toggle('stepActive',i===step);$('goStep'+i).setAttribute('aria-pressed',String(i===step));}requestAnimationFrame(()=>{if(step===1){drawMaterials();shapeRefresh()}else resize()})}
 function showCutStage(which){document.querySelector('.materialStage').hidden=which!=='materials';document.querySelector('.editorStage').hidden=which!=='editor';$('backToMaterials').hidden=which!=='editor';$('editSelectedPart').hidden=which!=='materials'||(!cuttingMode()||cuttingMode()==='saw');requestAnimationFrame(()=>{drawMaterials();if(cuttingMode()!=='saw')drawShapeEditor()})}
@@ -1182,12 +1225,12 @@ const reportCSS=document.createElement('style');reportCSS.textContent=`
 .reportName{text-align:center}.reportFooter .reportIdentity{position:relative}.reportFooter .reportIdentity::before{content:"";position:absolute;left:-2mm;top:-2mm;width:66mm;height:30mm;border:0.25mm solid #65746a;pointer-events:none;box-sizing:border-box}
 .reportCreatedAt{position:absolute;right:10mm;top:12mm;font-size:8pt;color:#65746a;text-align:right;white-space:nowrap}
 `;document.head.append(reportCSS);
-const oldSetStep=setStep;setStep=function(step){if(step<=2){$('step3').hidden=true;$('step4').hidden=true;oldSetStep(step)}else{activeStep=step;document.querySelector('main').dataset.activeStep=String(step);for(let i=1;i<=4;i++)$('step'+i).hidden=i!==step;if(step===3)fillSavePage();if(step===4){buildReportImages();updateReport();$('reportReferencesInput').focus()}}for(let i=1;i<=4;i++)$('goStep'+i).setAttribute('aria-pressed',String(step===i))};
-$('designOutput').remove();$('save').hidden=true;
+const oldSetStep=setStep;setStep=function(step){if(step<=2){$('step3').hidden=true;$('step4').hidden=true;oldSetStep(step)}else{activeStep=step;document.querySelector('main').dataset.activeStep=String(step);for(let i=1;i<=4;i++)$('step'+i).hidden=i!==step;if(step===3)fillSavePage();if(step===4){buildReportImages();updateReport();$('reportGrade').focus({preventScroll:true});$('step4').scrollTop=0}}for(let i=1;i<=4;i++)$('goStep'+i).setAttribute('aria-pressed',String(step===i))};
+$('designOutput').remove();
 for(const [i,label]of [[3,'設計を保存'],[4,'設計＆構想図の作成']]){const b=document.createElement('button');b.id='goStep'+i;b.textContent='Step'+i+'　'+label;b.setAttribute('aria-pressed','false');$('goStep'+(i-1)).after(b);b.onclick=()=>setStep(i);const s=document.createElement('section');s.id='step'+i;s.hidden=true;document.querySelector('main').append(s)}
 const options=max=>'<option value="0">0</option>'+Array.from({length:max},(_,i)=>`<option>${i+1}</option>`).join('');
 $('step3').innerHTML=`<div class="savePage"><h2>Step3　設計を保存</h2><div class="saveIdentityGrid"><label>学年<select id="reportGrade">${options(9)}</select></label><label>クラス<select id="reportClass">${options(9)}</select></label><label>番号<select id="reportNumber">${options(40)}</select></label><label>氏名（必須）<input id="reportStudentName" maxlength="40" placeholder="名前を入力してください" required></label></div><p id="reportSaveFile" class="saveFilePreview"></p><div class="row"><button id="saveStepDesign" class="primary">設計を保存する</button></div><p id="saveStepStatus" role="status"></p></div>`;
-$('step4').innerHTML=`<div class="reportWorkspace"><div class="reportEditor"><h2>設計メモ（参考にしたもの等）を<br>書いて仕上げよう</h2><label for="reportReferencesInput">設計メモ（参考にしたもの等）</label><textarea id="reportReferencesInput" maxlength="120" placeholder="例：◯◯先輩の〇〇を〇〇にするアイディアを参考にしました。特に〇〇の部分では〇〇を〇〇する必要があると思います。そこで、私の設計では◯◯を〇〇することで対応します。"></textarea><small id="referenceCount"></small><button id="editReportIdentity">学年・クラス・番号・名前を変更</button><button id="printReport">A4 1枚で印刷</button><button id="pptxReport" class="primary">PowerPointで出力</button><small>図は画像、設計メモ（参考にしたもの等）と名前は編集できる文字で出力します。</small><p id="reportExportStatus" role="status"></p></div><div class="reportPreview"><article class="reportPaper" id="reportPaper"><h1>設計＆構想図</h1><div id="reportCreatedAt" class="reportCreatedAt"></div><h2>材料取り図</h2><div class="reportMaterials" id="reportMaterials"></div><section class="reportAssembly"><h2>構想図</h2><div class="reportViewGrid">${['等角図'].map(t=>`<div class="reportView"><div>${t}</div><img alt="${t}"></div>`).join('')}</div></section><div class="reportFooter"><section><h2>設計メモ（参考にしたもの等）</h2><div class="reportReferences" id="reportReferenceText"></div></section><section class="reportIdentity"><div id="reportStudentMeta"></div><div class="reportName" id="reportNameText"></div></section></div></article></div></div>`;
+$('step4').innerHTML=`<div class="reportWorkspace"><div class="reportEditor"><h2>設計メモ（参考にしたもの等）を<br>書いて仕上げよう</h2><label for="reportReferencesInput">設計メモ（参考にしたもの等）</label><textarea id="reportReferencesInput" maxlength="120" placeholder="例：◯◯先輩の〇〇を〇〇にするアイディアを参考にしました。特に〇〇の部分では〇〇を〇〇する必要があると思います。そこで、私の設計では◯◯を〇〇することで対応します。"></textarea><small id="referenceCount"></small><button id="editReportIdentity">学年・クラス・番号・名前を変更</button><button id="pptxReport" class="primary">PowerPointで出力</button><small>図は画像、設計メモ（参考にしたもの等）と名前は編集できる文字で出力します。</small><p id="reportExportStatus" role="status"></p></div><div class="reportPreview"><article class="reportPaper" id="reportPaper"><h1>設計＆構想図</h1><div id="reportCreatedAt" class="reportCreatedAt"></div><h2>材料取り図</h2><div class="reportMaterials" id="reportMaterials"></div><section class="reportAssembly"><h2>構想図</h2><div class="reportViewGrid">${['等角図'].map(t=>`<div class="reportView"><div>${t}</div><img alt="${t}"></div>`).join('')}</div></section><div class="reportFooter"><section><h2>設計メモ（参考にしたもの等）</h2><div class="reportReferences" id="reportReferenceText"></div></section><section class="reportIdentity"><div id="reportStudentMeta"></div><div class="reportName" id="reportNameText"></div></section></div></article></div></div>`;
 const reportPrint=document.createElement('div');reportPrint.id='reportPrint';document.body.append(reportPrint);
 function validSaveIdentity(i){return [['grade',9],['klass',9],['number',40]].every(([key,max])=>Number.isInteger(Number(i[key]))&&Number(i[key])>=1&&Number(i[key])<=max)&&typeof i.name==='string'&&i.name.trim().length>0&&i.name.replace(/[\\/:*?"<>|\s]/g,'').length>0}
 function reportInfo(){const i=state.reportIdentity||saveIdentity;return {grade:String(i.grade||0),klass:String(i.klass||0),number:String(i.number||0),name:String(i.name||'')}}
@@ -1208,7 +1251,7 @@ function buildReportImages(){const created=new Date(),pad=v=>String(v).padStart(
  $('reportMaterials').replaceChildren(...reportImages.slice(0,1).map((src,i)=>{const img=new Image();img.src=src;img.alt='材料'+STOCK[i].id+'の材料取り図';return img}));document.querySelectorAll('.reportView img').forEach((img,i)=>img.src=reportImages[i+3]);
 }
 function readyReport(){if(!String(state.reportReferences||'').trim()){dialog('<h2>設計メモ（参考にしたもの等）を入力してください</h2><p>設計メモ（参考にしたもの等）が未入力です。入力してから、印刷またはPowerPoint出力を行ってください。</p>');$('dialog').addEventListener('close',()=>{$('reportReferencesInput').focus()},{once:true});return false}if(String(state.reportReferences||'').length>120){$('reportExportStatus').textContent='設計メモ（参考にしたもの等）は120文字以内にしてください。';return false}if(!validSaveIdentity(reportInfo())){$('reportExportStatus').textContent='この画面で学年・クラス・番号を選び、氏名を入力してください。';return false}if(!String(state.reportReferences||'').trim()){$('reportExportStatus').textContent='設計メモ（参考にしたもの等）を記入してから出力しましょう。';$('reportReferencesInput').focus();return false}if($('reportReferenceText').scrollHeight>$('reportReferenceText').clientHeight+1){$('reportExportStatus').textContent='設計メモ（参考にしたもの等）が欄に収まりません。改行や文章を少し減らしてください。';return false}$('reportExportStatus').textContent='';return true}
-$('printReport').onclick=()=>{if(!readyReport())return;reportPrint.replaceChildren($('reportPaper').cloneNode(true));window.print()};
+
 // Minimal standards-based OOXML package; no network or external library needed.
 const xmlText=s=>String(s).replace(/[\u0000-\u0008\u000b\u000c\u000e-\u001f]/g,'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 function reportZip(files){const enc=new TextEncoder(),chunks=[],directory=[];let offset=0;const u16=(v,n,x)=>v.setUint16(n,x,true),u32=(v,n,x)=>v.setUint32(n,x,true);for(const [name,value]of Object.entries(files)){const path=enc.encode(name),data=typeof value==='string'?enc.encode(value):value;let crc=0xffffffff;for(const b of data){crc^=b;for(let i=0;i<8;i++)crc=(crc>>>1)^((crc&1)?0xedb88320:0)}crc=(crc^0xffffffff)>>>0;const h=new Uint8Array(30+path.length),v=new DataView(h.buffer);u32(v,0,0x04034b50);u16(v,4,20);u32(v,14,crc);u32(v,18,data.length);u32(v,22,data.length);u16(v,26,path.length);h.set(path,30);chunks.push(h,data);const c=new Uint8Array(46+path.length),d=new DataView(c.buffer);u32(d,0,0x02014b50);u16(d,4,20);u16(d,6,20);u32(d,16,crc);u32(d,20,data.length);u32(d,24,data.length);u16(d,28,path.length);u32(d,42,offset);c.set(path,46);directory.push(c);offset+=h.length+data.length}const end=new Uint8Array(22),ev=new DataView(end.buffer);u32(ev,0,0x06054b50);u16(ev,8,directory.length);u16(ev,10,directory.length);u32(ev,12,directory.reduce((s,c)=>s+c.length,0));u32(ev,16,offset);return new Blob([...chunks,...directory,end],{type:'application/vnd.openxmlformats-officedocument.presentationml.presentation'})}
@@ -1346,7 +1389,7 @@ function renderReportAssembly(){
  const previous={referenceSelection,yaw,pitch,panX,panY,zoom,viewCenter,frameScale,fourViews,assemblySelectionCleared,showLabels,w:canvas.width,h:canvas.height,hitFaces};
  try{referenceSelection=null;[yaw,pitch]=reportViewAngles();panX=panY=0;zoom=reportViewZoom();fourViews=false;viewCenter=bounds().center;assemblySelectionCleared=true;const w=800,h=720,d=devicePixelRatio||1;canvas.width=w*d;canvas.height=h*d;frameScale=fittedScale(state.parts.filter(p=>p.used),w,h,viewCenter)*1.2;showLabels=true;renderScene({x:0,y:0,w,h,labelFont:22});reportImages[3]=canvas.toDataURL('image/png');const img=document.querySelector('.reportView img');if(img)img.src=reportImages[3]}finally{({referenceSelection,yaw,pitch,panX,panY,zoom,viewCenter,frameScale,fourViews,assemblySelectionCleared,showLabels,hitFaces}=previous);canvas.width=previous.w;canvas.height=previous.h}
 }
-const reportRotationHint=document.createElement('p');reportRotationHint.id='reportAngleGuide';reportRotationHint.style.cssText='background:#edf4e9;border:1px solid #c6d8bd;border-radius:8px;padding:12px;font-size:14px;line-height:1.65;color:#28634d';reportRotationHint.innerHTML='<strong>出力する前に、構想図の角度を調整しましょう。</strong><br>右の構想図をドラッグして、作品の形や組み立てが伝わる角度にしてください。見え方を確認してから、印刷・PowerPoint出力を行いましょう。';$('printReport').before(reportRotationHint);const resetReportAngle=document.createElement('button');resetReportAngle.textContent='構想図を標準の向き・大きさに戻す';resetReportAngle.onclick=()=>{checkpoint();delete state.reportViewAngles;delete state.reportViewZoom;refresh()};reportRotationHint.after(resetReportAngle);
+const reportRotationHint=document.createElement('p');reportRotationHint.id='reportAngleGuide';reportRotationHint.style.cssText='background:#edf4e9;border:1px solid #c6d8bd;border-radius:8px;padding:12px;font-size:14px;line-height:1.65;color:#28634d';reportRotationHint.innerHTML='<strong>出力する前に、構想図の角度を調整しましょう。</strong><br>右の構想図をドラッグして、作品の形や組み立てが伝わる角度にしてください。見え方を確認してから、印刷・PowerPoint出力を行いましょう。';$('pptxReport').before(reportRotationHint);const resetReportAngle=document.createElement('button');resetReportAngle.textContent='構想図を標準の向き・大きさに戻す';resetReportAngle.onclick=()=>{checkpoint();delete state.reportViewAngles;delete state.reportViewZoom;refresh()};reportRotationHint.after(resetReportAngle);
 const reportRotationImage=document.querySelector('.reportView img');reportRotationImage.draggable=false;reportRotationImage.style.touchAction='none';reportRotationImage.title='ドラッグで構想図の向きを変更';let reportRotationDrag=null;
 reportRotationImage.onpointerdown=e=>{if(e.button!==0)return;e.preventDefault();const angle=[...reportViewAngles()];reportRotationDrag={x:e.clientX,y:e.clientY,angle,moved:false};reportRotationImage.setPointerCapture(e.pointerId);reportRotationImage.style.cursor='grabbing'};
 reportRotationImage.onpointermove=e=>{if(!reportRotationDrag){reportRotationImage.style.cursor='grab';return}const d=reportRotationDrag,dx=e.clientX-d.x,dy=e.clientY-d.y;if(!d.moved&&Math.hypot(dx,dy)<2)return;if(!d.moved){checkpoint();d.moved=true}state.reportViewAngles=[(d.angle[0]+dx*.009)%(Math.PI*2),Math.max(-Math.PI/2,Math.min(Math.PI/2,d.angle[1]+dy*.009))];renderReportAssembly()};
@@ -1363,7 +1406,7 @@ newDesignButton.onclick=()=>{
  $('cancelNewDesign').onclick=()=>$('dialog').close();
  $('saveBeforeNewDesign').onclick=()=>{$('dialog').close();setStep(3)};
  $('confirmNewDesign').onclick=()=>{
-  $('dialog').close();state=fresh();history.length=0;redoHistory.length=0;shapeDrafts.clear();cutSettings.clear();cutPartId=null;awaitingPartSelection=true;methodConfirmed=false;directionConfirmed=false;shapeDrag=null;pointHover=null;materialDrag=null;drag=null;referenceSelection=null;assemblySelectionCleared=true;reportRotationDrag=null;
+  $('dialog').close();state=fresh();if($('diagonalKerf'))$('diagonalKerf').value='10';history.length=0;redoHistory.length=0;shapeDrafts.clear();cutSettings.clear();cutPartId=null;awaitingPartSelection=true;methodConfirmed=false;directionConfirmed=false;shapeDrag=null;pointHover=null;materialDrag=null;drag=null;referenceSelection=null;assemblySelectionCleared=true;reportRotationDrag=null;
   saveIdentity={grade:'0',klass:'0',number:'0',name:''};liftDefaultPart=null;liftDefaultThickness=null;[yaw,pitch]=viewAngles.iso;zoom=1;panX=panY=0;fixedScale=null;viewCenter=null;fourViews=false;reportImages=[];
   $('cutMode').value='saw';$('file').value='';referenceLimitError.textContent='';$('reportReferencesInput').value='';$('reportExportStatus').textContent='';
   try{localStorage.removeItem(KEY);localStorage.removeItem(KEY+'-saved-design')}catch(e){}
@@ -1393,8 +1436,18 @@ function assemblySTL(){const triangles=state.parts.filter(p=>p.used).flatMap(stl
 
 let saveShiftHeld=false,saveCtrlHeld=false,saveCtrlPointerHandled=false;
 const saveDesignNormally=$('saveStepDesign').onclick;
-function syncShiftSave(){$('printReport').style.display=saveCtrlHeld&&saveShiftHeld?'':'none';const button=$('saveStepDesign');button.textContent=saveCtrlHeld?'STLで出力':saveShiftHeld?'PowerPointで出力':'設計を保存';button.disabled=!validSaveIdentity(reportInfo());button.title=saveCtrlHeld?'入力した学年・クラス・番号・氏名でSTLを出力します':saveShiftHeld?'構想図をPowerPointで出力します':'Shift：PowerPointで出力 ／ Ctrl：STLで出力';syncSaveFilename()}
-function activateSaveOutput(e){if(!headerSaveDialog.open&&!String(state.reportReferences||'').trim()){dialog('<h2>設計メモ（参考にしたもの等）を入力してください</h2><p>設計メモ（参考にしたもの等）が未入力です。入力してから保存・出力してください。</p>');$('dialog').addEventListener('close',()=>{$('reportReferencesInput').focus()},{once:true});return;}if(saveCtrlHeld||e?.ctrlKey){if(!validSaveIdentity(reportInfo()))return;if(!state.parts.some(p=>p.used)){$('saveStepStatus').textContent='STLで出力する部品をStep2で配置してください。';return}download(assemblySTL(),designSaveName(reportInfo()).replace(/\.json$/i,'.stl'));$('saveStepStatus').textContent='配置した部品をSTLで出力しました。';return}if(saveShiftHeld||e?.shiftKey){if(headerSaveDialog.open)headerSaveDialog.close();setStep(4);renderReportAssembly();exportReportPptx();return}saveDesignNormally();syncShiftSave()}
+function syncShiftSave(){const button=$('saveStepDesign');button.textContent=saveCtrlHeld?'STLで出力':saveShiftHeld?'PowerPointで出力':'設計を保存';button.disabled=!validSaveIdentity(reportInfo());button.title=saveCtrlHeld?'入力した学年・クラス・番号・氏名でSTLを出力します':saveShiftHeld?'構想図をPowerPointで出力します':'Shift：PowerPointで出力 ／ Ctrl：STLで出力';syncSaveFilename()}
+function confirmSaveWithoutMemo(){
+ dialog('<h2>設計メモが入力されていません</h2><p>設計メモなしで保存することもできます。</p><div class="row" style="flex-wrap:wrap;gap:8px"><button id="writeMemoBeforeSave" class="primary" autofocus>設計メモを入力</button><button id="saveWithoutMemo">そのまま保存</button><button id="cancelMemoSave">キャンセル</button></div>');
+ $('saveWithoutMemo').onclick=()=>{$('dialog').close();saveDesignNormally();syncShiftSave();};
+ $('writeMemoBeforeSave').onclick=()=>{
+  $('dialog').addEventListener('close',()=>{$('reportReferencesInput').scrollIntoView({block:'center'});$('reportReferencesInput').focus({preventScroll:true});},{once:true});
+  $('dialog').close();
+ };
+ $('cancelMemoSave').onclick=()=>$('dialog').close();
+ $('writeMemoBeforeSave').focus();
+}
+function activateSaveOutput(e){if(!headerSaveDialog.open&&!String(state.reportReferences||'').trim()&&!saveCtrlHeld&&!e?.ctrlKey&&!saveShiftHeld&&!e?.shiftKey){confirmSaveWithoutMemo();return;}if(!headerSaveDialog.open&&!String(state.reportReferences||'').trim()){dialog('<h2>設計メモ（参考にしたもの等）を入力してください</h2><p>設計メモ（参考にしたもの等）が未入力です。入力してから保存・出力してください。</p>');$('dialog').addEventListener('close',()=>{$('reportReferencesInput').focus()},{once:true});return;}if(saveCtrlHeld||e?.ctrlKey){if(!validSaveIdentity(reportInfo()))return;if(!state.parts.some(p=>p.used)){$('saveStepStatus').textContent='STLで出力する部品をStep2で配置してください。';return}download(assemblySTL(),designSaveName(reportInfo()).replace(/\.json$/i,'.stl'));$('saveStepStatus').textContent='配置した部品をSTLで出力しました。';return}if(saveShiftHeld||e?.shiftKey){if(headerSaveDialog.open)headerSaveDialog.close();setStep(4);renderReportAssembly();exportReportPptx();return}saveDesignNormally();syncShiftSave()}
 $('saveStepDesign').onclick=e=>{if(e?.detail>0&&saveCtrlPointerHandled){saveCtrlPointerHandled=false;return}activateSaveOutput(e)};
 // macOS Ctrl-click can produce a context menu instead of a click.
 $('saveStepDesign').onpointerdown=()=>{saveCtrlPointerHandled=false};
@@ -1409,7 +1462,7 @@ const shiftRefresh=refresh;refresh=function(){shiftRefresh();syncShiftSave()};sy
 
 const diagonalOption=document.createElement('option');diagonalOption.value='diagonal';diagonalOption.textContent='斜め切断（外周の2点を指定）';$('cutDir').append(diagonalOption);
 let diagonalStage='editor',diagonalHover=null,diagonalActive=0;const diagonalDrafts=new Map();function diagonalMode(){return cuttingMode()==='saw'&&$('cutDir').value==='diagonal'&&!awaitingPartSelection&&directionConfirmed}function diagonalPoints(){if(!diagonalDrafts.has(selected().id))diagonalDrafts.set(selected().id,[]);return diagonalDrafts.get(selected().id)}
-const diagonalPanel=document.createElement('div');diagonalPanel.id='diagonalPanel';diagonalPanel.className='flowBox';diagonalPanel.hidden=true;diagonalPanel.innerHTML='<strong>④ 外周上の2点を指定する</strong><label>切りしろ<select id="diagonalKerf"><option value="5">5 mm</option><option value="10">10 mm</option></select></label><label>指定する仕上がり線<select id="diagonalFinishSide"><option value="1">上側（切りしろは下側）</option><option value="-1">下側（切りしろは上側）</option></select></label><p class="hint" id="diagonalFinishHelp">指定した点と寸法は、選択した側の仕上がり線に合わせます。</p><p id="diagonalStatus" role="status"></p><button id="diagonalClear">2点を選び直す</button><button id="diagonalCut" class="primary">斜めに切断する</button>';$('sawControls').append(diagonalPanel);const diagonalKeepLabel=document.createElement('label');diagonalKeepLabel.innerHTML='残す部分<select id="diagonalKeep"><option value="outside">本体側・大きい方を残す</option><option value="inside">切り落とし側・小さい方を残す</option><option value="both">どちらも残す</option></select>';$('diagonalCut').before(diagonalKeepLabel);$('diagonalKeep').onchange=()=>drawDiagonal();
+const diagonalPanel=document.createElement('div');diagonalPanel.id='diagonalPanel';diagonalPanel.className='flowBox';diagonalPanel.hidden=true;diagonalPanel.innerHTML='<strong>④ 外周上の2点を指定する</strong><label>切りしろ<select id="diagonalKerf"><option value="5">5 mm</option><option value="10" selected>10 mm</option></select></label><label>指定する仕上がり線<select id="diagonalFinishSide"><option value="1">上側（切りしろは下側）</option><option value="-1">下側（切りしろは上側）</option></select></label><p class="hint" id="diagonalFinishHelp">指定した点と寸法は、選択した側の仕上がり線に合わせます。</p><p id="diagonalStatus" role="status"></p><button id="diagonalClear">2点を選び直す</button><button id="diagonalCut" class="primary">斜めに切断する</button>';$('sawControls').append(diagonalPanel);const diagonalKeepLabel=document.createElement('label');diagonalKeepLabel.innerHTML='残す部分<select id="diagonalKeep"><option value="outside">本体側・大きい方を残す</option><option value="inside">切り落とし側・小さい方を残す</option><option value="both">どちらも残す</option></select>';$('diagonalCut').before(diagonalKeepLabel);$('diagonalKeep').onchange=()=>drawDiagonal();
 const diagonalCanvas=document.createElement('canvas');diagonalCanvas.id='diagonalCanvas';diagonalCanvas.style.cssText='width:100%;height:100%;min-height:320px;touch-action:none';diagonalCanvas.hidden=true;document.querySelector('.editorStage').append(diagonalCanvas);
 function clipDiagonal(r,n,c){const out=[];for(let i=0;i<r.length;i++){const a=r[i],b=r[(i+1)%r.length],da=a[0]*n[0]+a[1]*n[1]-c,db=b[0]*n[0]+b[1]*n[1]-c;if(da>=-1e-8)out.push(a);if((da>0&&db<0)||(da<0&&db>0)){const t=da/(da-db);out.push(a.map((v,j)=>v+t*(b[j]-v)))}}return cleanRing(out)}
 function diagonalPlan(){const p=selected(),pts=diagonalPoints();if(p.used)return {error:'先にStep2で未配置にしてください。'};if(pts.length!==2)return {error:'部品の外周上の2点をクリックしてください。'};const [a,b]=pts,dx=b[0]-a[0],dy=b[1]-a[1],length=Math.hypot(dx,dy);if(length<1e-5)return {error:'別々の2点を指定してください。'};const out=outline(p);if([a,b].some(v=>nearBoundary(out,v).distance>1e-5))return {error:'2点は外周上に指定してください。'};for(let i=0;i<out.length;i++)if(properCross(a,b,out[i],out[(i+1)%out.length]))return {error:'線の途中が部品の外に出ない2点を選んでください。'};for(const t of [.001,.25,.5,.75,.999]){const v=[a[0]+dx*t,a[1]+dy*t];if(!contains(out,v)||nearBoundary(out,v).distance<1e-7)return {error:'部品の内側を通る2点を選んでください。'}}const normal=diagonalNormal(a,b),c=a[0]*normal[0]+a[1]*normal[1],k=Number($('diagonalKerf').value),other=c+resolvedDiagonalKerfSide()*k,rings=[clipDiagonal(out,normal,Math.max(c,other)),clipDiagonal(out,normal.map(v=>-v),-Math.min(c,other))];if(rings.some(r=>r.length<3||!simpleRing(r)||Math.abs(signedArea(r))<1))return {error:'切りしろを含めて2つの部品が残る位置を選んでください。'};const holes=p.holes||[];for(const h of holes)if(!rings.some(r=>ringWithin(h,r)&&!ringsCross(h,r)))return {error:'穴に切りしろが重なります。穴を避けて2点を選んでください。'};const pieces=rings.map(r=>fitProfile(p,r,holes.filter(h=>ringWithin(h,r))));if(pieces.some(q=>!profileValid(q)))return {error:'この外形は2つに分けられません。別の2点を選んでください。'};pieces.sort((a,b)=>Math.abs(signedArea(outline(b)))-Math.abs(signedArea(outline(a))));const keep=$('diagonalKeep').value;return {pieces:retainCutPieces(pieces,keep==='inside'?1:0,keep)};}
@@ -1541,7 +1594,7 @@ combinedEditor.querySelector('h2').textContent='設計の保存とレポート';
 combinedSave.querySelector('h2').textContent='学年・クラス・番号・氏名';
 $('goStep3').hidden=true;$('editReportIdentity').remove();reportSaveDesign.remove();
 $('goStep4').textContent='Step3　設計の保存・構想図';
-const combinedStyle=document.createElement('style');combinedStyle.textContent='.reportEditor .savePage{margin:12px 0 22px;padding:0 0 18px;border:0;border-bottom:1px solid #d5dfce;border-radius:0}.reportEditor .savePage h2{font-size:16px}.reportEditor .savePage label{font-size:13px}.reportEditor .savePage .row{margin-top:10px}.reportEditor .savePage .saveFilePreview{overflow-wrap:anywhere;font-size:12px}.stepTabs #goStep3{display:none}';document.head.append(combinedStyle);
+const combinedStyle=document.createElement('style');combinedStyle.textContent='.reportEditor .savePage{margin:12px 0 0;padding:0;border:0;border-radius:0}.reportEditor .savePage h2{font-size:16px}.reportEditor .savePage label{font-size:13px}.reportEditor .savePage .row{margin-top:10px}.reportEditor .savePage .saveFilePreview{overflow-wrap:anywhere;font-size:12px}.stepTabs #goStep3{display:none}';document.head.append(combinedStyle);
 const separateSaveSetStep=setStep;setStep=function(step){if(step===3)step=4;if(step===4)fillSavePage();separateSaveSetStep(step)};
 for(const id of ['reportGrade','reportClass','reportNumber','reportStudentName'])$(id).addEventListener('input',()=>{if(activeStep===4)updateReport(false)});
 const combinedRefresh=refresh;refresh=function(){combinedRefresh();if(activeStep===4){fillSavePage();buildReportImages();updateReport();referenceLimitError.textContent='';$('reportExportStatus').textContent=''}};
@@ -1551,8 +1604,7 @@ const combinedRefresh=refresh;refresh=function(){combinedRefresh();if(activeStep
 const saveFormHome=document.createComment('save form home');combinedSave.before(saveFormHome);
 const headerSaveDialog=document.createElement('dialog');headerSaveDialog.id='headerSaveDialog';headerSaveDialog.setAttribute('aria-labelledby','headerSaveTitle');headerSaveDialog.innerHTML='<div class="guideHeader"><h2 id="headerSaveTitle">設計を保存</h2><button id="closeHeaderSave">閉じる</button></div><div id="headerSaveBody"></div>';document.body.append(headerSaveDialog);
 const headerSaveStyle=document.createElement('style');headerSaveStyle.textContent='#headerSaveDialog{width:min(680px,94vw);padding:22px;border:1px solid #cdd8c7;border-radius:12px}#headerSaveDialog::backdrop{background:#243b3444}#headerSaveDialog .savePage{padding:0;margin:12px 0 0;border:0}#headerSaveDialog .savePage h2{font-size:16px}#headerSaveDialog .saveFilePreview{overflow-wrap:anywhere}#headerSaveDialog .row button{width:100%}';document.head.append(headerSaveStyle);
-$('save').hidden=false;$('save').textContent='設計を保存';$('load').after($('save'));$('save').setAttribute('aria-haspopup','dialog');$('save').setAttribute('aria-controls','headerSaveDialog');
-$('save').onclick=()=>{fillSavePage();$('headerSaveBody').append(combinedSave);headerSaveDialog.showModal();$('reportGrade').focus()};$('closeHeaderSave').onclick=()=>headerSaveDialog.close();headerSaveDialog.addEventListener('close',()=>{saveFormHome.after(combinedSave);if(activeStep===4)updateReport(false)});
+$('closeHeaderSave').onclick=()=>headerSaveDialog.close();headerSaveDialog.addEventListener('close',()=>{saveFormHome.after(combinedSave);if(activeStep===4)updateReport(false)});
 
 // Zoom gestures apply only to the report image, leaving page scrolling elsewhere intact.
 $('reportZoom').step='1';reportRotationImage.title='ドラッグで回転、ホイール・ピンチで拡大縮小';
@@ -1574,11 +1626,19 @@ reportRotationImage.addEventListener('gestureend',e=>{e.preventDefault();reportN
 window.addEventListener('blur',()=>{reportTouches.clear();reportPinch=null;reportNativeGesture=null;reportTouchWasPinch=false;reportRotationDrag=null;clearTimeout(reportWheelTimer);reportWheelCheckpoint=false});
 
 
-const reportActions=document.createElement('div');reportActions.id='reportActions';$('referenceCount').after(reportActions);
-const reportSaveRow=$('saveStepDesign').closest('.row'),reportSaveStatus=$('saveStepStatus');reportActions.append($('printReport'),reportSaveRow,reportSaveStatus);
+
+const reportSaveRow=$('saveStepDesign').closest('.row'),reportSaveStatus=$('saveStepStatus');
+// Keep the save action immediately below the student name in the shared form.
+combinedSave.querySelector('.saveIdentityGrid').after(reportSaveRow);
+reportSaveRow.after($('reportSaveFile'),reportSaveStatus);
+
+// Move the complete memo field, including its count and validation message, last.
+const reportMemo=document.createElement('div');reportMemo.id='reportMemo';
+reportMemo.append(combinedEditor.querySelector('label[for="reportReferencesInput"]'),$('reportReferencesInput'),$('referenceLimitError'),$('referenceCount'));
+combinedEditor.append(reportMemo,resetReportAngle);
 const pptxDescription=$('pptxReport').nextElementSibling;if(pptxDescription?.tagName==='SMALL')pptxDescription.remove();$('pptxReport').remove();reportZoomLabel.remove();
-const actionsStyle=document.createElement('style');actionsStyle.textContent='#reportActions{margin:12px 0 18px}#reportActions .row{margin:0}#reportActions button{width:100%}';document.head.append(actionsStyle);
-const openHeaderSaveWithForm=$('save').onclick;$('save').onclick=()=>{combinedSave.append(reportSaveRow,reportSaveStatus);openHeaderSaveWithForm()};headerSaveDialog.addEventListener('close',()=>reportActions.append(reportSaveRow,reportSaveStatus));
+const actionsStyle=document.createElement('style');actionsStyle.textContent='.reportEditor #saveStepDesign{width:100%}#reportMemo{margin-top:16px;padding-top:0;border:0}#saveStepStatus:empty,#reportExportStatus:empty{display:none}';document.head.append(actionsStyle);
+// The shared form carries its save button when opened from the header, then returns intact.
 
 reportRotationHint.remove();
 
@@ -1591,13 +1651,6 @@ syncSaveFilename();
 document.addEventListener('dragover',e=>{if(Array.from(e.dataTransfer?.types||[]).includes('Files')){e.preventDefault();e.dataTransfer.dropEffect='copy'}});
 document.addEventListener('drop',e=>{const files=Array.from(e.dataTransfer?.files||[]);if(!files.length)return;e.preventDefault();if(document.querySelector('dialog[open]'))return;if(files.length!==1||!/\.json$/i.test(files[0].name)){dialog('<h2>設計JSONを選んでください</h2><p>板材設計で保存したJSONファイルを1つドロップしてください。</p>');return}requestOpenDesign(()=>readDesignFile(files[0]))});
 
-// Control-click on macOS may open a context menu instead of firing click.
-const printNormally=$('printReport').onclick;
-let printPointerHandled=false;
-$('printReport').onpointerdown=()=>{printPointerHandled=false};
-$('printReport').onpointerup=e=>{if(e.button===0&&e.ctrlKey&&e.shiftKey){e.preventDefault();printPointerHandled=true;printNormally()}};
-$('printReport').onclick=()=>{if(printPointerHandled){printPointerHandled=false;return}printNormally()};
-$('printReport').oncontextmenu=e=>e.preventDefault();
 
 function rejoinCandidates(p){return state.parts.filter(q=>q!==p&&q.stock===p.stock).map(q=>{const axis=Math.abs(p.y-q.y)<.001&&Math.abs(p.h-q.h)<.001?'w':Math.abs(p.x-q.x)<.001&&Math.abs(p.w-q.w)<.001?'h':null;if(!axis)return null;const key=axis==='w'?'x':'y',gap=Math.max(p[key],q[key])-Math.min(p[key]+p[axis],q[key]+q[axis]);if(![5,10].some(k=>Math.abs(k-gap)<.01))return null;const r={id:p.id,name:p.name,stock:p.stock,x:Math.min(p.x,q.x),y:Math.min(p.y,q.y),w:Math.max(p.x+p.w,q.x+q.w)-Math.min(p.x,q.x),h:Math.max(p.y+p.h,q.y+q.h)-Math.min(p.y,q.y),used:false,pos:[0,6,0],rot:[0,0,0]};if(state.parts.some(a=>a!==p&&a!==q&&materialOverlap(a,r)))return null;return {q,r}}).filter(Boolean)}
 function requestRejoinPart(id){const p=state.parts.find(p=>p.id===id);if(!p)return;const candidates=rejoinCandidates(p);dialog('<h2>'+esc(p.name)+'を切り直す</h2><p>隣の部品と切りしろを含めて１枚の板に戻します。選んだ２部品の加工と組み立て配置は初期化され、再び切り出せます。</p><div id="rejoinChoices"></div>');if(!candidates.length){$('rejoinChoices').textContent='つなげられる隣の部品がありません。材料名のクリックから材料全体を初期化できます。';return}for(const {q,r} of candidates){const b=document.createElement('button');b.textContent=q.name+'とつなげる（'+n(r.w)+' × '+n(r.h)+' mm）';b.style.display='block';b.style.margin='8px 0';b.onclick=()=>{if(blockPlacedMaterialChange([p,q]))return;checkpoint();state.parts=state.parts.filter(a=>a!==p&&a!==q);state.parts.push(r);for(const a of [p,q]){shapeDrafts.delete(a.id);cutSettings.delete(a.id);diagonalDrafts.delete(a.id)}state.selected=r.id;cutPartId=null;awaitingPartSelection=true;methodConfirmed=directionConfirmed=false;showCutStage('materials');$('dialog').close();refresh()};$('rejoinChoices').append(b)}}
@@ -1612,7 +1665,7 @@ const compactUpdateCutFlow=updateCutFlow;updateCutFlow=function(){compactUpdateC
 const materialScrollStage=document.querySelector('.materialStage');
 let materialScrollGesture=null,materialScrollSuppressClick=false;
 const materialScrollStyle=document.createElement('style');materialScrollStyle.textContent='.materialStage{touch-action:pan-x}.materialStage.dragScrolling,.materialStage.dragScrolling *{cursor:grabbing!important;user-select:none}';document.head.append(materialScrollStyle);
-materialScrollStage.addEventListener('pointerdown',e=>{materialScrollSuppressClick=false;if(e.button!==0||!e.isPrimary||e.target.closest('button,input,select,textarea,a,summary,[role="button"]'))return;const c=e.target.closest('canvas[data-stock]');if(c){const r=c.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top,l=c.cutLine;if(l&&(l.axis==='w'?Math.abs(x-l.x)<=13&&y>=l.y-15&&y<=l.y+l.h+15:Math.abs(y-l.y)<=13&&x>=l.x-15&&x<=l.x+l.w+15))return}materialScrollGesture={id:e.pointerId,y:e.clientY,scroll:materialScrollStage.scrollTop,canvas:c,event:e,target:e.target,dragged:false};e.target.setPointerCapture(e.pointerId);e.preventDefault();e.stopImmediatePropagation()},true);
+materialScrollStage.addEventListener('pointerdown',e=>{materialScrollSuppressClick=false;if(e.button!==0||!e.isPrimary||e.target.closest('button,input,select,textarea,a,summary,[role="button"]'))return;const c=e.target.closest('canvas[data-stock]');if(c){const r=c.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top,l=c.cutLine;if(materialSawHit(l,x,y))return}materialScrollGesture={id:e.pointerId,y:e.clientY,scroll:materialScrollStage.scrollTop,canvas:c,event:e,target:e.target,dragged:false};e.target.setPointerCapture(e.pointerId);e.preventDefault();e.stopImmediatePropagation()},true);
 materialScrollStage.addEventListener('pointermove',e=>{const d=materialScrollGesture;if(!d||d.id!==e.pointerId)return;e.preventDefault();e.stopImmediatePropagation();if(Math.abs(e.clientY-d.y)>5)d.dragged=true;if(d.dragged){materialScrollStage.classList.add('dragScrolling');materialScrollStage.scrollTop=d.scroll+d.y-e.clientY}},true);
 function finishMaterialScroll(e){const d=materialScrollGesture;if(!d||d.id!==e.pointerId)return;materialScrollGesture=null;materialScrollStage.classList.remove('dragScrolling');materialScrollSuppressClick=d.dragged||e.type==='pointercancel';if(d.target.hasPointerCapture(e.pointerId))d.target.releasePointerCapture(e.pointerId);e.stopImmediatePropagation();if(!materialScrollSuppressClick&&d.canvas)d.canvas.onpointerdown(d.event)}
 materialScrollStage.addEventListener('pointerup',finishMaterialScroll,true);materialScrollStage.addEventListener('pointercancel',finishMaterialScroll,true);
@@ -1621,8 +1674,8 @@ materialScrollStage.addEventListener('click',e=>{if(materialScrollSuppressClick)
 // Paper zoom affects only the screen preview, never report exports.
 const paperPreview=document.querySelector('.reportPreview'),paper=$('reportPaper'),paperPanel=document.createElement('div'),paperToolbar=document.createElement('div'),paperSizer=document.createElement('div');
 paperPanel.className='paperPanel';paperPreview.before(paperPanel);paperToolbar.className='paperToolbar';paperToolbar.innerHTML='<button id="paperZoomOut" aria-label="用紙を縮小">−</button><input id="paperZoomRange" aria-label="用紙の表示倍率" type="range" min="10" max="200" value="100"><output id="paperZoomLabel">100%</output><button id="paperZoomIn" aria-label="用紙を拡大">＋</button><button id="paperFit">全体を表示</button>';
-paperPanel.append(paperToolbar,paperPreview);paperSizer.className='paperSizer';paper.before(paperSizer);paperSizer.append(paper);
-const paperStyle=document.createElement('style');paperStyle.textContent='.paperPanel{position:sticky;top:0;min-width:0;height:calc(100vh - 200px);min-height:260px;display:flex;flex-direction:column}.paperToolbar{display:flex;align-items:center;gap:7px;flex:none;margin-bottom:8px}.paperToolbar button{padding:4px 9px;white-space:nowrap}.paperToolbar input{min-width:40px;width:110px;padding:0}.paperToolbar output{min-width:42px;font-size:12px}.paperPanel .reportPreview{flex:1;min-height:0;padding:8px;overflow:auto;touch-action:none}.paperSizer{position:relative;margin:0 auto}.paperSizer .reportPaper{position:absolute;left:0;top:0;transform-origin:top left}@media print{#reportPrint .reportPaper{transform:none!important}}';document.head.append(paperStyle);
+paperPanel.append(paperPreview,paperToolbar);paperToolbar.append($('paperFit'),$('paperZoomIn'),$('paperZoomRange'),$('paperZoomOut'),$('paperZoomLabel'));$('paperZoomRange').setAttribute('aria-orientation','vertical');paperSizer.className='paperSizer';paper.before(paperSizer);paperSizer.append(paper);
+const paperStyle=document.createElement('style');paperStyle.textContent='.paperPanel{position:sticky;top:0;min-width:0;height:calc(100vh - 200px);min-height:260px;display:flex;flex-direction:row;gap:8px}.paperToolbar{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:7px;flex:0 0 64px;padding:8px 0;overflow-y:auto}.paperToolbar button{padding:4px 9px;flex-shrink:0}.paperToolbar #paperFit{width:64px;padding:6px;white-space:normal;line-height:1.4}.paperToolbar input{writing-mode:vertical-lr;direction:rtl;min-width:0;width:24px;height:clamp(70px,22vh,200px);flex-shrink:1;min-height:50px;padding:0}.paperToolbar output{font-size:12px;flex-shrink:0}.paperPanel .reportPreview{flex:1;min-width:0;min-height:0;padding:8px;overflow:auto;touch-action:none}.paperSizer{position:relative;margin:0 auto}.paperSizer .reportPaper{position:absolute;left:0;top:0;transform-origin:top left}@media print{#reportPrint .reportPaper{transform:none!important}}';document.head.append(paperStyle);
 let paperScale=1,paperAutoFit=true;
 function setPaperScale(value,auto=false){paperAutoFit=auto;paperScale=Math.max(.1,Math.min(2,value));paper.style.transform='scale('+paperScale+')';paperSizer.style.width=paper.offsetWidth*paperScale+'px';paperSizer.style.height=paper.offsetHeight*paperScale+'px';$('paperZoomRange').value=Math.round(paperScale*100);$('paperZoomLabel').textContent=Math.round(paperScale*100)+'%'}
 function fitPaper(){if(activeStep!==4||!paperPreview.clientWidth)return;setPaperScale(Math.min((paperPreview.clientWidth-20)/paper.offsetWidth,(paperPreview.clientHeight-20)/paper.offsetHeight),true);paperPreview.scrollTop=paperPreview.scrollLeft=0}
@@ -1789,7 +1842,7 @@ function finishMachiningRecord(){
  (state.machiningOperations??=[]).push(record);
 }
 const machiningRefresh=refresh;refresh=function(){finishMachiningRecord();machiningRefresh()};
-function replayMachining(record,parent){
+function replayMachining(record,parent,preserveCancellation=true){
  let pieces;
  if(record.tool==='saw'&&(!Number.isFinite(record.params.diagonal?record.params.diagonalKerf:record.params.kerf)||(record.params.diagonal?record.params.diagonalKerf:record.params.kerf)<0))throw Error('切りしろは0以上の数値にしてください。');
  if(record.tool==='saw'&&record.params.diagonal){
@@ -1819,7 +1872,7 @@ function replayMachining(record,parent){
  if(pieces.length===2){const delta=ps=>[ps[1].x+ps[1].w/2-ps[0].x-ps[0].w/2,ps[1].y+ps[1].h/2-ps[0].y-ps[0].h/2],a=delta(record.after),b=delta(pieces);if(a[0]*b[0]+a[1]*b[1]<0)pieces.reverse();}
  // Reuse operation IDs so annotations and selection survive recalculation.
  originalRecordMachining(parent,pieces,record.tool,record.params.draft?.radius||0);
- pieces.forEach((p,i)=>{const old=record.after[i];p.id=old.id;p.name=old.name;p.operationNode=old.operationNode;p.used=false;p.pos=[...old.pos];p.rot=[...old.rot];p.cancelled=old.cancelled===true;
+ pieces.forEach((p,i)=>{const old=record.after[i];p.id=old.id;p.name=old.name;p.operationNode=old.operationNode;p.used=false;p.pos=[...old.pos];p.rot=[...old.rot];if(preserveCancellation)p.cancelled=old.cancelled===true;else if(parent.cancelled)p.cancelled=true;
   for(const edge of p.machining||[])if(!guideSegments(parent).some(e=>e.op===edge.op)){if(edge.curve)edge.curve=edge.curve.replace(edge.op,record.id);edge.op=record.id;}
  });
  return pieces;
@@ -1895,10 +1948,11 @@ function planMachiningChange(op,params){
  const current=leaves.map(p=>state.parts.find(q=>q.operationNode===p.operationNode));
  if(current.some((p,i)=>!p||machiningGeometry(p)!==machiningGeometry(leaves[i])))throw Error('部品が初期化・結合・変更されています。');
  if(current.some(p=>p.used))throw Error('組み立てに配置済みです。先にStep2で配置を解除してください。');
- const changed={...target,params:machiningClone(params)},pieces=replayMachining(changed,machiningClone(target.before));
+ const keepChanged=target.tool==='saw'&&target.params.diagonal&&(params.keep||'both')!==(target.params.keep||'both');
+ const changed={...target,params:machiningClone(params)},pieces=replayMachining(changed,machiningClone(target.before),!keepChanged);
  const updates=new Map([[op,{...changed,after:machiningClone(pieces)}]]),frontier=new Map(pieces.map(p=>[p.operationNode,p]));
- for(const r of descendants){const parent=frontier.get(r.input);if(!parent)throw Error('後の部品構成を維持できません。');const next=replayMachining(r,parent);frontier.delete(r.input);next.forEach(p=>frontier.set(p.operationNode,p));updates.set(r.id,{...r,before:machiningClone(parent),after:machiningClone(next)});}
- const replacements=[...frontier.values()];for(const p of replacements){const old=current.find(q=>q.operationNode===p.operationNode);if(old){p.name=old.name;p.pos=machiningClone(old.pos);p.rot=machiningClone(old.rot);p.cancelled=old.cancelled===true;}}
+ for(const r of descendants){const parent=frontier.get(r.input);if(!parent)throw Error('後の部品構成を維持できません。');const next=replayMachining(r,parent,!keepChanged);frontier.delete(r.input);next.forEach(p=>frontier.set(p.operationNode,p));updates.set(r.id,{...r,before:machiningClone(parent),after:machiningClone(next)});}
+ const replacements=[...frontier.values()];for(const p of replacements){const old=current.find(q=>q.operationNode===p.operationNode);if(old){p.name=old.name;p.pos=machiningClone(old.pos);p.rot=machiningClone(old.rot);if(!keepChanged)p.cancelled=old.cancelled===true;}}
  const candidate={...state,parts:[...state.parts.filter(p=>!current.includes(p)),...replacements],selected:replacements[0].id,machiningOperations:records.map(r=>updates.get(r.id)||r)};
  if(!valid(candidate))throw Error('変更後の形状が他の部品と重なるか、形状を維持できません。');
  return candidate;
@@ -1932,12 +1986,19 @@ openMachiningMenu=function(hit,e){
   else if(record.tool==='scroll'){params.draft.points.forEach((point,i)=>{field('点'+(i+1)+' X (mm)',point[0],v=>point[0]=v);field('点'+(i+1)+' Y (mm)',point[1],v=>point[1]=v)});field('角丸半径 R (mm)',params.draft.radius,v=>params.draft.radius=v);}
   else status.textContent='この加工の位置再調整には対応していません。';
   if(record.tool==='saw')field('切りしろ (mm)',params.diagonal?params.diagonalKerf:params.kerf,v=>{if(params.diagonal)params.diagonalKerf=v;else params.kerf=v;});
+  if(record.tool==='saw'&&params.diagonal){
+   const row=document.createElement('label');row.textContent='残す部分';
+   const keep=document.createElement('select');keep.setAttribute('aria-label','残す部分');
+   for(const [value,label] of [['outside','本体側・大きい方を残す'],['inside','切り落とし側・小さい方を残す'],['both','どちらも残す']]){const option=document.createElement('option');option.value=value;option.textContent=label;keep.append(option);}
+   keep.value=params.keep||'both';keep.onchange=()=>{params.keep=keep.value;update();};row.append(keep);fields.append(row);
+  }
+  apply.setAttribute('aria-keyshortcuts','Enter');apply.title='Enterで変更を適用';
   menu.append(status,apply);apply.onclick=()=>{try{const candidate=planMachiningChange(hit.id,params);checkpoint();state=candidate;shapeDrafts.clear();cutSettings.clear();diagonalDrafts.clear();cutPartId=null;awaitingPartSelection=true;methodConfirmed=directionConfirmed=false;closeMachiningMenu();showCutStage('materials');refresh();}catch(err){status.textContent=err.message+' 材料名をクリックして材料を初期化し、加工し直してください。';}};
   machiningDragSession={record,params,bindings,update};
   update();
  }else{status.textContent='この設計には加工前の情報がないため再調整できません。材料名をクリックして材料を初期化してください。';menu.append(status);}
  const del=document.createElement('button');del.textContent='この加工を削除';del.id='deleteMachining';del.setAttribute('aria-keyshortcuts','Delete Backspace');del.title='Deleteキーでこの加工を削除';del.style.cssText='width:100%;color:#a13425;margin-top:6px';del.onclick=()=>deleteMachining(hit.id);menu.append(del);
- const cancel=document.createElement('button');cancel.textContent='閉じる';cancel.style.cssText='width:100%;margin-top:6px';cancel.onclick=closeMachiningMenu;menu.append(cancel);
+ const cancel=document.createElement('button');cancel.textContent='閉じる';cancel.style.cssText='width:100%;margin-top:6px';cancel.onclick=closeMachiningMenu;cancel.setAttribute('aria-keyshortcuts','Escape');cancel.title='Escで未適用の変更をキャンセル';menu.append(cancel);
  document.body.append(menu);machiningMenu=menu;positionMachiningMenu();drawMaterials();
 };
 const machiningPreviewDraw=drawMaterials;drawMaterials=function(){machiningPreviewDraw();if(!machiningSelection)return;for(const c of document.querySelectorAll('#materials canvas[data-stock]')){
@@ -1998,13 +2059,17 @@ function retainCutPieces(pieces,index,keep){
 const retainedDiagonalDraw=drawDiagonal;drawDiagonal=function(){retainedDiagonalDraw();if(!diagonalMode()||!diagonalCanvas.mapping)return;const plan=diagonalPlan();if(plan.error)return;const g=diagonalCanvas.getContext('2d'),m=diagonalCanvas.mapping,p=selected(),dpr=devicePixelRatio||1;g.save();g.setTransform(dpr,0,0,dpr,0,0);for(const q of plan.pieces.filter(q=>q.cancelled)){profilePath(g,q,v=>[m.ox+(v[0]+q.x-p.x)*m.scale,m.oy+(v[1]+q.y-p.y)*m.scale]);g.fillStyle='#8b928b66';g.fill('evenodd');hatchRemovedArea(g);}g.restore();};
 
 
-$('materials').addEventListener('dblclick',e=>{
+function materialPartMenuAction(e){
  if(activeStep!==1)return;
  const c=e.target.closest('canvas[data-stock]');if(!c?.materialOrigin)return;
  const r=c.getBoundingClientRect(),[ox,oy]=c.materialOrigin,scale=c.materialScale,v=[(e.clientX-r.left-ox)/scale,(e.clientY-r.top-oy)/scale];
  const part=[...state.parts].reverse().find(p=>p.stock===c.dataset.stock&&localMaterial(p,[v[0]-p.x,v[1]-p.y]));
- if(!part)return;e.preventDefault();e.stopImmediatePropagation();if(part.cancelled){closeMachiningMenu();closeResetContextMenu();pick(part.id);return;}openMaterialActions({part:part.id},e);
-},true);
+ if(!part)return;
+ if(e.type==='contextmenu'&&(awaitingPartSelection||part.id!==state.selected||part.cancelled))return;
+ e.preventDefault();e.stopImmediatePropagation();if(part.cancelled){closeMachiningMenu();closeResetContextMenu();pick(part.id);return;}openMaterialActions({part:part.id},e);
+}
+$('materials').addEventListener('dblclick',materialPartMenuAction,true);
+$('materials').addEventListener('contextmenu',materialPartMenuAction,true);
 
 
 function positionMachiningMenu(){
@@ -2083,6 +2148,11 @@ syncDiagonal=function(){keepMaterialStage();diagonalStage='materials';diagonalPa
 function updateMaterialDiagonalStatus(){if(!diagonalMode())return;const plan=diagonalPlan(),side=cornerCutKerfSide();$('diagonalStatus').textContent=plan.error||'この位置で切断できます。';$('diagonalCut').disabled=!!plan.error;$('diagonalFinishSide').disabled=side!==null;$('diagonalFinishSide').value=String(resolvedDiagonalKerfSide());$('diagonalFinishHelp').textContent=side!==null?'指定した2点を本体の仕上がり線とし、角側に切りしろを取ります。':'指定した2点が仕上がり線です。';}
 drawDiagonal=function(){syncDiagonal();updateMaterialDiagonalStatus();drawMaterials()};
 let newMaterialGesture=null,materialPointHover=null;
+function materialDiagonalPreviewPoints(p){
+ const points=diagonalPoints();
+ return points.length<2&&materialPointHover?.id===p.id&&materialPointHover.mode==='diagonal'
+  ?[...points,materialPointHover.point]:points;
+}
 function newMaterialMode(){return activeStep===1&&!awaitingPartSelection&&!machiningDragSession&&(cuttingMode()==='circle'||cuttingMode()==='scroll'||cuttingMode()==='sander'||diagonalMode());}
 function materialLocalPoint(c,e,p){const r=c.getBoundingClientRect(),[ox,oy]=c.materialOrigin;return [(e.clientX-r.left-ox)/c.materialScale-p.x,(e.clientY-r.top-oy)/c.materialScale-p.y];}
 function materialSnappedPoint(v,p,step,boundary=false){let q=v.map((x,i)=>Math.max(0,Math.min(i?p.h:p.w,Math.round(x/step)*step)));if(boundary)return millimetreBoundaryPoint(nearBoundary(outline(p),q).point);const edge=nearBoundary(outline(p),q);return edge.distance<step/2?edge.point:q;}
@@ -2136,7 +2206,10 @@ const newMaterialDraw=drawMaterials;drawMaterials=function(){
  }
  const handles=mode==='diagonal'?diagonalPoints():mode==='scroll'?d.points:mode==='circle'?[[d.x,d.y],[d.x+d.diameter/2,d.y]]:sharpCorners().map(i=>outline(p)[i]);
  for(let i=0;i<handles.length;i++){const q=tx(handles[i]);g.beginPath();g.arc(...q,6,0,Math.PI*2);g.fillStyle='#fff7df';g.fill();g.strokeStyle='#252525';g.lineWidth=2;g.stroke();if(mode==='scroll'||mode==='diagonal'){g.fillStyle='#252525';g.font='12px system-ui';g.fillText(i+1,q[0]+9,q[1]-8);}}
- const record={tool:mode==='diagonal'?'saw':mode,before:p},params=mode==='diagonal'?{diagonal:true,points:diagonalPoints()}:{draft:d};
+ if(mode==='diagonal'&&materialPointHover?.id===p.id&&materialPointHover.mode==='diagonal'&&diagonalPoints().length<2){
+  const q=tx(materialPointHover.point);g.save();g.strokeStyle='#c82c2c';g.lineWidth=1.5;g.setLineDash([3,2]);g.beginPath();g.arc(...q,7,0,Math.PI*2);g.stroke();g.setLineDash([]);g.beginPath();g.moveTo(q[0]-10,q[1]);g.lineTo(q[0]+10,q[1]);g.moveTo(q[0],q[1]-10);g.lineTo(q[0],q[1]+10);g.stroke();g.fillStyle='#252525';g.font='12px system-ui';g.fillText(String(diagonalPoints().length+1),q[0]+10,q[1]-10);g.restore();
+ }
+ const record={tool:mode==='diagonal'?'saw':mode,before:p},params=mode==='diagonal'?{diagonal:true,points:materialDiagonalPreviewPoints(p)}:{draft:d};
  const pointForDimensions=mode==='scroll'?(newMaterialGesture?.mode==='scroll'?d.points[d.index]:materialPointHover?.id===p.id?materialPointHover.point:d.points[d.index]):null;
  const dimensionParams=pointForDimensions?{draft:{...d,points:[pointForDimensions],index:0}}:params;
  const specs=machiningSawDimensionSpecs(record,dimensionParams,pointForDimensions?0:d.index);c.creationDimensions=specs;
@@ -2174,9 +2247,14 @@ $('cornerRadius').oninput=function(e){
 window.addEventListener('pointermove',e=>{
  if(newMaterialGesture)return;
  const c=e.target.closest?.('#materials canvas[data-stock]'),p=selected();
- if(newMaterialMode()&&cuttingMode()==='scroll'&&c?.materialOrigin&&c.dataset.stock===p.stock){
-  const v=materialLocalPoint(c,e,p);
-  if(contains(outline(p),v)){const point=materialSnappedPoint(v,p,draft().snap||5);if(materialPointHover?.id===p.id&&materialPointHover.point.every((x,i)=>x===point[i]))return;materialPointHover={id:p.id,point};drawMaterials();return;}
+ if(newMaterialMode()&&c?.materialOrigin&&c.dataset.stock===p.stock){
+  const v=materialLocalPoint(c,e,p),mode=diagonalMode()?'diagonal':cuttingMode();let point=null;
+  if(mode==='scroll'&&contains(outline(p),v))point=materialSnappedPoint(v,p,draft().snap||5);
+  if(mode==='diagonal'&&diagonalPoints().length<2){
+   const hit=nearBoundary(outline(p),v),margin=12/c.materialScale;
+   if(v[0]>=-margin&&v[1]>=-margin&&v[0]<=p.w+margin&&v[1]<=p.h+margin&&hit.distance*c.materialScale<=16)point=millimetreBoundaryPoint(hit.point);
+  }
+  if(point){if(materialPointHover?.id===p.id&&materialPointHover.mode===mode&&materialPointHover.point.every((x,i)=>x===point[i]))return;materialPointHover={id:p.id,mode,point};drawMaterials();return;}
  }
  if(materialPointHover){materialPointHover=null;drawMaterials();}
 },true);
@@ -2234,8 +2312,8 @@ window.addEventListener('keydown',e=>{
   e.preventDefault();e.stopImmediatePropagation();cancelPendingMachining();return;
  }
  const button=machiningConfirmButton();if(!button)return;
- // Leave native button and select keyboard navigation intact.
- if(e.target.closest?.('select,button,[role="button"]')&&e.target!==button)return;
+ // In the revision menu, Enter always applies, including from a select or action button.
+ if(!machiningMenu&&e.target.closest?.('select,button,[role="button"]')&&e.target!==button)return;
  e.preventDefault();e.stopImmediatePropagation();
  if(newMaterialGesture||machiningPointerDrag||materialDrag||shapeDrag)return;
  if(!button.disabled)button.click();
@@ -2287,6 +2365,154 @@ window.addEventListener('keydown',e=>{
  e.preventDefault();e.stopImmediatePropagation();
  assemblySelectionCleared=true;referenceSelection=null;drag=null;canvas.style.cursor='default';refresh();
 },true);
+
+// Reorder aligned rectangular strips within their original cut region.
+function materialRowParts(stock,id){
+ const material=STOCK.find(s=>s.id===stock),all=state.parts.filter(p=>p.stock===stock),selectedPart=all.find(p=>p.id===id)||all[0];
+ if(!material||!selectedPart)return null;
+ for(const axis of ['w','h']){
+  const coord=axis==='w'?'x':'y',cross=axis==='w'?'y':'x',breadth=axis==='w'?'h':'w';
+  const parts=all.filter(p=>Math.abs(p[cross]-selectedPart[cross])<.001&&Math.abs(p[breadth]-selectedPart[breadth])<.001).sort((a,b)=>a[coord]-b[coord]);
+  if(parts.length<2||parts.some(p=>p.cancelled||p.outline||(p.holes||[]).length||p.radiusNote))continue;
+  const gaps=parts.slice(1).map((p,i)=>p[coord]-parts[i][coord]-parts[i][axis]);
+  if(gaps.some(k=>k<0||k>10.001))continue;
+  const region={x:parts[0].x,y:parts[0].y,w:parts[0].w,h:parts[0].h};region[axis]=parts.at(-1)[coord]+parts.at(-1)[axis]-parts[0][coord];
+  const matches=p=>p&&['x','y','w','h'].every(k=>Math.abs(p[k]-region[k])<.001);
+  const operations=state.machiningOperations||[],rootRecord=operations.find(r=>r.stock===stock&&matches(r.before));
+  let root,removed=[];
+  if(rootRecord){
+   root=machiningClone(rootRecord.before);const nodes=new Set([rootRecord.input]);
+   let changed=true;while(changed){changed=false;for(const r of operations)if(r.stock===stock&&nodes.has(r.input)&&!removed.includes(r.id)){removed.push(r.id);r.after.forEach(p=>nodes.add(p.operationNode));changed=true;}}
+   if(operations.some(r=>removed.includes(r.id)&&(r.tool!=='saw'||r.params.diagonal||r.params.axis!==axis)))continue;
+   if(parts.some(p=>!nodes.has(p.operationNode)))continue;
+  }else{
+   if(all.length!==parts.length||!matches({x:0,y:0,w:material.w,h:material.h})||operations.some(r=>r.stock===stock))continue;
+   root=machiningClone(fresh().parts.find(p=>p.stock===stock));root.operationNode=crypto.randomUUID();
+  }
+  return {material,parts,gaps,axis,coord,region,root,removed};
+ }
+ return null;
+}
+function planMaterialRowMove(id,step){
+ const part=state.parts.find(p=>p.id===id),row=part&&materialRowParts(part.stock,id);
+ if(!row)throw Error('同じ幅で一列に切り分けた、輪郭加工前の長方形の部品で入れ替えできます。');
+ if(row.parts.some(p=>p.used))throw Error('先にStep2で、入れ替える並びの部品を配置から外してください。');
+ const index=row.parts.findIndex(p=>p.id===id),dest=index+step;
+ if(!Number.isInteger(step)||step===0||dest<0||dest>=row.parts.length)throw Error('この方向には入れ替えられません。');
+ const ordered=row.parts.map(machiningClone),moved=ordered.splice(index,1)[0];ordered.splice(dest,0,moved);
+ const {axis,coord}=row;let position=row.region[coord];ordered.forEach((p,i)=>{p[coord]=position;position+=p[axis]+(row.gaps[i]||0);delete p.machining;delete p.operationNode;});
+ const candidate=machiningClone(state),records=[];
+ let parent=machiningClone(row.root);
+ for(let i=0;i<ordered.length-1;i++){
+  const left=ordered[i],last=i===ordered.length-2,k=row.gaps[i],right=last?ordered[i+1]:{...machiningClone(parent),id:'p'+candidate.next++,name:ordered[i+1].name,[coord]:left[coord]+left[axis]+k,[axis]:row.region[coord]+row.region[axis]-left[coord]-left[axis]-k};
+  const before=machiningClone(parent),pieces=[left,right];originalRecordMachining(parent,pieces,'saw');
+  const inherited=new Set(guideSegments(parent).map(e=>e.op)),op=pieces.flatMap(p=>p.machining).find(e=>!inherited.has(e.op))?.op||crypto.randomUUID();
+  pieces.forEach((p,j)=>p.operationNode=op+':'+j);
+  records.push({id:op,tool:'saw',stock:part.stock,input:before.operationNode,before,params:{axis,at:left[axis],kerf:k,diagonal:false,points:null,side:1,diagonalKerf:10,keep:'both'},after:machiningClone(pieces)});
+  parent=right;
+ }
+ const ids=new Set(row.parts.map(p=>p.id));candidate.parts=candidate.parts.map(p=>ids.has(p.id)?ordered.find(q=>q.id===p.id):p);candidate.selected=id;
+ candidate.machiningOperations=[...(candidate.machiningOperations||[]).filter(r=>!row.removed.includes(r.id)),...records];
+ if(!valid(candidate))throw Error('材料内に収まる並びを作成できませんでした。');
+ return candidate;
+}
+function moveMaterialRowPart(id,step){
+ const part=state.parts.find(p=>p.id===id);if(!part)return;
+ if(blockPlacedMaterialChange(materialRowParts(part.stock,id)?.parts||[part]))return;
+ try{const candidate=planMaterialRowMove(id,step);checkpoint();closeResetContextMenu();closeMachiningMenu();state=candidate;
+  shapeDrafts.clear();diagonalDrafts.clear();cutSettings.clear();cutPartId=null;awaitingPartSelection=true;methodConfirmed=directionConfirmed=false;materialDrag=null;showCutStage('materials');refresh();
+ }catch(error){dialog('<h2>部品の入れ替え</h2><p>'+esc(error.message)+'</p>');}
+}
+function materialGroupRow(id,axis='w'){
+ const selected=state.parts.find(p=>p.id===id);if(!selected)return null;
+ const ops=state.machiningOperations||[];
+ function leaves(node,seen=new Set()){
+  if(!node||seen.has(node))return null;seen.add(node);
+  const op=ops.find(r=>r.input===node);
+  if(op){if(!['saw','scroll','sander','circle'].includes(op.tool)||!op.after.length)return null;const groups=op.after.map(p=>leaves(p.operationNode,seen));return groups.every(Boolean)?groups.flat():null;}
+  const p=state.parts.find(p=>p.operationNode===node);return p?[p]:null;
+ }
+ for(const record of ops){
+  if(record.stock!==selected.stock||record.tool!=='saw'||record.params.diagonal||record.params.axis!==axis||record.after.length!==2)continue;
+  const branches=record.after.map(p=>leaves(p.operationNode));if(!branches.every(Boolean)||!branches.flat().some(p=>p.id===id))continue;
+  const parts=record.after.map((p,i)=>({...p,id:branches[i][0].id,name:branches[i].filter(q=>!q.cancelled).map(q=>q.name).join('・'),members:branches[i]})).sort((a,b)=>a[axis==='w'?'x':'y']-b[axis==='w'?'x':'y']);
+  return {group:true,record,parts,axis,coord:axis==='w'?'x':'y',region:record.before,material:STOCK.find(s=>s.id===selected.stock)};
+ }
+ return null;
+}
+function planMaterialGroupMove(id,axis='w'){
+ const row=materialGroupRow(id,axis);if(!row)throw Error('この部品はまとまりで入れ替えできません。');
+ if(row.parts.some(p=>p.members.some(q=>q.used)))throw Error('先にStep2で、入れ替える部品を配置から外してください。');
+ const coord=row.coord,candidate=machiningClone(state),ops=candidate.machiningOperations,root=ops.find(r=>r.id===row.record.id),old=machiningClone(root.after).sort((a,b)=>a[coord]-b[coord]),gap=old[1][coord]-old[0][coord]-old[0][axis];
+ const positions=new Map([[old[1].operationNode,root.before[coord]],[old[0].operationNode,root.before[coord]+old[1][axis]+gap]]);
+ root.after.reverse();root.after.sort((a,b)=>positions.get(a.operationNode)-positions.get(b.operationNode));root.params.at=root.after[0][axis];
+ function rebuild(record,parent,dx){
+  record.before=machiningClone(parent);record.input=parent.operationNode;
+  record.after.forEach(p=>p[coord]+=dx);
+  const inherited=new Set(guideSegments(parent).map(e=>e.op));originalRecordMachining(parent,record.after,record.tool,record.params.draft?.radius||0);
+  record.after.forEach(p=>{p.machining.forEach(e=>{if(!inherited.has(e.op)){if(e.curve)e.curve=e.curve.replace(e.op,record.id);e.op=record.id;}});const child=ops.find(r=>r.input===p.operationNode);if(child)rebuild(child,p,dx);else{const leaf=candidate.parts.find(q=>q.operationNode===p.operationNode);if(!leaf)throw Error('部品の加工履歴を確認できませんでした。');leaf.x=p.x;leaf.y=p.y;leaf.machining=machiningClone(p.machining);}});
+ }
+ // Rebuild each branch using its translated parent, preserving part and operation identities.
+ root.after.forEach(p=>p[coord]=positions.get(p.operationNode));
+ const inherited=new Set(guideSegments(root.before).map(e=>e.op));originalRecordMachining(root.before,root.after,'saw');
+ root.after.forEach(p=>{p.machining.forEach(e=>{if(!inherited.has(e.op))e.op=root.id;});const previous=old.find(q=>q.operationNode===p.operationNode),dx=p[coord]-previous[coord],child=ops.find(r=>r.input===p.operationNode);if(child)rebuild(child,p,dx);else{const leaf=candidate.parts.find(q=>q.operationNode===p.operationNode);leaf.x=p.x;leaf.y=p.y;leaf.machining=machiningClone(p.machining);}});
+ candidate.selected=id;if(!valid(candidate))throw Error('材料内に収まる並びを作成できませんでした。');return candidate;
+}
+function moveMaterialGroup(id,axis='w'){
+ const row=materialGroupRow(id,axis);if(!row||blockPlacedMaterialChange(row.parts.flatMap(p=>p.members)))return;
+ try{const candidate=planMaterialGroupMove(id,axis);checkpoint();closeResetContextMenu();closeMachiningMenu();state=candidate;shapeDrafts.clear();diagonalDrafts.clear();cutSettings.clear();cutPartId=null;awaitingPartSelection=true;methodConfirmed=directionConfirmed=false;materialDrag=null;showCutStage('materials');refresh();}
+ catch(error){dialog('<h2>部品の入れ替え</h2><p>'+esc(error.message)+'</p>');}
+}
+const rowOrderMaterialActions=openMaterialActions;
+openMaterialActions=function(target,e){
+ rowOrderMaterialActions(target,e);if(!target.part||!resetContextMenu)return;
+ const p=state.parts.find(p=>p.id===target.part),row=p&&materialRowParts(p.stock,p.id),group=p&&materialGroupRow(p.id),verticalGroup=p&&materialGroupRow(p.id,'h');if(!row&&!group&&!verticalGroup)return;
+ if(verticalGroup){const button=document.createElement('button');button.textContent='上下のまとまりを入れ替える';button.onclick=()=>moveMaterialGroup(p.id,'h');resetContextMenu.append(button);}
+ if(group){const button=document.createElement('button');button.textContent='左右のまとまりを入れ替える';button.onclick=()=>moveMaterialGroup(p.id);resetContextMenu.append(button);}
+ if(row){
+ const index=row.parts.findIndex(q=>q.id===p.id);
+ for(const [step,label] of [[-1,row.axis==='h'?'上へ入れ替える':'左へ入れ替える'],[1,row.axis==='h'?'下へ入れ替える':'右へ入れ替える']]){
+  const button=document.createElement('button');button.textContent=label;button.setAttribute('role','menuitem');button.style.display='block';button.disabled=index+step<0||index+step>=row.parts.length;button.onclick=()=>moveMaterialRowPart(p.id,step);resetContextMenu.append(button);
+ }
+ }
+ resetContextMenu.style.top=Math.max(4,Math.min(e.clientY,innerHeight-resetContextMenu.offsetHeight-4))+'px';
+};
+
+let materialRowDrag=null;
+function clearMaterialRowDrag(){
+ const d=materialRowDrag;if(!d)return;materialRowDrag=null;
+ if(d.c.hasPointerCapture(d.pointerId))d.c.releasePointerCapture(d.pointerId);
+ d.c.style.cursor='';d.note?.remove();d.marker?.remove();d.sourceMarker?.remove();
+}
+window.addEventListener('pointerdown',e=>{
+ if(e.button!==0||activeStep!==1||machiningMenu||machiningDragSession||newMaterialGesture||materialDrag||(!awaitingPartSelection&&(methodConfirmed||directionConfirmed)))return;
+ const c=e.target.closest?.('#materials canvas[data-stock]');if(!c?.materialOrigin)return;
+ const r=c.getBoundingClientRect(),x=(e.clientX-r.left-c.materialOrigin[0])/c.materialScale,y=(e.clientY-r.top-c.materialOrigin[1])/c.materialScale;
+ const hit=state.parts.find(p=>p.stock===c.dataset.stock&&x>=p.x&&x<=p.x+p.w&&y>=p.y&&y<=p.y+p.h);const normalRow=hit&&materialRowParts(hit.stock,hit.id),group=hit&&materialGroupRow(hit.id),verticalGroup=hit&&materialGroupRow(hit.id,'h'),row=normalRow||group||verticalGroup;if(!row)return;
+ const index=row.parts.findIndex(p=>x>=p.x&&x<=p.x+p.w&&y>=p.y&&y<=p.y+p.h);if(index<0)return;
+ materialRowDrag={c,row,normalRow,group,verticalGroup,index,dest:index,part:hit.id,pointerId:e.pointerId,x:e.clientX,y:e.clientY,event:e,moved:false};
+ c.setPointerCapture(e.pointerId);e.preventDefault();e.stopImmediatePropagation();
+},true);
+window.addEventListener('pointermove',e=>{
+ const d=materialRowDrag;if(!d||d.pointerId!==e.pointerId)return;
+ e.preventDefault();e.stopImmediatePropagation();if(!d.moved&&Math.hypot(e.clientX-d.x,e.clientY-d.y)<8)return;if(!d.moved){const axis=Math.abs(e.clientX-d.x)>Math.abs(e.clientY-d.y)?'w':'h';d.row=(d.normalRow?.axis===axis?d.normalRow:axis==='w'?d.group:d.verticalGroup)||d.row;d.index=d.row.parts.findIndex(p=>p.id===d.part||p.members?.some(q=>q.id===d.part));}d.moved=true;d.c.style.cursor='grabbing';
+ const r=d.c.getBoundingClientRect(),scale=d.c.materialScale,[ox,oy]=d.c.materialOrigin,x=(e.clientX-r.left-ox)/scale,y=(e.clientY-r.top-oy)/scale;
+ const region=d.row.region,value=d.row.axis==='w'?x:y,coord=d.row.coord,axis=d.row.axis;
+ d.dest=x<region.x||x>region.x+region.w||y<region.y||y>region.y+region.h?-1:d.row.parts.reduce((best,p,i)=>Math.abs(value-p[coord]-p[axis]/2)<Math.abs(value-d.row.parts[best][coord]-d.row.parts[best][axis]/2)?i:best,0);
+ if(!d.note){d.note=document.createElement('div');d.note.style.cssText='position:fixed;z-index:10001;pointer-events:none;padding:6px 10px;background:#fff;border:1px solid #365d50;border-radius:6px;color:#253d37;font-size:13px';d.marker=document.createElement('div');d.marker.style.cssText='position:fixed;z-index:9999;pointer-events:none;border:3px dashed #253d37;background:#ffffff22;box-sizing:border-box';document.body.append(d.marker,d.note);}
+ if(d.row.group){if(!d.sourceMarker){d.sourceMarker=document.createElement('div');d.sourceMarker.style.cssText='position:fixed;z-index:9998;pointer-events:none;border:3px dashed #253d37;background:#ffffff33;box-sizing:border-box';document.body.append(d.sourceMarker);}const p=d.row.parts[d.index];Object.assign(d.sourceMarker.style,{left:r.left+ox+p.x*scale+'px',top:r.top+oy+p.y*scale+'px',width:p.w*scale+'px',height:p.h*scale+'px'});}
+ d.note.textContent=d.dest<0?'材料の上で離してください':d.dest===d.index?'元の位置':d.row.parts[d.index].name+' → '+d.row.parts[d.dest].name+(d.row.group?'とまとまりごと入れ替え':'の位置');
+ d.note.style.left=Math.max(4,Math.min(e.clientX+14,innerWidth-d.note.offsetWidth-4))+'px';d.note.style.top=Math.max(4,Math.min(e.clientY+14,innerHeight-d.note.offsetHeight-4))+'px';d.marker.hidden=d.dest<0;
+ if(d.dest>=0){const p=d.row.parts[d.dest];Object.assign(d.marker.style,{left:r.left+ox+p.x*scale+'px',top:r.top+oy+p.y*scale+'px',width:p.w*scale+'px',height:p.h*scale+'px'});}
+},true);
+window.addEventListener('pointerup',e=>{
+ const d=materialRowDrag;if(!d||d.pointerId!==e.pointerId)return;e.preventDefault();e.stopImmediatePropagation();clearMaterialRowDrag();
+ if(!d.moved){d.c.onpointerdown?.(d.event);return;}
+ if(d.dest>=0&&d.dest!==d.index){if(d.row.group)moveMaterialGroup(d.part,d.row.axis);else moveMaterialRowPart(d.part,d.dest-d.index);}
+},true);
+window.addEventListener('pointercancel',e=>{if(materialRowDrag?.pointerId===e.pointerId){e.stopImmediatePropagation();clearMaterialRowDrag();}},true);
+window.addEventListener('keydown',e=>{if(e.key==='Escape'&&materialRowDrag){e.preventDefault();e.stopImmediatePropagation();clearMaterialRowDrag();}},true);
+window.addEventListener('blur',clearMaterialRowDrag);
 
 </script>
 </body></html>
