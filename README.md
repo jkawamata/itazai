@@ -1,6 +1,6 @@
 # 板材設計
 
-Designing with Wood Boards — V4.07
+Designing with Wood Boards — V4.08
 
 Designing with Wood Boards
 板材を切り分け、3Dで組み立て、材料取り図と構想図をA4 1枚にまとめる設計ツールです。HTMLファイルをブラウザーで開いて使えます。
@@ -243,3 +243,10 @@ Step2で配置済みの部品は、Step1で取り消し・初期化・結合で�
 JSONの変更前には [互換性契約](JSON_COMPATIBILITY.md) と [開発時の引き継ぎ事項](AGENTS.md) を確認してください。
 
 互換性テスト: `node tests/json-compatibility.cjs index.html` （PlaywrightとChromeが必要）。
+
+## V4.08の更新
+
+- 切り分けた片方だけに追加加工がある場合、加工位置と形状を維持できれば、元の切断だけを削除できます。
+- 削除後の加工履歴の座標を補正し、再編集・再保存後も位置を維持します。
+- 削除できない場合の案内を、設計を保持して後の加工を確認する内容に変更しました。
+- 回帰テスト: `node tests/delete-single-branch.cjs index.html`。左右の穴・糸のこ・角丸加工、両側加工と配置済み部品の保護、再保存を確認します。
